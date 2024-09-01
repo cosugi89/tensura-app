@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./components/TermCard";
+import { terms } from "@/data/terms";
 
 const AnimatedCard = motion(TermCard);
 
@@ -51,6 +52,7 @@ export default function Page() {
     setSelectedTermIndex,
     handleTagClick,
     handleCategoryChange,
+    closeDetailView,
   } = useTerminology(initialCategory, initialTermId);
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -105,6 +107,26 @@ export default function Page() {
         setAlertMessage("URLのコピーに失敗しました。");
         setIsAlertOpen(true);
       });
+  };
+
+  const handleCloseDetail = useCallback(() => {
+    setOpenDrawer(false);
+    setOpenSheet(false);
+    closeDetailView();
+  }, [closeDetailView]);
+
+  const handleDrawerOpenChange = (open: boolean) => {
+    setOpenDrawer(open);
+    if (!open) {
+      handleCloseDetail();
+    }
+  };
+
+  const handleSheetOpenChange = (open: boolean) => {
+    setOpenSheet(open);
+    if (!open) {
+      handleCloseDetail();
+    }
   };
 
   const FilterMenu = () => (
@@ -231,12 +253,13 @@ export default function Page() {
                   setOpenDrawer(true);
                 }
               }}
+              allTerms={terms}
             />
           ))}
         </main>
       </div>
 
-      <Drawer open={openDrawer} onOpenChange={setOpenDrawer}>
+      <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>
         <DrawerContent className="bg-opacity-0">
           <DrawerHeader className="text-left">
             <DrawerTitle>詳細情報</DrawerTitle>
@@ -250,6 +273,7 @@ export default function Page() {
                 >
                   <TermCard
                     term={term}
+                    allTerms={terms}
                     onShare={handleShare}
                     onTagClick={handleTagClick}
                     isDetailView={true}
@@ -264,7 +288,9 @@ export default function Page() {
               <span className="sr-only">前の用語</span>
             </Button>
             <DrawerClose asChild>
-              <Button variant="outline">閉じる</Button>
+              <Button variant="outline" onClick={handleCloseDetail}>
+                閉じる
+              </Button>
             </DrawerClose>
             <Button onClick={scrollNext} variant="outline" size="icon">
               <ChevronRight className="h-4 w-4" />
@@ -274,7 +300,7 @@ export default function Page() {
         </DrawerContent>
       </Drawer>
 
-      <Sheet open={openSheet} onOpenChange={setOpenSheet}>
+      <Sheet open={openSheet} onOpenChange={handleSheetOpenChange}>
         <SheetContent
           side="right"
           className="w-[100%] sm:w-[540px] sm:max-w-[75vw] p-0"
@@ -291,6 +317,7 @@ export default function Page() {
                 >
                   <TermCard
                     term={term}
+                    allTerms={terms}
                     onShare={handleShare}
                     onTagClick={handleTagClick}
                     isDetailView={true}
@@ -304,7 +331,7 @@ export default function Page() {
               <ChevronLeft className="h-4 w-4" />
               <span className="sr-only">前の用語</span>
             </Button>
-            <Button variant="outline" onClick={() => setOpenSheet(false)}>
+            <Button variant="outline" onClick={handleCloseDetail}>
               閉じる
             </Button>
             <Button onClick={scrollNext} variant="outline" size="icon">

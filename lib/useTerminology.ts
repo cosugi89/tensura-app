@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { terms } from "@/data/terms";
 
 export function useTerminology(
@@ -8,6 +9,8 @@ export function useTerminology(
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedTermIndex, setSelectedTermIndex] = useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const filteredTerms = useMemo(
     () =>
@@ -42,16 +45,20 @@ export function useTerminology(
     [selectedCategory, availableTags]
   );
 
-  const handleTagClick = (tag: string) => {
+  const handleTagClick = useCallback((tag: string) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );
-  };
+  }, []);
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = useCallback((category: string) => {
     setSelectedCategory(category);
     setSelectedTags([]);
-  };
+  }, []);
+
+  const closeDetailView = useCallback(() => {
+    router.push(pathname);
+  }, [router, pathname]);
 
   return {
     selectedCategory,
@@ -63,5 +70,6 @@ export function useTerminology(
     setSelectedTermIndex,
     handleTagClick,
     handleCategoryChange,
+    closeDetailView,
   };
 }

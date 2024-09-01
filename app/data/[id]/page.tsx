@@ -33,7 +33,7 @@ export default function TermPage({ params }: { params: { id: string } }) {
         ← 戻る
       </Button>
       <div className="w-full max-w-2xl mx-auto">
-        <TermCard term={term} isDetailView={true} />
+        <TermCard term={term} allTerms={terms} isDetailView={true} />
       </div>
     </div>
   );

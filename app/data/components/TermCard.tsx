@@ -40,33 +40,57 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
 
       let result: (string | JSX.Element)[] = [description];
 
-      allTerms.forEach((otherTerm) => {
-        if (otherTerm.id !== term.id) {
-          otherTerm.keywords.forEach((keyword) => {
-            result = result.flatMap((part) => {
-              if (typeof part === "string") {
-                const parts = part.split(new RegExp(`(${keyword})`, "gi"));
-                return parts.map((subPart, index) =>
-                  subPart.toLowerCase() === keyword.toLowerCase() ? (
-                    <Link
-                      key={`${otherTerm.id}-${keyword}-${index}`}
-                      href={`/data/${otherTerm.id}`}
-                      className="text-sky-600 hover:underline hover:text-cyan-500"
-                    >
-                      {subPart}
-                    </Link>
-                  ) : (
-                    subPart
-                  )
-                );
-              }
-              return part;
-            });
-          });
-        }
+      // Sort all keywords by length in descending order
+      const sortedKeywords = allTerms
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) =>
+              subPart.toLowerCase() === keyword.toLowerCase() ? (
+                <Link
+                  key={`${keyword}-${index}`}
+                  href={`/data/${
+                    allTerms.find((t) => t.keywords.includes(keyword))?.id
+                  }`}
+                  className="text-sky-600 hover:underline hover:text-cyan-500"
+                >
+                  {subPart}
+                </Link>
+              ) : (
+                subPart
+              )
+            );
+          }
+          return part;
+        });
       });
 
       return <>{result}</>;
+    };
+
+    const processStatusDetail = (detail: string): JSX.Element => {
+      const parts = detail.split(/(\（[^）]+\）)/);
+      return (
+        <>
+          {parts.map((part, index) => {
+            if (part.startsWith("（") && part.endsWith("）")) {
+              return (
+                <span
+                  key={index}
+                  className="text-xs text-muted-foreground mx-2"
+                >
+                  {part.slice(1, -1)}
+                </span>
+              );
+            }
+            return addLinksToDescription(part);
+          })}
+        </>
+      );
     };
 
     const descriptionsWithLinks = term.description.map((desc) =>
@@ -104,7 +128,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                       <div className="text-sm col-span-3 flex flex-wrap gap-x-3 gap-y-1">
                         {item.details.map((detail, detailIndex) => (
                           <p key={detailIndex} className="">
-                            {detail}
+                            {processStatusDetail(detail)}
                           </p>
                         ))}
                       </div>

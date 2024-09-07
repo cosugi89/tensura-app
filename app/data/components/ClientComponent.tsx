@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useTerminology } from "@/lib/useTerminology";
+import { useState, useEffect, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -32,12 +31,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import TermCard from "./TermCard";
-import { Term } from "@/data/terms";
+import { useTerminology } from "@/lib/useTerminology";
+import { TermCard } from "./TermCard";
+import { terms } from "@/data/terms";
 
 const AnimatedCard = motion(TermCard);
 
-export default function ClientComponent({ terms }: { terms: Term[] }) {
+export default function ClientComponent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "キャラクター";
   const initialTermId = searchParams.get("termId");
@@ -53,8 +54,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
     handleTagClick,
     handleCategoryChange,
     closeDetailView,
-    setInitialData,
-  } = useTerminology(terms);
+  } = useTerminology(initialCategory, initialTermId);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSheet, setOpenSheet] = useState(false);
@@ -66,25 +66,39 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
+
   useEffect(() => {
-    setInitialData(initialCategory, initialTermId);
-  }, [initialCategory, initialTermId, setInitialData]);
+    if (emblaApi) {
+      emblaApi.scrollTo(selectedTermIndex, false);
+    }
+  }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
+  useEffect(() => {
+    if (initialTermId) {
+      const termIndex = filteredTerms.findIndex(
+        (term) => term.id.toString() === initialTermId
+      );
+      if (termIndex !== -1) {
+        setSelectedTermIndex(termIndex);
+        if (window.innerWidth >= 1024) {
+          setOpenSheet(true);
+        } else {
+          setOpenDrawer(true);
+        }
+      }
+    }
+  }, [initialTermId, filteredTerms, setSelectedTermIndex]);
 
-  const toggleFilterMenu = useCallback(() => {
+  const toggleFilterMenu = () => {
     setIsFilterMenuOpen((prev) => !prev);
-  }, []);
+  };
 
-  const handleShare = useCallback((termId: number) => {
-    const url = `${window.location.origin}/data/${termId}`;
+  const handleShare = (termId: number) => {
+    const url = `${window.location.origin}/data?category=${encodeURIComponent(
+      selectedCategory
+    )}&termId=${termId}`;
     navigator.clipboard
       .writeText(url)
       .then(() => {
@@ -96,7 +110,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
         setAlertMessage("URLのコピーに失敗しました。");
         setIsAlertOpen(true);
       });
-  }, []);
+  };
 
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
@@ -104,25 +118,35 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
     closeDetailView();
   }, [closeDetailView]);
 
-  const handleDrawerOpenChange = useCallback(
-    (open: boolean) => {
-      setOpenDrawer(open);
-      if (!open) {
-        handleCloseDetail();
-      }
-    },
-    [handleCloseDetail]
-  );
+  const handleDrawerOpenChange = (open: boolean) => {
+    setOpenDrawer(open);
+    if (!open) {
+      handleCloseDetail();
+    }
+  };
 
-  const handleSheetOpenChange = useCallback(
-    (open: boolean) => {
-      setOpenSheet(open);
-      if (!open) {
-        handleCloseDetail();
-      }
-    },
-    [handleCloseDetail]
-  );
+  const handleSheetOpenChange = (open: boolean) => {
+    setOpenSheet(open);
+    if (!open) {
+      handleCloseDetail();
+    }
+  };
+
+  const handleTermClick = (index: number) => {
+    setSelectedTermIndex(index);
+    const term = filteredTerms[index];
+    router.push(
+      `/data?category=${encodeURIComponent(selectedCategory)}&termId=${
+        term.id
+      }`,
+      { scroll: false }
+    );
+    if (window.innerWidth >= 1024) {
+      setOpenSheet(true);
+    } else {
+      setOpenDrawer(true);
+    }
+  };
 
   const FilterMenu = () => (
     <div className="space-y-6 p-4">
@@ -180,7 +204,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
   );
 
   return (
-    <>
+    <div className="container mx-auto p-4 lg:flex lg:gap-6">
       <aside className="hidden lg:block lg:w-1/4 space-y-6">
         <FilterMenu />
       </aside>
@@ -226,7 +250,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
         </AnimatePresence>
 
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
-          {filteredTerms.map((term: Term, index: number) => (
+          {filteredTerms.map((term, index) => (
             <AnimatedCard
               key={term.id}
               term={term}
@@ -235,14 +259,12 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              onClick={() => {
-                setSelectedTermIndex(index);
-                if (window.innerWidth >= 1024) {
-                  setOpenSheet(true);
-                } else {
-                  setOpenDrawer(true);
-                }
-              }}
+              className={
+                term.id.toString() === initialTermId
+                  ? "ring-2 ring-primary"
+                  : ""
+              }
+              onClick={() => handleTermClick(index)}
               allTerms={terms}
             />
           ))}
@@ -256,7 +278,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
           </DrawerHeader>
           <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
             <div className="flex h-full">
-              {filteredTerms.map((term: Term, index: number) => (
+              {filteredTerms.map((term, index) => (
                 <div
                   className="flex-[0_0_100%] min-w-0 h-full px-4"
                   key={term.id}
@@ -300,7 +322,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
           </SheetHeader>
           <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
             <div className="flex h-full">
-              {filteredTerms.map((term: Term, index: number) => (
+              {filteredTerms.map((term, index) => (
                 <div
                   className="flex-[0_0_100%] min-w-0 h-full px-4"
                   key={term.id}
@@ -343,6 +365,7 @@ export default function ClientComponent({ terms }: { terms: Term[] }) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </div>
+    // <ClientComponent></ClientComponent>
   );
 }

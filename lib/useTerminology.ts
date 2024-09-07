@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useMemo, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { terms } from "@/data/terms";

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -31,30 +31,53 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { TermCard } from "./TermCard";
+import { Term, terms } from "@/data/terms";
 import { useTerminology } from "@/lib/useTerminology";
-import { TermCard } from "../app/data/components/TermCard";
-import { terms } from "@/data/terms";
 
 const AnimatedCard = motion(TermCard);
 
+interface TerminologyState {
+  selectedCategory: string;
+  selectedTags: string[];
+  selectedTermIndex: number;
+  filteredTerms: Term[];
+  availableTags: string[];
+  tagCounts: Record<string, number>;
+  setSelectedTermIndex: (index: number) => void;
+  handleTagClick: (tag: string) => void;
+  handleCategoryChange: (category: string) => void;
+  closeDetailView: () => void;
+}
+
 export default function ClientComponent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "キャラクター";
-  const initialTermId = searchParams.get("termId");
+  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(
+    null
+  );
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setSearchParams(params);
+  }, []);
+
+  const initialCategory = searchParams?.get("category") || "キャラクター";
+  const initialTermId = searchParams?.get("termId") || null;
+  const terminologyState = useTerminology(initialCategory, initialTermId);
+  [];
 
   const {
-    selectedCategory,
-    selectedTags,
-    selectedTermIndex,
-    filteredTerms,
-    availableTags,
-    tagCounts,
-    setSelectedTermIndex,
-    handleTagClick,
-    handleCategoryChange,
-    closeDetailView,
-  } = useTerminology(initialCategory, initialTermId);
+    selectedCategory = "",
+    selectedTags = [],
+    selectedTermIndex = 0,
+    filteredTerms = [],
+    availableTags = [],
+    tagCounts = {},
+    setSelectedTermIndex = () => {},
+    handleTagClick = () => {},
+    handleCategoryChange = () => {},
+    closeDetailView = () => {},
+  } = terminologyState || {};
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSheet, setOpenSheet] = useState(false);
@@ -66,51 +89,65 @@ export default function ClientComponent() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
-  const scrollNext = () => emblaApi && emblaApi.scrollNext();
+  const scrollPrev = useCallback(
+    () => emblaApi && emblaApi.scrollPrev(),
+    [emblaApi]
+  );
+  const scrollNext = useCallback(
+    () => emblaApi && emblaApi.scrollNext(),
+    [emblaApi]
+  );
 
   useEffect(() => {
-    if (emblaApi) {
+    if (emblaApi && selectedTermIndex !== undefined) {
       emblaApi.scrollTo(selectedTermIndex, false);
     }
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
   useEffect(() => {
-    if (initialTermId) {
-      const termIndex = filteredTerms.findIndex(
-        (term) => term.id.toString() === initialTermId
-      );
-      if (termIndex !== -1) {
-        setSelectedTermIndex(termIndex);
-        if (window.innerWidth >= 1024) {
-          setOpenSheet(true);
-        } else {
-          setOpenDrawer(true);
+    if (searchParams) {
+      const initialTermId = searchParams.get("termId");
+      if (initialTermId && filteredTerms.length > 0) {
+        const termIndex = filteredTerms.findIndex(
+          (term) => term.id.toString() === initialTermId
+        );
+        if (termIndex !== -1) {
+          setSelectedTermIndex(termIndex);
+          if (window.innerWidth >= 1024) {
+            setOpenSheet(true);
+          } else {
+            setOpenDrawer(true);
+          }
         }
       }
     }
-  }, [initialTermId, filteredTerms, setSelectedTermIndex]);
+  }, [searchParams, filteredTerms, setSelectedTermIndex]);
 
-  const toggleFilterMenu = () => {
+  const toggleFilterMenu = useCallback(() => {
     setIsFilterMenuOpen((prev) => !prev);
-  };
+  }, []);
 
-  const handleShare = (termId: number) => {
-    const url = `${window.location.origin}/data?category=${encodeURIComponent(
-      selectedCategory
-    )}&termId=${termId}`;
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setAlertMessage("このページのURLがクリップボードにコピーされました。");
-        setIsAlertOpen(true);
-      })
-      .catch((err) => {
-        console.error("クリップボードへのコピーに失敗しました:", err);
-        setAlertMessage("URLのコピーに失敗しました。");
-        setIsAlertOpen(true);
-      });
-  };
+  const handleShare = useCallback(
+    (termId: number) => {
+      const url = `${window.location.origin}/data?category=${encodeURIComponent(
+        selectedCategory
+      )}&termId=${termId}`;
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          setAlertMessage(
+            "このページのURLがクリップボードにコピーされました。"
+          );
+          setIsAlertOpen(true);
+        })
+        .catch((err) => {
+          console.error("クリップボードへのコピーに失敗しました:", err);
+          setAlertMessage("URLのコピーに失敗しました。");
+          setIsAlertOpen(true);
+        });
+    },
+    [selectedCategory]
+  );
 
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
@@ -118,90 +155,109 @@ export default function ClientComponent() {
     closeDetailView();
   }, [closeDetailView]);
 
-  const handleDrawerOpenChange = (open: boolean) => {
-    setOpenDrawer(open);
-    if (!open) {
-      handleCloseDetail();
-    }
-  };
+  const handleDrawerOpenChange = useCallback(
+    (open: boolean) => {
+      setOpenDrawer(open);
+      if (!open) {
+        handleCloseDetail();
+      }
+    },
+    [handleCloseDetail]
+  );
 
-  const handleSheetOpenChange = (open: boolean) => {
-    setOpenSheet(open);
-    if (!open) {
-      handleCloseDetail();
-    }
-  };
+  const handleSheetOpenChange = useCallback(
+    (open: boolean) => {
+      setOpenSheet(open);
+      if (!open) {
+        handleCloseDetail();
+      }
+    },
+    [handleCloseDetail]
+  );
 
-  const handleTermClick = (index: number) => {
-    setSelectedTermIndex(index);
-    const term = filteredTerms[index];
-    router.push(
-      `/data?category=${encodeURIComponent(selectedCategory)}&termId=${
-        term.id
-      }`,
-      { scroll: false }
-    );
-    if (window.innerWidth >= 1024) {
-      setOpenSheet(true);
-    } else {
-      setOpenDrawer(true);
-    }
-  };
+  const handleTermClick = useCallback(
+    (index: number) => {
+      setSelectedTermIndex(index);
+      const term = filteredTerms[index];
+      if (term) {
+        router.push(
+          `/data?category=${encodeURIComponent(selectedCategory)}&termId=${
+            term.id
+          }`,
+          { scroll: false }
+        );
+        if (window.innerWidth >= 1024) {
+          setOpenSheet(true);
+        } else {
+          setOpenDrawer(true);
+        }
+      }
+    },
+    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
+  );
 
-  const FilterMenu = () => (
-    <div className="space-y-6 p-4">
-      <div>
-        <h3 className="font-medium mb-2">カテゴリー</h3>
-        <RadioGroup
-          value={selectedCategory}
-          onValueChange={handleCategoryChange}
-          className="flex flex-wrap gap-2"
-        >
-          {["キャラクター", "スキル", "場所", "その他"].map((category) => (
-            <div key={category} className="flex items-center">
-              <RadioGroupItem
-                value={category}
-                id={`category-${category}`}
-                className="peer sr-only"
-              />
-              <Label
-                htmlFor={`category-${category}`}
-                className="px-3 py-1 rounded-full bg-muted hover:bg-muted/80 peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground cursor-pointer transition-colors"
-              >
-                {category}
-              </Label>
-            </div>
-          ))}
-        </RadioGroup>
-      </div>
-      <div>
-        <h3 className="font-medium mb-2">タグ</h3>
-        <div className="space-y-2">
-          {availableTags.map((tag) => (
-            <div key={tag} className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id={`tag-${tag}`}
-                  checked={selectedTags.includes(tag)}
-                  onCheckedChange={(checked) => {
-                    if (checked) {
-                      handleTagClick(tag);
-                    } else {
-                      handleTagClick(tag);
-                    }
-                  }}
+  const FilterMenu = useCallback(
+    () => (
+      <div className="space-y-6 p-4">
+        <div>
+          <h3 className="font-medium mb-2">カテゴリー</h3>
+          <RadioGroup
+            value={selectedCategory}
+            onValueChange={handleCategoryChange}
+            className="flex flex-wrap gap-2"
+          >
+            {["キャラクター", "スキル", "場所", "その他"].map((category) => (
+              <div key={category} className="flex items-center">
+                <RadioGroupItem
+                  value={category}
+                  id={`category-${category}`}
+                  className="peer sr-only"
                 />
-                <Label htmlFor={`tag-${tag}`}>{tag}</Label>
+                <Label
+                  htmlFor={`category-${category}`}
+                  className="px-3 py-1 rounded-full bg-muted hover:bg-muted/80 peer-data-[state=checked]:bg-primary peer-data-[state=checked]:text-primary-foreground cursor-pointer transition-colors"
+                >
+                  {category}
+                </Label>
               </div>
-              <span className="text-sm text-muted-foreground">
-                {tagCounts[tag]}
-              </span>
-            </div>
-          ))}
+            ))}
+          </RadioGroup>
+        </div>
+        <div>
+          <h3 className="font-medium mb-2">タグ</h3>
+          <div className="space-y-2">
+            {availableTags.map((tag) => (
+              <div key={tag} className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id={`tag-${tag}`}
+                    checked={selectedTags.includes(tag)}
+                    onCheckedChange={() => handleTagClick(tag)}
+                  />
+                  <Label htmlFor={`tag-${tag}`}>{tag}</Label>
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  {tagCounts[tag]}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    ),
+    [
+      availableTags,
+      handleCategoryChange,
+      handleTagClick,
+      selectedCategory,
+      selectedTags,
+      tagCounts,
+    ]
   );
+
+  if (!terminologyState) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="container mx-auto p-4 lg:flex lg:gap-6">
@@ -260,7 +316,7 @@ export default function ClientComponent() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={
-                term.id.toString() === initialTermId
+                term.id.toString() === searchParams?.get("termId")
                   ? "ring-2 ring-primary"
                   : ""
               }
@@ -366,6 +422,5 @@ export default function ClientComponent() {
         </AlertDialogContent>
       </AlertDialog>
     </div>
-    // <ClientComponent></ClientComponent>
   );
 }

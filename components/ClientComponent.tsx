@@ -32,7 +32,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useTerminology } from "@/lib/useTerminology";
-import { TermCard } from "./TermCard";
+import { TermCard } from "../app/data/components/TermCard";
 import { terms } from "@/data/terms";
 
 const AnimatedCard = motion(TermCard);

@@ -81,7 +81,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
               return (
                 <span
                   key={index}
-                  className="text-xs text-muted-foreground mx-2"
+                  className="text-xs text-muted-foreground mx-1"
                 >
                   {part.slice(1, -1)}
                 </span>

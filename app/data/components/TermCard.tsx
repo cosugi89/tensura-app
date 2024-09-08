@@ -53,7 +53,9 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
               subPart.toLowerCase() === keyword.toLowerCase() ? (
                 <Link
                   key={`${keyword}-${index}`}
-                  href={`/data/${
+                  href={`/data?category=${encodeURIComponent(
+                    term.category
+                  )}&termId=${
                     allTerms.find((t) => t.keywords.includes(keyword))?.id
                   }`}
                   className="text-sky-600 hover:underline hover:text-cyan-500"

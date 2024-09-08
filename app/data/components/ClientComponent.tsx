@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -31,97 +31,90 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./TermCard";
 import { Term, terms } from "@/data/terms";
-import { useTerminology } from "@/lib/useTerminology";
 
 const AnimatedCard = motion(TermCard);
 
-interface TerminologyState {
-  selectedCategory: string;
-  selectedTags: string[];
-  selectedTermIndex: number;
-  filteredTerms: Term[];
-  availableTags: string[];
-  tagCounts: Record<string, number>;
-  setSelectedTermIndex: (index: number) => void;
-  handleTagClick: (tag: string) => void;
-  handleCategoryChange: (category: string) => void;
-  closeDetailView: () => void;
-}
-
 export default function ClientComponent() {
   const router = useRouter();
-  const [searchParams, setSearchParams] = useState<URLSearchParams | null>(
-    null
-  );
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    setSearchParams(params);
-  }, []);
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
   const initialCategory = searchParams?.get("category") || "キャラクター";
   const initialTermId = searchParams?.get("termId") || null;
-  const terminologyState = useTerminology(initialCategory, initialTermId);
-  [];
-
   const {
-    selectedCategory = "",
-    selectedTags = [],
-    selectedTermIndex = 0,
-    filteredTerms = [],
-    availableTags = [],
-    tagCounts = {},
-    setSelectedTermIndex = () => {},
-    handleTagClick = () => {},
-    handleCategoryChange = () => {},
-    closeDetailView = () => {},
-  } = terminologyState || {};
+    selectedCategory,
+    selectedTags,
+    selectedTermIndex,
+    filteredTerms,
+    availableTags,
+    tagCounts,
+    setSelectedTermIndex,
+    handleTagClick,
+    handleCategoryChange,
+    closeDetailView,
+  } = useTerminology(initialCategory, initialTermId);
 
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSheet, setOpenSheet] = useState(false);
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    startIndex: 0,
-    align: "center",
-  });
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
 
-  const scrollPrev = useCallback(
-    () => emblaApi && emblaApi.scrollPrev(),
-    [emblaApi]
-  );
-  const scrollNext = useCallback(
-    () => emblaApi && emblaApi.scrollNext(),
-    [emblaApi]
-  );
+  useEffect(() => {
+    if (emblaApi) {
+      const onSelect = () => {
+        const currentIndex = emblaApi.selectedScrollSnap();
+        const currentTerm = filteredTerms[currentIndex];
+        if (currentTerm) {
+          const newUrl = `/data?category=${encodeURIComponent(
+            selectedCategory
+          )}&termId=${currentTerm.id}`;
+          router.push(newUrl, { scroll: false });
+        }
+      };
+
+      emblaApi.on("select", onSelect);
+
+      return () => {
+        emblaApi.off("select", onSelect);
+      };
+    }
+  }, [emblaApi, filteredTerms, selectedCategory, router]);
 
   useEffect(() => {
     if (emblaApi && selectedTermIndex !== undefined) {
-      emblaApi.scrollTo(selectedTermIndex, false);
+      emblaApi.scrollTo(selectedTermIndex);
     }
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
   useEffect(() => {
-    if (searchParams) {
-      const initialTermId = searchParams.get("termId");
-      if (initialTermId && filteredTerms.length > 0) {
-        const termIndex = filteredTerms.findIndex(
-          (term) => term.id.toString() === initialTermId
-        );
-        if (termIndex !== -1) {
-          setSelectedTermIndex(termIndex);
-          if (window.innerWidth >= 1024) {
-            setOpenSheet(true);
-          } else {
-            setOpenDrawer(true);
-          }
+    const termId = searchParams?.get("termId");
+    if (termId && filteredTerms.length > 0) {
+      const termIndex = filteredTerms.findIndex(
+        (term) => term.id.toString() === termId
+      );
+      if (termIndex !== -1) {
+        setSelectedTermIndex(termIndex);
+        if (window.innerWidth >= 1024) {
+          setOpenSheet(true);
+        } else {
+          setOpenDrawer(true);
         }
       }
     }
   }, [searchParams, filteredTerms, setSelectedTermIndex]);
+
+  const scrollPrev = useCallback(() => {
+    if (emblaApi) emblaApi.scrollPrev();
+  }, [emblaApi]);
+
+  const scrollNext = useCallback(() => {
+    if (emblaApi) emblaApi.scrollNext();
+  }, [emblaApi]);
 
   const toggleFilterMenu = useCallback(() => {
     setIsFilterMenuOpen((prev) => !prev);
@@ -180,12 +173,10 @@ export default function ClientComponent() {
       setSelectedTermIndex(index);
       const term = filteredTerms[index];
       if (term) {
-        router.push(
-          `/data?category=${encodeURIComponent(selectedCategory)}&termId=${
-            term.id
-          }`,
-          { scroll: false }
-        );
+        const newUrl = `/data?category=${encodeURIComponent(
+          selectedCategory
+        )}&termId=${term.id}`;
+        router.push(newUrl, { scroll: false });
         if (window.innerWidth >= 1024) {
           setOpenSheet(true);
         } else {
@@ -254,10 +245,6 @@ export default function ClientComponent() {
       tagCounts,
     ]
   );
-
-  if (!terminologyState) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="container mx-auto p-4 lg:flex lg:gap-6">

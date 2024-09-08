@@ -1,13 +1,13 @@
 import { useState, useMemo, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { terms } from "@/data/terms";
+import { terms, allTags, TagItem } from "@/data/terms";
 
 export function useTerminology(
   initialCategory: string,
   initialTermId: string | null
 ) {
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
   const [selectedTermIndex, setSelectedTermIndex] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
@@ -24,7 +24,7 @@ export function useTerminology(
   );
 
   const availableTags = useMemo(() => {
-    const tags = new Set<string>();
+    const tags = new Set<TagItem>();
     terms.forEach((term) => {
       if (term.category === selectedCategory) {
         term.tags.forEach((tag) => tags.add(tag));
@@ -41,11 +41,11 @@ export function useTerminology(
             term.category === selectedCategory && term.tags.includes(tag)
         ).length;
         return acc;
-      }, {} as Record<string, number>),
+      }, {} as Record<TagItem, number>),
     [selectedCategory, availableTags]
   );
 
-  const handleTagClick = useCallback((tag: string) => {
+  const handleTagClick = useCallback((tag: TagItem) => {
     setSelectedTags((prev) =>
       prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
     );

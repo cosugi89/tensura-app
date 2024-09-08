@@ -10,16 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
-import { Term } from "@/data/terms";
+import { Term, TagItem } from "@/data/terms";
 
 interface TermCardProps {
   term: Term;
   allTerms?: Term[];
   onShare?: (termId: number) => void;
-  onTagClick?: (tag: string) => void;
+  onTagClick?: (tag: TagItem) => void;
   isDetailView?: boolean;
   onClick?: () => void;
   className?: string;
+  selectedTags?: string[]; // 新しく追加されたプロパティ
 }
 
 export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
@@ -32,6 +33,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
       isDetailView = false,
       onClick,
       className,
+      selectedTags = [], // デフォルト値を空の配列に設定
     },
     ref
   ) => {
@@ -112,7 +114,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
         onClick={onClick}
       >
         <CardHeader>
-          <CardTitle>{term.title}</CardTitle>
+          <CardTitle>{term.id}</CardTitle>
           <CardDescription>{term.category}</CardDescription>
         </CardHeader>
         <CardContent>
@@ -163,12 +165,13 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
             {term.tags.map((tag) => (
               <Button
                 key={tag}
-                variant="outline"
+                variant={selectedTags.includes(tag) ? "destructive" : "outline"}
                 size="xs"
                 onClick={(e) => {
                   e.stopPropagation();
                   onTagClick && onTagClick(tag);
                 }}
+                className={selectedTags.includes(tag) ? "text-white" : ""}
               >
                 {tag}
               </Button>

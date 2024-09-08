@@ -64,6 +64,7 @@ export default function ClientComponent() {
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [animationKey, setAnimationKey] = useState(0);
 
   useEffect(() => {
     if (emblaApi) {
@@ -97,17 +98,13 @@ export default function ClientComponent() {
     const termId = searchParams?.get("termId");
 
     if (category && termId) {
-      let termsToSearch = filteredTerms;
-      let newSelectedCategory = selectedCategory;
-
       if (category !== selectedCategory) {
-        newSelectedCategory = category;
-        termsToSearch = terms.filter((term) => term.category === category);
         handleCategoryChange(category);
         setIsAnimating(true);
+        setAnimationKey((prev) => prev + 1);
       }
 
-      const termIndex = termsToSearch.findIndex(
+      const termIndex = filteredTerms.findIndex(
         (term) => term.id.toString() === termId
       );
 
@@ -122,11 +119,10 @@ export default function ClientComponent() {
     }
   }, [
     searchParams,
-    filteredTerms,
     selectedCategory,
     handleCategoryChange,
     setSelectedTermIndex,
-    terms,
+    filteredTerms,
   ]);
 
   const scrollPrev = useCallback(() => {
@@ -342,7 +338,7 @@ export default function ClientComponent() {
           </DrawerHeader>
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedCategory}
+              key={`${animationKey}-${selectedCategory}`}
               className="h-[calc(100vh-200px)] overflow-hidden"
               ref={emblaRef}
               initial={{ opacity: 0 }}
@@ -396,7 +392,7 @@ export default function ClientComponent() {
           </SheetHeader>
           <AnimatePresence mode="wait">
             <motion.div
-              key={selectedCategory}
+              key={`${animationKey}-${selectedCategory}`}
               className="h-[calc(100vh-200px)] overflow-hidden"
               ref={emblaRef}
               initial={{ opacity: 0 }}

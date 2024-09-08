@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,7 +71,7 @@ export default function ClientComponent() {
         const currentTerm = filteredTerms[currentIndex];
         if (currentTerm) {
           const newUrl = `/data?category=${encodeURIComponent(
-            selectedCategory
+            currentTerm.category
           )}&termId=${currentTerm.id}`;
           router.push(newUrl, { scroll: false });
         }
@@ -83,7 +83,7 @@ export default function ClientComponent() {
         emblaApi.off("select", onSelect);
       };
     }
-  }, [emblaApi, filteredTerms, selectedCategory, router]);
+  }, [emblaApi, filteredTerms, router]);
 
   useEffect(() => {
     if (emblaApi && selectedTermIndex !== undefined) {
@@ -120,27 +120,25 @@ export default function ClientComponent() {
     setIsFilterMenuOpen((prev) => !prev);
   }, []);
 
-  const handleShare = useCallback(
-    (termId: number) => {
-      const url = `${window.location.origin}/data?category=${encodeURIComponent(
-        selectedCategory
-      )}&termId=${termId}`;
-      navigator.clipboard
-        .writeText(url)
-        .then(() => {
-          setAlertMessage(
-            "このページのURLがクリップボードにコピーされました。"
-          );
-          setIsAlertOpen(true);
-        })
-        .catch((err) => {
-          console.error("クリップボードへのコピーに失敗しました:", err);
-          setAlertMessage("URLのコピーに失敗しました。");
-          setIsAlertOpen(true);
-        });
-    },
-    [selectedCategory]
-  );
+  const handleShare = useCallback((termId: number) => {
+    const term = terms.find((t) => t.id === termId);
+    if (!term) return;
+
+    const url = `${window.location.origin}/data?category=${encodeURIComponent(
+      term.category
+    )}&termId=${termId}`;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => {
+        setAlertMessage("このページのURLがクリップボードにコピーされました。");
+        setIsAlertOpen(true);
+      })
+      .catch((err) => {
+        console.error("クリップボードへのコピーに失敗しました:", err);
+        setAlertMessage("URLのコピーに失敗しました。");
+        setIsAlertOpen(true);
+      });
+  }, []);
 
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
@@ -169,12 +167,12 @@ export default function ClientComponent() {
   );
 
   const handleTermClick = useCallback(
-    (index: number) => {
-      setSelectedTermIndex(index);
-      const term = filteredTerms[index];
-      if (term) {
+    (term: Term) => {
+      const termIndex = filteredTerms.findIndex((t) => t.id === term.id);
+      if (termIndex !== -1) {
+        setSelectedTermIndex(termIndex);
         const newUrl = `/data?category=${encodeURIComponent(
-          selectedCategory
+          term.category
         )}&termId=${term.id}`;
         router.push(newUrl, { scroll: false });
         if (window.innerWidth >= 1024) {
@@ -184,7 +182,17 @@ export default function ClientComponent() {
         }
       }
     },
-    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
+    [filteredTerms, router, setSelectedTermIndex]
+  );
+
+  const handleKeywordClick = useCallback(
+    (keyword: string) => {
+      const term = terms.find((t) => t.keywords.includes(keyword));
+      if (term) {
+        handleTermClick(term);
+      }
+    },
+    [handleTermClick]
   );
 
   const FilterMenu = useCallback(
@@ -293,11 +301,12 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
-          {filteredTerms.map((term, index) => (
+          {filteredTerms.map((term) => (
             <AnimatedCard
               key={term.id}
               term={term}
               onTagClick={handleTagClick}
+              onKeywordClick={handleKeywordClick}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -307,7 +316,7 @@ export default function ClientComponent() {
                   ? "ring-2 ring-primary"
                   : ""
               }
-              onClick={() => handleTermClick(index)}
+              onClick={() => handleTermClick(term)}
               allTerms={terms}
             />
           ))}
@@ -321,7 +330,7 @@ export default function ClientComponent() {
           </DrawerHeader>
           <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
             <div className="flex h-full">
-              {filteredTerms.map((term, index) => (
+              {filteredTerms.map((term) => (
                 <div
                   className="flex-[0_0_100%] min-w-0 h-full px-4"
                   key={term.id}
@@ -331,6 +340,7 @@ export default function ClientComponent() {
                     allTerms={terms}
                     onShare={handleShare}
                     onTagClick={handleTagClick}
+                    onKeywordClick={handleKeywordClick}
                     isDetailView={true}
                   />
                 </div>
@@ -365,7 +375,7 @@ export default function ClientComponent() {
           </SheetHeader>
           <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
             <div className="flex h-full">
-              {filteredTerms.map((term, index) => (
+              {filteredTerms.map((term) => (
                 <div
                   className="flex-[0_0_100%] min-w-0 h-full px-4"
                   key={term.id}
@@ -375,6 +385,7 @@ export default function ClientComponent() {
                     allTerms={terms}
                     onShare={handleShare}
                     onTagClick={handleTagClick}
+                    onKeywordClick={handleKeywordClick}
                     isDetailView={true}
                   />
                 </div>

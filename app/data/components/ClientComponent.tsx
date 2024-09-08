@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,6 +63,7 @@ export default function ClientComponent() {
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (emblaApi) {
@@ -71,7 +72,7 @@ export default function ClientComponent() {
         const currentTerm = filteredTerms[currentIndex];
         if (currentTerm) {
           const newUrl = `/data?category=${encodeURIComponent(
-            currentTerm.category
+            selectedCategory
           )}&termId=${currentTerm.id}`;
           router.push(newUrl, { scroll: false });
         }
@@ -83,7 +84,7 @@ export default function ClientComponent() {
         emblaApi.off("select", onSelect);
       };
     }
-  }, [emblaApi, filteredTerms, router]);
+  }, [emblaApi, filteredTerms, selectedCategory, router]);
 
   useEffect(() => {
     if (emblaApi && selectedTermIndex !== undefined) {
@@ -92,11 +93,24 @@ export default function ClientComponent() {
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
   useEffect(() => {
+    const category = searchParams?.get("category");
     const termId = searchParams?.get("termId");
-    if (termId && filteredTerms.length > 0) {
-      const termIndex = filteredTerms.findIndex(
+
+    if (category && termId) {
+      let termsToSearch = filteredTerms;
+      let newSelectedCategory = selectedCategory;
+
+      if (category !== selectedCategory) {
+        newSelectedCategory = category;
+        termsToSearch = terms.filter((term) => term.category === category);
+        handleCategoryChange(category);
+        setIsAnimating(true);
+      }
+
+      const termIndex = termsToSearch.findIndex(
         (term) => term.id.toString() === termId
       );
+
       if (termIndex !== -1) {
         setSelectedTermIndex(termIndex);
         if (window.innerWidth >= 1024) {
@@ -106,7 +120,14 @@ export default function ClientComponent() {
         }
       }
     }
-  }, [searchParams, filteredTerms, setSelectedTermIndex]);
+  }, [
+    searchParams,
+    filteredTerms,
+    selectedCategory,
+    handleCategoryChange,
+    setSelectedTermIndex,
+    terms,
+  ]);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -120,25 +141,27 @@ export default function ClientComponent() {
     setIsFilterMenuOpen((prev) => !prev);
   }, []);
 
-  const handleShare = useCallback((termId: number) => {
-    const term = terms.find((t) => t.id === termId);
-    if (!term) return;
-
-    const url = `${window.location.origin}/data?category=${encodeURIComponent(
-      term.category
-    )}&termId=${termId}`;
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        setAlertMessage("このページのURLがクリップボードにコピーされました。");
-        setIsAlertOpen(true);
-      })
-      .catch((err) => {
-        console.error("クリップボードへのコピーに失敗しました:", err);
-        setAlertMessage("URLのコピーに失敗しました。");
-        setIsAlertOpen(true);
-      });
-  }, []);
+  const handleShare = useCallback(
+    (termId: number) => {
+      const url = `${window.location.origin}/data?category=${encodeURIComponent(
+        selectedCategory
+      )}&termId=${termId}`;
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          setAlertMessage(
+            "このページのURLがクリップボードにコピーされました。"
+          );
+          setIsAlertOpen(true);
+        })
+        .catch((err) => {
+          console.error("クリップボードへのコピーに失敗しました:", err);
+          setAlertMessage("URLのコピーに失敗しました。");
+          setIsAlertOpen(true);
+        });
+    },
+    [selectedCategory]
+  );
 
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
@@ -167,12 +190,12 @@ export default function ClientComponent() {
   );
 
   const handleTermClick = useCallback(
-    (term: Term) => {
-      const termIndex = filteredTerms.findIndex((t) => t.id === term.id);
-      if (termIndex !== -1) {
-        setSelectedTermIndex(termIndex);
+    (index: number) => {
+      setSelectedTermIndex(index);
+      const term = filteredTerms[index];
+      if (term) {
         const newUrl = `/data?category=${encodeURIComponent(
-          term.category
+          selectedCategory
         )}&termId=${term.id}`;
         router.push(newUrl, { scroll: false });
         if (window.innerWidth >= 1024) {
@@ -182,17 +205,7 @@ export default function ClientComponent() {
         }
       }
     },
-    [filteredTerms, router, setSelectedTermIndex]
-  );
-
-  const handleKeywordClick = useCallback(
-    (keyword: string) => {
-      const term = terms.find((t) => t.keywords.includes(keyword));
-      if (term) {
-        handleTermClick(term);
-      }
-    },
-    [handleTermClick]
+    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
   );
 
   const FilterMenu = useCallback(
@@ -301,12 +314,11 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
-          {filteredTerms.map((term) => (
+          {filteredTerms.map((term, index) => (
             <AnimatedCard
               key={term.id}
               term={term}
               onTagClick={handleTagClick}
-              onKeywordClick={handleKeywordClick}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -316,7 +328,7 @@ export default function ClientComponent() {
                   ? "ring-2 ring-primary"
                   : ""
               }
-              onClick={() => handleTermClick(term)}
+              onClick={() => handleTermClick(index)}
               allTerms={terms}
             />
           ))}
@@ -328,25 +340,34 @@ export default function ClientComponent() {
           <DrawerHeader className="text-left">
             <DrawerTitle>詳細情報</DrawerTitle>
           </DrawerHeader>
-          <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
-            <div className="flex h-full">
-              {filteredTerms.map((term) => (
-                <div
-                  className="flex-[0_0_100%] min-w-0 h-full px-4"
-                  key={term.id}
-                >
-                  <TermCard
-                    term={term}
-                    allTerms={terms}
-                    onShare={handleShare}
-                    onTagClick={handleTagClick}
-                    onKeywordClick={handleKeywordClick}
-                    isDetailView={true}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory}
+              className="h-[calc(100vh-200px)] overflow-hidden"
+              ref={emblaRef}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex h-full">
+                {filteredTerms.map((term, index) => (
+                  <div
+                    className="flex-[0_0_100%] min-w-0 h-full px-4"
+                    key={term.id}
+                  >
+                    <TermCard
+                      term={term}
+                      allTerms={terms}
+                      onShare={handleShare}
+                      onTagClick={handleTagClick}
+                      isDetailView={true}
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
           <div className="p-4 flex justify-between items-center">
             <Button onClick={scrollPrev} variant="outline" size="icon">
               <ChevronLeft className="h-4 w-4" />
@@ -373,25 +394,34 @@ export default function ClientComponent() {
           <SheetHeader className="p-6">
             <SheetTitle>詳細情報</SheetTitle>
           </SheetHeader>
-          <div className="h-[calc(100vh-200px)] overflow-hidden" ref={emblaRef}>
-            <div className="flex h-full">
-              {filteredTerms.map((term) => (
-                <div
-                  className="flex-[0_0_100%] min-w-0 h-full px-4"
-                  key={term.id}
-                >
-                  <TermCard
-                    term={term}
-                    allTerms={terms}
-                    onShare={handleShare}
-                    onTagClick={handleTagClick}
-                    onKeywordClick={handleKeywordClick}
-                    isDetailView={true}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedCategory}
+              className="h-[calc(100vh-200px)] overflow-hidden"
+              ref={emblaRef}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="flex h-full">
+                {filteredTerms.map((term, index) => (
+                  <div
+                    className="flex-[0_0_100%] min-w-0 h-full px-4"
+                    key={term.id}
+                  >
+                    <TermCard
+                      term={term}
+                      allTerms={terms}
+                      onShare={handleShare}
+                      onTagClick={handleTagClick}
+                      isDetailView={true}
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </AnimatePresence>
           <div className="p-4 flex justify-between items-center">
             <Button onClick={scrollPrev} variant="outline" size="icon">
               <ChevronLeft className="h-4 w-4" />

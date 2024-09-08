@@ -1,170 +1,185 @@
-import React from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import React, { forwardRef } from "react";
+import Link from "next/link";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
-
-interface DescriptionItem {
-  category: string;
-  details: string;
-}
-
-interface StatusItem {
-  category: string;
-  details: string[];
-}
-
-interface Term {
-  id: number;
-  title: string;
-  description: string[];
-  description2?: DescriptionItem[];
-  status?: StatusItem[];
-  tags: string[];
-  category: string;
-  keywords: string[];
-}
+import { Term } from "@/data/terms";
 
 interface TermCardProps {
   term: Term;
-  onTagClick?: (tag: string) => void;
-  onKeywordClick?: (keyword: string) => void;
-  onShare?: (termId: number) => void;
-  isDetailView?: boolean;
   allTerms?: Term[];
-  className?: string;
+  onShare?: (termId: number) => void;
+  onTagClick?: (tag: string) => void;
+  isDetailView?: boolean;
   onClick?: () => void;
+  className?: string;
 }
 
-export const TermCard: React.FC<TermCardProps> = ({
-  term,
-  onTagClick,
-  onKeywordClick,
-  onShare,
-  isDetailView = false,
-  allTerms = [],
-  className = "",
-  onClick,
-}) => {
-  const handleTagClick = (
-    e: React.MouseEvent<HTMLSpanElement>,
-    tag: string
+export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
+  (
+    {
+      term,
+      allTerms = [],
+      onShare,
+      onTagClick,
+      isDetailView = false,
+      onClick,
+      className,
+    },
+    ref
   ) => {
-    e.stopPropagation();
-    onTagClick?.(tag);
-  };
+    const addLinksToDescription = (description: string): JSX.Element => {
+      if (!isDetailView) return <>{description}</>;
 
-  const handleKeywordClick = (
-    e: React.MouseEvent<HTMLSpanElement>,
-    keyword: string
-  ) => {
-    e.stopPropagation();
-    onKeywordClick?.(keyword);
-  };
+      let result: (string | JSX.Element)[] = [description];
 
-  const handleShare = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    onShare?.(term.id);
-  };
+      // Sort all keywords by length in descending order
+      const sortedKeywords = allTerms
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
 
-  const renderLinkedContent = (content: string) => {
-    const words = content.split(/(\s+)/);
-    return words.map((word, index) => {
-      const linkedTerm = allTerms.find(
-        (t) => t.title === word || t.keywords.includes(word)
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) => {
+              if (subPart.toLowerCase() === keyword.toLowerCase()) {
+                const linkedTerm = allTerms.find((t) =>
+                  t.keywords.includes(keyword)
+                );
+                if (linkedTerm) {
+                  return (
+                    <Link
+                      key={`${keyword}-${index}`}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:underline hover:text-cyan-500"
+                    >
+                      {subPart}
+                    </Link>
+                  );
+                }
+              }
+              return subPart;
+            });
+          }
+          return part;
+        });
+      });
+
+      return <>{result}</>;
+    };
+
+    const processStatusDetail = (detail: string): JSX.Element => {
+      const parts = detail.split(/(\（[^）]+\）)/);
+      return (
+        <>
+          {parts.map((part, index) => {
+            if (part.startsWith("（") && part.endsWith("）")) {
+              return (
+                <span
+                  key={index}
+                  className="text-xs text-muted-foreground mx-1"
+                >
+                  {part.slice(1, -1)}
+                </span>
+              );
+            }
+            return addLinksToDescription(part);
+          })}
+        </>
       );
-      if (linkedTerm) {
-        return (
-          <span
-            key={index}
-            className="text-primary cursor-pointer hover:underline"
-            onClick={(e) => handleKeywordClick(e, word)}
-          >
-            {word}
-          </span>
-        );
-      }
-      return word;
-    });
-  };
+    };
 
-  return (
-    <Card
-      className={`h-full flex flex-col ${className}`}
-      onClick={onClick}
-      tabIndex={0}
-      role="button"
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          onClick?.();
-        }
-      }}
-    >
-      <CardContent className="flex-grow p-6">
-        <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl font-bold">{term.title}</h2>
-          {!isDetailView && onShare && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleShare}
-              aria-label="共有"
-            >
-              <Share2 className="h-4 w-4" />
-            </Button>
-          )}
-        </div>
-        <div className="text-muted-foreground mb-4">
-          {term.description.map((desc, index) => (
-            <p key={index} className="mb-2">
-              {isDetailView ? renderLinkedContent(desc) : desc}
-            </p>
-          ))}
-        </div>
-        {isDetailView && term.description2 && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">追加情報</h3>
-            {term.description2.map((item, index) => (
-              <div key={index} className="mb-2">
-                <h4 className="font-medium">{item.category}</h4>
-                <p className="text-muted-foreground">
-                  {renderLinkedContent(item.details)}
-                </p>
+    const descriptionsWithLinks = term.description.map((desc) =>
+      addLinksToDescription(desc)
+    );
+
+    return (
+      <Card
+        ref={ref}
+        className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
+          className || ""
+        }`}
+        onClick={onClick}
+      >
+        <CardHeader>
+          <CardTitle>{term.title}</CardTitle>
+          <CardDescription>{term.category}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {isDetailView ? (
+            <div className="text-sm space-y-6 tracking-widest">
+              <div className="space-y-4">
+                {descriptionsWithLinks.map((desc, index) => (
+                  <p key={index}>{desc}</p>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
-        {isDetailView && term.status && (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold mb-2">ステータス</h3>
-            {term.status.map((item, index) => (
-              <div key={index} className="mb-2">
-                <h4 className="font-medium">{item.category}</h4>
-                <ul className="list-disc list-inside">
-                  {item.details.map((detail, detailIndex) => (
-                    <li key={detailIndex} className="text-muted-foreground">
-                      {renderLinkedContent(detail)}
-                    </li>
+              {term.status && (
+                <div className="pt-4 pb-6">
+                  {term.status.map((item, index) => (
+                    <div
+                      key={index}
+                      className="grid gap-3 grid-cols-4 border-b py-3"
+                    >
+                      <div className="text-sm">{item.category}</div>
+                      <div className="text-sm col-span-3 flex flex-wrap gap-x-3 gap-y-1">
+                        {item.details.map((detail, detailIndex) => (
+                          <p key={detailIndex} className="">
+                            {processStatusDetail(detail)}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
                   ))}
-                </ul>
-              </div>
+                </div>
+              )}
+              {term.description2 &&
+                term.description2.map((item, index) => (
+                  <div key={index} className="space-y-1">
+                    <div className="text-primary font-semibold text-lg">
+                      {item.category}
+                    </div>
+                    <p>{addLinksToDescription(item.details)}</p>
+                  </div>
+                ))}
+            </div>
+          ) : (
+            <p className="text-sm text-muted-foreground line-clamp-3">
+              {term.description[0]}
+            </p>
+          )}
+        </CardContent>
+        <CardFooter className="flex flex-col items-start gap-4">
+          <div className="flex flex-wrap gap-2">
+            {term.tags.map((tag) => (
+              <Button
+                key={tag}
+                variant="outline"
+                size="xs"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onTagClick && onTagClick(tag);
+                }}
+              >
+                {tag}
+              </Button>
             ))}
           </div>
-        )}
-      </CardContent>
-      <CardFooter className="flex flex-wrap gap-2 p-6 pt-0">
-        {term.tags.map((tag) => (
-          <Badge
-            key={tag}
-            variant="secondary"
-            className="cursor-pointer"
-            onClick={(e) => handleTagClick(e, tag)}
-          >
-            {tag}
-          </Badge>
-        ))}
-      </CardFooter>
-    </Card>
-  );
-};
+        </CardFooter>
+      </Card>
+    );
+  }
+);
+
+TermCard.displayName = "TermCard";
+
+export default TermCard;

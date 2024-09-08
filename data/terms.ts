@@ -9,7 +9,7 @@ interface StatusItem {
 }
 
 export interface Term {
-  id: number;
+  id: string;
   title: string;
   description: string[];
   description2?: DescriptionItem[];
@@ -37,7 +37,7 @@ export interface Term {
 
 export const terms: Term[] = [
   {
-    id: 1,
+    id: "リムル・テンペスト",
     title: "リムル・テンペスト",
     keywords: ["リムル"],
     description: [
@@ -100,7 +100,7 @@ export const terms: Term[] = [
     category: "キャラクター",
   },
   {
-    id: 2,
+    id: "大賢者",
     title: "大賢者",
     keywords: ["大賢者"],
     description: [
@@ -110,7 +110,7 @@ export const terms: Term[] = [
     category: "スキル",
   },
   {
-    id: 3,
+    id: "ジュラ・テンペスト連邦国",
     title: "ジュラ・テンペスト連邦国",
     keywords: ["テンペスト", "魔国", "魔国連邦"],
     description: [
@@ -120,7 +120,7 @@ export const terms: Term[] = [
     category: "場所",
   },
   {
-    id: 4,
+    id: "魔王",
     title: "魔王",
     keywords: ["魔王"],
     description: [
@@ -130,7 +130,7 @@ export const terms: Term[] = [
     category: "その他",
   },
   {
-    id: 5,
+    id: "ヴェルドラ・テンペスト",
     title: "ヴェルドラ・テンペスト",
     keywords: ["ヴェルドラ"],
     description: [
@@ -140,7 +140,7 @@ export const terms: Term[] = [
     category: "キャラクター",
   },
   {
-    id: 6,
+    id: "シズエ・イザワ",
     title: "シズエ・イザワ",
     keywords: ["シズ", "シズエ"],
     description: [
@@ -151,7 +151,7 @@ export const terms: Term[] = [
     category: "キャラクター",
   },
   {
-    id: 7,
+    id: "ミリム・ナーヴァ",
     title: "ミリム・ナーヴァ",
     keywords: ["ミリム", "竜皇女"],
     description: [
@@ -162,7 +162,7 @@ export const terms: Term[] = [
   },
 
   {
-    id: 8,
+    id: "黒幕",
     title: "黒幕",
     keywords: [],
     description: [
@@ -172,7 +172,7 @@ export const terms: Term[] = [
     category: "その他",
   },
   {
-    id: 9,
+    id: "魔法",
     title: "魔法",
     keywords: [""],
     description: [
@@ -182,7 +182,7 @@ export const terms: Term[] = [
     category: "スキル",
   },
   {
-    id: 10,
+    id: "迷宮都市",
     title: "迷宮都市",
     keywords: ["竜種魔法", "魔王の指輪"],
     description: [

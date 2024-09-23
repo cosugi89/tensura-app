@@ -35,16 +35,21 @@ import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./TermCard";
 import { Term, terms } from "@/data/terms";
 
+// アニメーション付きのTermCardコンポーネントを作成
 const AnimatedCard = motion(TermCard);
 
 export default function ClientComponent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  // Emblaカルーセルの初期化
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
 
+  // URLパラメータから初期カテゴリとタームIDを取得
   const initialCategory = searchParams?.get("category") || "キャラクター";
   const initialTermId = searchParams?.get("termId") || null;
+
+  // カスタムフックを使用して用語関連の状態と関数を取得
   const {
     selectedCategory,
     selectedTags,
@@ -58,6 +63,7 @@ export default function ClientComponent() {
     closeDetailView,
   } = useTerminology(initialCategory, initialTermId);
 
+  // UI状態の管理
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSheet, setOpenSheet] = useState(false);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
@@ -66,6 +72,7 @@ export default function ClientComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
 
+  // Emblaカルーセルの選択変更時の処理
   useEffect(() => {
     if (emblaApi) {
       const onSelect = () => {
@@ -87,12 +94,14 @@ export default function ClientComponent() {
     }
   }, [emblaApi, filteredTerms, selectedCategory, router]);
 
+  // 選択された用語インデックスが変更されたときにカルーセルをスクロール
   useEffect(() => {
     if (emblaApi && selectedTermIndex !== undefined) {
       emblaApi.scrollTo(selectedTermIndex);
     }
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
+  // URLパラメータが変更されたときの処理
   useEffect(() => {
     const category = searchParams?.get("category");
     const termId = searchParams?.get("termId");
@@ -125,6 +134,7 @@ export default function ClientComponent() {
     filteredTerms,
   ]);
 
+  // カルーセルのナビゲーション関数
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -133,38 +143,19 @@ export default function ClientComponent() {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
+  // フィルターメニューの開閉
   const toggleFilterMenu = useCallback(() => {
     setIsFilterMenuOpen((prev) => !prev);
   }, []);
 
-  const handleShare = useCallback(
-    (termId: number) => {
-      const url = `${window.location.origin}/data?category=${encodeURIComponent(
-        selectedCategory
-      )}&termId=${termId}`;
-      navigator.clipboard
-        .writeText(url)
-        .then(() => {
-          setAlertMessage(
-            "このページのURLがクリップボードにコピーされました。"
-          );
-          setIsAlertOpen(true);
-        })
-        .catch((err) => {
-          console.error("クリップボードへのコピーに失敗しました:", err);
-          setAlertMessage("URLのコピーに失敗しました。");
-          setIsAlertOpen(true);
-        });
-    },
-    [selectedCategory]
-  );
-
+  // 詳細ビューを閉じる処理
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
     setOpenSheet(false);
     closeDetailView();
   }, [closeDetailView]);
 
+  // ドロワーの開閉状態変更時の処理
   const handleDrawerOpenChange = useCallback(
     (open: boolean) => {
       setOpenDrawer(open);
@@ -175,6 +166,7 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
+  // シートの開閉状態変更時の処理
   const handleSheetOpenChange = useCallback(
     (open: boolean) => {
       setOpenSheet(open);
@@ -185,6 +177,7 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
+  // 用語カードクリック時の処理
   const handleTermClick = useCallback(
     (index: number) => {
       setSelectedTermIndex(index);
@@ -204,6 +197,7 @@ export default function ClientComponent() {
     [filteredTerms, router, selectedCategory, setSelectedTermIndex]
   );
 
+  // フィルターメニューコンポーネント
   const FilterMenu = useCallback(
     () => (
       <div className="space-y-6 p-4">
@@ -265,11 +259,13 @@ export default function ClientComponent() {
 
   return (
     <div className="container mx-auto p-4 lg:flex lg:gap-6">
+      {/* デスクトップ用サイドバー */}
       <aside className="hidden lg:block lg:w-1/4 space-y-6">
         <FilterMenu />
       </aside>
 
       <div className="lg:w-3/4">
+        {/* モバイル用ヘッダー */}
         <header className="lg:hidden fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
           <div className="flex items-center max-w-6xl mx-auto">
             <Button
@@ -283,6 +279,7 @@ export default function ClientComponent() {
           </div>
         </header>
 
+        {/* モバイル用フィルターメニュー */}
         <AnimatePresence>
           {isFilterMenuOpen && (
             <motion.div
@@ -309,6 +306,7 @@ export default function ClientComponent() {
           )}
         </AnimatePresence>
 
+        {/* メインコンテンツ：用語カードのグリッド */}
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
           {filteredTerms.map((term, index) => (
             <AnimatedCard
@@ -331,6 +329,7 @@ export default function ClientComponent() {
         </main>
       </div>
 
+      {/* モバイル用ドロワー */}
       <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>
         <DrawerContent className="bg-opacity-0">
           <DrawerHeader className="text-left">
@@ -355,7 +354,6 @@ export default function ClientComponent() {
                     <TermCard
                       term={term}
                       allTerms={terms}
-                      onShare={handleShare}
                       onTagClick={handleTagClick}
                       isDetailView={true}
                     />
@@ -382,6 +380,7 @@ export default function ClientComponent() {
         </DrawerContent>
       </Drawer>
 
+      {/* デスクトップ用シート */}
       <Sheet open={openSheet} onOpenChange={handleSheetOpenChange}>
         <SheetContent
           side="right"
@@ -409,7 +408,6 @@ export default function ClientComponent() {
                     <TermCard
                       term={term}
                       allTerms={terms}
-                      onShare={handleShare}
                       onTagClick={handleTagClick}
                       isDetailView={true}
                     />
@@ -433,18 +431,6 @@ export default function ClientComponent() {
           </div>
         </SheetContent>
       </Sheet>
-
-      <AlertDialog open={isAlertOpen} onOpenChange={setIsAlertOpen}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>通知</AlertDialogTitle>
-            <AlertDialogDescription>{alertMessage}</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogAction>OK</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }

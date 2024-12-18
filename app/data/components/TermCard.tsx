@@ -20,7 +20,7 @@ interface TermCardProps {
   isDetailView?: boolean;
   onClick?: () => void;
   className?: string;
-  selectedTags?: string[]; // 新しく追加されたプロパティ
+  selectedTags?: string[];
 }
 
 export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
@@ -33,7 +33,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
       isDetailView = false,
       onClick,
       className,
-      selectedTags = [], // デフォルト値を空の配列に設定
+      selectedTags = [],
     },
     ref
   ) => {
@@ -42,7 +42,52 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
 
       let result: (string | JSX.Element)[] = [description];
 
-      // Sort all keywords by length in descending order
+      // Sort all keywords by length in descending order, excluding "キャラクター" category
+      const sortedKeywords = allTerms
+        .filter((term) => term.category !== "キャラクター")
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) => {
+              if (subPart.toLowerCase() === keyword.toLowerCase()) {
+                const linkedTerm = allTerms.find(
+                  (t) =>
+                    t.keywords.includes(keyword) &&
+                    t.category !== "キャラクター"
+                );
+                if (linkedTerm) {
+                  return (
+                    <Link
+                      key={`${keyword}-${index}`}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:underline hover:text-cyan-500"
+                    >
+                      {subPart}
+                    </Link>
+                  );
+                }
+              }
+              return subPart;
+            });
+          }
+          return part;
+        });
+      });
+
+      return <>{result}</>;
+    };
+
+    const addLinksToCharacter = (character: string): JSX.Element => {
+      if (!isDetailView) return <>{character}</>;
+
+      let result: (string | JSX.Element)[] = [character];
+
       const sortedKeywords = allTerms
         .flatMap((term) => term.keywords)
         .sort((a, b) => b.length - a.length);
@@ -63,9 +108,10 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                       href={`/data?category=${encodeURIComponent(
                         linkedTerm.category
                       )}&termId=${linkedTerm.id}`}
-                      className="text-sky-600 hover:underline hover:text-cyan-500"
+                      className="text-sky-600 hover:text-cyan-500"
                     >
-                      {subPart}
+                      <span className="text-xs pr-1">■</span>
+                      <span className="hover:underline">{subPart}</span>
                     </Link>
                   );
                 }
@@ -150,9 +196,26 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                     <div className="text-primary font-semibold text-lg">
                       {item.category}
                     </div>
-                    <p>{addLinksToDescription(item.details)}</p>
+                    {item.details.map((detail, detailIndex) => (
+                      <p key={detailIndex}>{addLinksToDescription(detail)}</p>
+                    ))}
                   </div>
                 ))}
+              {term.relationship && (
+                <div className="space-y-2">
+                  <div className="text-primary font-semibold text-lg">
+                    関係性
+                  </div>
+                  {term.relationship.map((item, index) => (
+                    <div key={index} className="space-y-1">
+                      <span>{addLinksToCharacter(item.character)}</span>
+                      {item.details.map((detail, detailIndex) => (
+                        <p key={detailIndex}>{addLinksToDescription(detail)}</p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <p className="text-sm text-muted-foreground line-clamp-3">
@@ -160,7 +223,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
             </p>
           )}
         </CardContent>
-        <CardFooter className="flex flex-col items-start gap-4">
+        <CardFooter className="flex flex-col items-start gap-4 pt-4">
           <div className="flex flex-wrap gap-2">
             {term.tags.map((tag) => (
               <Button

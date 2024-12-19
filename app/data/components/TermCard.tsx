@@ -223,24 +223,28 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
             </p>
           )}
         </CardContent>
-        <CardFooter className="flex flex-col items-start gap-4 pt-4">
-          <div className="flex flex-wrap gap-2">
-            {term.tags.map((tag) => (
-              <Button
-                key={tag}
-                variant={selectedTags.includes(tag) ? "destructive" : "outline"}
-                size="xs"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onTagClick && onTagClick(tag);
-                }}
-                className={selectedTags.includes(tag) ? "text-white" : ""}
-              >
-                {tag}
-              </Button>
-            ))}
-          </div>
-        </CardFooter>
+        {isDetailView && (
+          <CardFooter className="flex flex-col items-start gap-4 pt-4">
+            <div className="flex flex-wrap gap-2">
+              {term.tags.map((tag) => (
+                <Button
+                  key={tag}
+                  variant={
+                    selectedTags.includes(tag) ? "destructive" : "outline"
+                  }
+                  size="xs"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onTagClick && onTagClick(tag);
+                  }}
+                  className={selectedTags.includes(tag) ? "text-white" : ""}
+                >
+                  {tag}
+                </Button>
+              ))}
+            </div>
+          </CardFooter>
+        )}
       </Card>
     );
   }

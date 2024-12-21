@@ -175,13 +175,13 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                 priority
               />
             </div>
-            <div className="flex flex-col space-y-6 col-span-4 justify-between">
+            <div className="flex flex-col space-y-6 justify-between">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
                   {term.id}
                 </h3>
                 <p className="text-base text-muted-foreground mx-auto text-center">
-                  {term.category}
+                  {term.ruby}
                 </p>
               </div>
               <div className="">
@@ -284,7 +284,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                 <h3 className="text-lg font-semibold leading-none tracking-tight mt-3">
                   {term.id}
                 </h3>
-                <p className="text-sm text-muted-foreground">{term.category}</p>
+                <p className="text-sm text-muted-foreground">{term.ruby}</p>
               </div>
               <div className="">
                 <p className="text-sm text-muted-foreground line-clamp-3">

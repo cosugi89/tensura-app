@@ -10,30 +10,21 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./TermCard";
 import { Term, terms } from "@/data/terms";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 // アニメーション付きのTermCardコンポーネントを作成
 const AnimatedCard = motion(TermCard);
@@ -380,15 +371,15 @@ export default function ClientComponent() {
         </DrawerContent>
       </Drawer>
 
-      {/* デスクトップ用シート */}
-      <Sheet open={openSheet} onOpenChange={handleSheetOpenChange}>
-        <SheetContent
-          side="right"
-          className="w-[100%] sm:w-[540px] sm:max-w-[75vw] p-0"
+      {/* デスクトップ用ダイアログ */}
+      <Dialog open={openSheet} onOpenChange={handleSheetOpenChange}>
+        <DialogContent
+          // side="right"
+          className="p-0 max-w-4xl"
         >
-          <SheetHeader className="p-6">
-            <SheetTitle>詳細情報</SheetTitle>
-          </SheetHeader>
+          <DialogHeader className="p-6">
+            <DialogTitle>詳細情報</DialogTitle>
+          </DialogHeader>
           <AnimatePresence mode="wait">
             <motion.div
               key={`${animationKey}-${selectedCategory}`}
@@ -429,8 +420,8 @@ export default function ClientComponent() {
               <span className="sr-only">次の用語</span>
             </Button>
           </div>
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

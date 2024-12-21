@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
 import { Term, TagItem } from "@/data/terms";
+import Image from "next/image";
 
 interface TermCardProps {
   term: Term;
@@ -159,91 +160,139 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
         }`}
         onClick={onClick}
       >
-        <CardHeader>
-          <CardTitle>{term.id}</CardTitle>
-          <CardDescription>{term.category}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          {isDetailView ? (
-            <div className="text-sm space-y-6 tracking-widest">
-              <div className="space-y-4">
-                {descriptionsWithLinks.map((desc, index) => (
-                  <p key={index}>{desc}</p>
-                ))}
+        {isDetailView ? (
+          <div className="p-6 md:grid grid-cols-6 gap-8">
+            <div
+              className="relative col-span-2 justify-center mb-10 w-3/5 md:w-full mx-auto"
+              style={{ aspectRatio: "4 / 5" }}
+            >
+              <Image
+                src="/sample.jpg"
+                alt=""
+                objectFit="cover"
+                className="object-cover shadow-md rounded-md"
+                layout="fill"
+                priority
+              />
+            </div>
+            <div className="flex flex-col space-y-6 col-span-4 justify-between">
+              <div className="space-y-1.5">
+                <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
+                  {term.id}
+                </h3>
+                <p className="text-base text-muted-foreground mx-auto text-center">
+                  {term.category}
+                </p>
               </div>
-              {term.status && (
-                <div className="pt-4 pb-6">
-                  {term.status.map((item, index) => (
-                    <div
-                      key={index}
-                      className="grid gap-3 grid-cols-4 border-b py-3"
-                    >
-                      <div className="text-sm">{item.category}</div>
-                      <div className="text-sm col-span-3 flex flex-wrap gap-x-3 gap-y-1">
+              <div className="">
+                <div className="text-sm space-y-6 tracking-widest">
+                  <div className="space-y-4">
+                    {descriptionsWithLinks.map((desc, index) => (
+                      <p key={index}>{desc}</p>
+                    ))}
+                  </div>
+                  {term.status && (
+                    <div className="pt-4 pb-6">
+                      {term.status.map((item, index) => (
+                        <div
+                          key={index}
+                          className="grid gap-3 grid-cols-4 border-b py-3"
+                        >
+                          <div className="text-sm">{item.category}</div>
+                          <div className="text-sm col-span-3 flex flex-wrap gap-x-3 gap-y-1">
+                            {item.details.map((detail, detailIndex) => (
+                              <p key={detailIndex} className="">
+                                {processStatusDetail(detail)}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {term.description2 &&
+                    term.description2.map((item, index) => (
+                      <div key={index} className="space-y-1">
+                        <div className="text-primary font-semibold text-lg">
+                          {item.category}
+                        </div>
                         {item.details.map((detail, detailIndex) => (
-                          <p key={detailIndex} className="">
-                            {processStatusDetail(detail)}
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
                           </p>
                         ))}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-              {term.description2 &&
-                term.description2.map((item, index) => (
-                  <div key={index} className="space-y-1">
-                    <div className="text-primary font-semibold text-lg">
-                      {item.category}
-                    </div>
-                    {item.details.map((detail, detailIndex) => (
-                      <p key={detailIndex}>{addLinksToDescription(detail)}</p>
                     ))}
-                  </div>
-                ))}
-              {term.relationship && (
-                <div className="space-y-2">
-                  <div className="text-primary font-semibold text-lg">
-                    関係性
-                  </div>
-                  {term.relationship.map((item, index) => (
-                    <div key={index} className="space-y-1">
-                      <span>{addLinksToCharacter(item.character)}</span>
-                      {item.details.map((detail, detailIndex) => (
-                        <p key={detailIndex}>{addLinksToDescription(detail)}</p>
+                  {term.relationship && (
+                    <div className="space-y-2">
+                      <div className="text-primary font-semibold text-lg">
+                        関係性
+                      </div>
+                      {term.relationship.map((item, index) => (
+                        <div key={index} className="space-y-1">
+                          <span>{addLinksToCharacter(item.character)}</span>
+                          {item.details.map((detail, detailIndex) => (
+                            <p key={detailIndex}>
+                              {addLinksToDescription(detail)}
+                            </p>
+                          ))}
+                        </div>
                       ))}
                     </div>
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-col items-start gap-4">
+                <div className="flex flex-wrap gap-2">
+                  {term.tags.map((tag) => (
+                    <Button
+                      key={tag}
+                      variant={
+                        selectedTags.includes(tag) ? "destructive" : "outline"
+                      }
+                      size="xs"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onTagClick && onTagClick(tag);
+                      }}
+                      className={selectedTags.includes(tag) ? "text-white" : ""}
+                    >
+                      {tag}
+                    </Button>
                   ))}
                 </div>
-              )}
+              </div>
             </div>
-          ) : (
-            <p className="text-sm text-muted-foreground line-clamp-3">
-              {term.description[0]}
-            </p>
-          )}
-        </CardContent>
-        {isDetailView && (
-          <CardFooter className="flex flex-col items-start gap-4 pt-4">
-            <div className="flex flex-wrap gap-2">
-              {term.tags.map((tag) => (
-                <Button
-                  key={tag}
-                  variant={
-                    selectedTags.includes(tag) ? "destructive" : "outline"
-                  }
-                  size="xs"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onTagClick && onTagClick(tag);
-                  }}
-                  className={selectedTags.includes(tag) ? "text-white" : ""}
-                >
-                  {tag}
-                </Button>
-              ))}
+          </div>
+        ) : (
+          <div className="p-6 grid grid-cols-5 gap-6 h-full">
+            <div
+              className="relative col-span-2 justify-center"
+              // style={{ aspectRatio: "4 / 5" }}
+            >
+              <Image
+                src="/sample.jpg"
+                alt=""
+                objectFit="cover"
+                className="object-cover shadow-md rounded-md"
+                layout="fill"
+                priority
+              />
             </div>
-          </CardFooter>
+            <div className="flex flex-col space-y-6 col-span-3 justify-between">
+              <div className="space-y-1.5">
+                <h3 className="text-lg font-semibold leading-none tracking-tight mt-3">
+                  {term.id}
+                </h3>
+                <p className="text-sm text-muted-foreground">{term.category}</p>
+              </div>
+              <div className="">
+                <p className="text-sm text-muted-foreground line-clamp-3">
+                  {term.description[0]}
+                </p>
+              </div>
+            </div>
+          </div>
         )}
       </Card>
     );

@@ -226,7 +226,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                   {term.relationship && (
                     <div className="space-y-2">
                       <div className="text-primary font-semibold text-lg">
-                        関係性
+                        関連人物
                       </div>
                       {term.relationship.map((item, index) => (
                         <div key={index} className="space-y-1">

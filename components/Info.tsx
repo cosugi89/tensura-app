@@ -92,7 +92,7 @@ export default function Info() {
         <div className="mx-6 shadow-inner px-4 rounded-md lg:hidden">
           <div className="py-4 space-y-4">
             {news.map((e) => (
-              <div className="shadow p-4 rounded-md space-y-3">
+              <div key={e.detail} className="shadow p-4 rounded-md space-y-3">
                 <div className="flex items-center space-x-4">
                   <div className="col-span-1 text-xs p-[3px] rounded-full bg-accent text-center w-28">
                     {e.category}
@@ -108,7 +108,7 @@ export default function Info() {
           <div className="mx-6 shadow-inner px-4 rounded-md ">
             <div className="py-4 space-y-4">
               {news.map((e) => (
-                <div className="shadow p-4 rounded-md space-y-3">
+                <div key={e.detail} className="shadow p-4 rounded-md space-y-3">
                   <div className="flex items-center space-x-4">
                     <div className="col-span-1 text-xs p-[3px] rounded-full bg-accent text-center w-28">
                       {e.category}

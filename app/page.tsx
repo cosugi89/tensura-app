@@ -12,7 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { HelpCircle } from "lucide-react";
-import Info from "./data/components/Info";
+import Info from "../components/Info";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {

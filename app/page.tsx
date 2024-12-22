@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { HelpCircle } from "lucide-react";
 import Info from "../components/Info";
+import News from "@/components/News";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {
@@ -41,25 +42,59 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex max-h-screen flex-col items-center justify-between p-14">
-      <div className="flex-1 flex items-center justify-center w-full">
-        <Link href="https://gcnovels.jp/slime/novel.html" target="_blank">
-          <Image
-            src={`https://gcnovels.jp/slime/img/cover/img_novel${String(
-              coverNumber
-            ).padStart(2, "0")}.jpg`}
-            alt={`Book Cover ${coverNumber}`}
-            width={485}
-            height={690}
-            className="rounded-lg shadow-lg "
-            priority
-          />
-        </Link>
+    <main className="flex h-screen flex-col lg:flex-row items-center justify-center p-14 lg:space-x-10 lg:w-[80%] mx-auto">
+      <div className="flex flex-col w-[60vw] md:w-[50vw] lg:w-[20vw]">
+        <div
+          className="relative w-full items-center justify-center mx-auto"
+          style={{ aspectRatio: 97 / 138 }}
+        >
+          <Link href="https://gcnovels.jp/slime/novel.html" target="_blank">
+            <Image
+              src={`https://gcnovels.jp/slime/img/cover/img_novel${String(
+                coverNumber
+              ).padStart(2, "0")}.jpg`}
+              alt={`Book Cover ${coverNumber}`}
+              objectFit="cover"
+              layout="fill"
+              className="object-cover rounded-lg"
+              style={{ aspectRatio: 97 / 138 }}
+              priority
+            />
+          </Link>
+        </div>
+        {/* Reflection */}
+        <div
+          className="mt-2 relative w-full items-center justify-center mx-auto"
+          style={{
+            aspectRatio: 97 / 65,
+            // transform: "rotateX(180deg) translateY(20px)",
+          }}
+        >
+          <div className="absolute inset-0" style={{ perspective: "1000px" }}>
+            <Image
+              src={`https://gcnovels.jp/slime/img/cover/img_novel${String(
+                coverNumber
+              ).padStart(2, "0")}.jpg`}
+              alt=""
+              fill
+              className="object-cover object-bottom rounded-lg"
+              style={{
+                maskImage:
+                  "linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0) 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0) 100%)",
+                transform: "scaleY(-1)",
+                opacity: 0.6,
+                filter: "brightness(1.4) contrast(0.6)",
+              }}
+            />
+          </div>
+        </div>
       </div>
-      <div className="w-full max-w-md md:max-w-lg grid grid-cols-1 gap-5 pt-6">
+      <div className="w-full max-w-md md:max-w-lg grid grid-cols-1 gap-5 pt-6 lg:h-[75%] -mt-28 md:-mt-56 lg:-mt-0">
         <div className="grid grid-cols-2 gap-5 w-full">
           {buttons.map((button) => (
-            <div key={button.name} className="relative">
+            <div key={button.name} className="relative bg-white z-10">
               <Link href={button.href} className="w-full">
                 <Button
                   variant="ghost"
@@ -84,7 +119,7 @@ export default function Home() {
                     </span>
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-[90%] rounded-lg">
+                <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%]  rounded-lg">
                   <DialogHeader>
                     <DialogTitle>{button.name2}</DialogTitle>
                   </DialogHeader>
@@ -94,7 +129,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-        <div className="relative w-full">
+        <div className="relative w-full bg-white z-10">
           <Dialog>
             <DialogTrigger asChild>
               <Button
@@ -107,19 +142,17 @@ export default function Home() {
                 <span className="font-medium">このサイトについて</span>
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-[90%] h-[80%] rounded-lg px-0">
+            <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%] h-[80%] lg:h-auto rounded-lg px-0">
               <DialogHeader>
                 <DialogTitle className="px-6">転スラ百科</DialogTitle>
               </DialogHeader>
-              <ScrollArea className="h-full text-sm md:text-base lg:hidden">
-                <Info />
-              </ScrollArea>
-              <div className="hidden lg:block h-full">
-                <Info />
-              </div>
+              <Info />
             </DialogContent>
           </Dialog>
         </div>
+        <ScrollArea className="h-full hidden lg:block shadow-inner px-4 rounded-md">
+          <News />
+        </ScrollArea>
       </div>
     </main>
   );

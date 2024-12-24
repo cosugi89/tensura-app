@@ -175,7 +175,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                 priority
               />
             </div>
-            <div className="flex flex-col space-y-6 justify-between">
+            <div className="flex flex-col space-y-6 justify-between col-span-4">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
                   {term.id}

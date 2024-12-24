@@ -13,14 +13,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Filter,
-  Search,
-  Undo2,
-  X,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Filter, Search, Undo2 } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
@@ -33,6 +26,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 
 // アニメーション付きのTermCardコンポーネントを作成
@@ -200,64 +194,88 @@ export default function ClientComponent() {
   // フィルターメニューコンポーネント
   const FilterMenu = useCallback(
     () => (
-      <div className="space-y-6 p-4">
-        <div>
-          <h3 className="font-medium mb-2">カテゴリー</h3>
-          <div className=" shadow p-4 rounded-lg">
-            <RadioGroup
-              value={selectedCategory}
-              onValueChange={handleCategoryChange}
-              className="grid grid-cols-2 gap-3"
-            >
-              {[
-                "キャラクター",
-                "スキル",
-                "魔法",
-                "アーツ",
-                "武具",
-                "所属",
-                "魔物",
-                "その他",
-              ].map((category) => (
-                <div key={category} className="items-center flex">
-                  <RadioGroupItem
-                    value={category}
-                    id={`category-${category}`}
-                    className="peer sr-only"
-                  />
-                  <Label
-                    htmlFor={`category-${category}`}
-                    className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
-                  >
-                    {category}
-                  </Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-        </div>
-        <div>
-          <h3 className="font-medium mb-2">タグ</h3>
-          <div className="space-y-2 shadow p-6 rounded-lg">
-            {availableTags.map((tag) => (
-              <div key={tag} className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id={`tag-${tag}`}
-                    checked={selectedTags.includes(tag)}
-                    onCheckedChange={() => handleTagClick(tag)}
-                    className="border-muted-foreground data-[state=checked]:bg-muted-foreground"
-                  />
-                  <Label htmlFor={`tag-${tag}`}>{tag}</Label>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  {tagCounts[tag]}
-                </span>
+      <Tabs defaultValue="category" className="p-4 space-y-3">
+        <TabsList className="grid w-full grid-cols-2 shadow-inner">
+          <TabsTrigger value="category">カテゴリー</TabsTrigger>
+          <TabsTrigger value="keyword">キーワード</TabsTrigger>
+        </TabsList>
+        <TabsContent value="category">
+          <div className="space-y-6">
+            <div>
+              <div className=" shadow p-4 rounded-lg">
+                <RadioGroup
+                  value={selectedCategory}
+                  onValueChange={handleCategoryChange}
+                  className="grid grid-cols-2 gap-3"
+                >
+                  {[
+                    "キャラクター",
+                    "スキル",
+                    "魔法",
+                    "アーツ",
+                    "武具",
+                    "所属",
+                    "魔物",
+                    "その他",
+                  ].map((category) => (
+                    <div key={category} className="items-center flex">
+                      <RadioGroupItem
+                        value={category}
+                        id={`category-${category}`}
+                        className="peer sr-only"
+                      />
+                      <Label
+                        htmlFor={`category-${category}`}
+                        className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
+                      >
+                        {category}
+                      </Label>
+                    </div>
+                  ))}
+                </RadioGroup>
               </div>
-            ))}
+            </div>
+            <div>
+              <h3 className="font-medium mb-2">タグ</h3>
+              <div className="space-y-2 shadow p-6 rounded-lg">
+                {availableTags.map((tag) => (
+                  <div key={tag} className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id={`tag-${tag}`}
+                        checked={selectedTags.includes(tag)}
+                        onCheckedChange={() => handleTagClick(tag)}
+                        className="border-muted-foreground data-[state=checked]:bg-muted-foreground"
+                      />
+                      <Label htmlFor={`tag-${tag}`}>{tag}</Label>
+                    </div>
+                    <span className="text-sm text-muted-foreground">
+                      {tagCounts[tag]}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </TabsContent>
+        <TabsContent value="keyword">
+          <div className="shadow p-6 rounded-lg min-h-[188px]">
+            <div className="flex relative mb-6">
+              <Input
+                placeholder="検索"
+                className="shadow-inner border-none bg-muted pr-10 text-sm"
+              />
+              <a
+                href=""
+                className="absolute right-0 text-muted-foreground h-10 px-4 py-2 font-black"
+              >
+                ✕
+              </a>
+            </div>
+            <div className="">lorem*2</div>
+          </div>
+        </TabsContent>
+      </Tabs>
     ),
     [
       availableTags,
@@ -280,19 +298,15 @@ export default function ClientComponent() {
         {/* モバイル用ヘッダー */}
         <header className="lg:hidden fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
           <div className="flex items-center max-w-6xl justify-between">
-            <div className="flex space-x-3">
-              <Button
-                variant="ghost"
-                className="flex items-center gap-2 w-48 justify-center shadow"
-                onClick={toggleFilterMenu}
-              >
-                <Filter className="w-4 h-4" />
-                {selectedCategory}
-              </Button>
-              <Button variant="ghost" className="shadow">
-                <Search className="w-4 h-4" />
-              </Button>
-            </div>
+            <Button
+              variant="ghost"
+              className="flex items-center gap-2 w-48 justify-center shadow"
+              onClick={toggleFilterMenu}
+            >
+              <Filter className="w-4 h-4" />
+              {selectedCategory}
+            </Button>
+
             <AnimatePresence>
               {!isFilterMenuOpen && (
                 <motion.div
@@ -328,7 +342,7 @@ export default function ClientComponent() {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: "-100%", opacity: 0 }}
                 transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="fixed inset-x-0 top-0 bg-background shadow-lg z-50 pt-20 pb-6 px-6 overflow-y-auto max-h-screen"
+                className="fixed inset-x-0 top-0 bg-background shadow-lg z-50 pt-20 pb-6 px-6 overflow-y-auto h-screen"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="max-w-2xl mx-auto">
@@ -340,37 +354,25 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         {/* メインコンテンツ：用語カードのグリッド */}
-        <main className="mt-20 space-y-6">
-          <div className="relative w-full max-w-sm items-center">
-            <Input
-              type="search"
-              placeholder="キーワード検索"
-              className="shadow-inner border-none bg-accent text-sm"
+        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
+          {filteredTerms.map((term, index) => (
+            <AnimatedCard
+              key={term.id}
+              term={term}
+              onTagClick={handleTagClick}
+              // initial={{ opacity: 0, y: 50 }}
+              // whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={
+                term.id.toString() === searchParams?.get("termId")
+                  ? "ring-2 ring-primary"
+                  : ""
+              }
+              onClick={() => handleTermClick(index)}
+              allTerms={terms}
             />
-            <Button variant="ghost" className="absolute right-0 top-0 bottom-0">
-              <X className="w-5 h-5" color="red" />
-            </Button>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
-            {filteredTerms.map((term, index) => (
-              <AnimatedCard
-                key={term.id}
-                term={term}
-                onTagClick={handleTagClick}
-                // initial={{ opacity: 0, y: 50 }}
-                // whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={
-                  term.id.toString() === searchParams?.get("termId")
-                    ? "ring-2 ring-primary"
-                    : ""
-                }
-                onClick={() => handleTermClick(index)}
-                allTerms={terms}
-              />
-            ))}
-          </div>
+          ))}
         </main>
       </div>
 

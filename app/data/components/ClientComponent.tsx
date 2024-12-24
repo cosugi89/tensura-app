@@ -13,7 +13,14 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { ChevronLeft, ChevronRight, Filter, Undo2 } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+  Search,
+  Undo2,
+  X,
+} from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
@@ -26,6 +33,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { Input } from "@/components/ui/input";
 
 // アニメーション付きのTermCardコンポーネントを作成
 const AnimatedCard = motion(TermCard);
@@ -272,19 +280,35 @@ export default function ClientComponent() {
         {/* モバイル用ヘッダー */}
         <header className="lg:hidden fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
           <div className="flex items-center max-w-6xl justify-between">
-            <Button
-              variant="ghost"
-              className="flex items-center gap-2 w-48 justify-center shadow"
-              onClick={toggleFilterMenu}
-            >
-              <Filter className="w-4 h-4" />
-              {selectedCategory}
-            </Button>
-            <Button variant="ghost" className="shadow" asChild>
-              <Link href="/">
-                <Undo2 transform="scale(1, -1)" className="w-4 h-4" />
-              </Link>
-            </Button>
+            <div className="flex space-x-3">
+              <Button
+                variant="ghost"
+                className="flex items-center gap-2 w-48 justify-center shadow"
+                onClick={toggleFilterMenu}
+              >
+                <Filter className="w-4 h-4" />
+                {selectedCategory}
+              </Button>
+              <Button variant="ghost" className="shadow">
+                <Search className="w-4 h-4" />
+              </Button>
+            </div>
+            <AnimatePresence>
+              {!isFilterMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Button variant="ghost" className="shadow">
+                    <Link href="/">
+                      <Undo2 transform="scale(1, -1)" className="w-4 h-4" />
+                    </Link>
+                  </Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </header>
 
@@ -316,25 +340,37 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         {/* メインコンテンツ：用語カードのグリッド */}
-        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
-          {filteredTerms.map((term, index) => (
-            <AnimatedCard
-              key={term.id}
-              term={term}
-              onTagClick={handleTagClick}
-              // initial={{ opacity: 0, y: 50 }}
-              // whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className={
-                term.id.toString() === searchParams?.get("termId")
-                  ? "ring-2 ring-primary"
-                  : ""
-              }
-              onClick={() => handleTermClick(index)}
-              allTerms={terms}
+        <main className="mt-20 space-y-6">
+          <div className="relative w-full max-w-sm items-center">
+            <Input
+              type="search"
+              placeholder="キーワード検索"
+              className="shadow-inner border-none bg-accent text-sm"
             />
-          ))}
+            <Button variant="ghost" className="absolute right-0 top-0 bottom-0">
+              <X className="w-5 h-5" color="red" />
+            </Button>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
+            {filteredTerms.map((term, index) => (
+              <AnimatedCard
+                key={term.id}
+                term={term}
+                onTagClick={handleTagClick}
+                // initial={{ opacity: 0, y: 50 }}
+                // whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className={
+                  term.id.toString() === searchParams?.get("termId")
+                    ? "ring-2 ring-primary"
+                    : ""
+                }
+                onClick={() => handleTermClick(index)}
+                allTerms={terms}
+              />
+            ))}
+          </div>
         </main>
       </div>
 

@@ -13,18 +13,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-<<<<<<< HEAD
 import { ChevronLeft, ChevronRight, Filter, Search, Undo2 } from "lucide-react";
-=======
-import {
-  ChevronLeft,
-  ChevronRight,
-  Filter,
-  Search,
-  Undo2,
-  X,
-} from "lucide-react";
->>>>>>> 7b0080ea48b2086ec278416aad5138763237aa98
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
@@ -37,10 +26,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
-<<<<<<< HEAD
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-=======
->>>>>>> 7b0080ea48b2086ec278416aad5138763237aa98
 import { Input } from "@/components/ui/input";
 
 // アニメーション付きのTermCardコンポーネントを作成
@@ -286,7 +272,7 @@ export default function ClientComponent() {
                 ✕
               </a>
             </div>
-            <div className="">lorem*2</div>
+            <div className="">lorem*3</div>
           </div>
         </TabsContent>
       </Tabs>
@@ -368,37 +354,25 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         {/* メインコンテンツ：用語カードのグリッド */}
-        <main className="mt-20 space-y-6">
-          <div className="relative w-full max-w-sm items-center">
-            <Input
-              type="search"
-              placeholder="キーワード検索"
-              className="shadow-inner border-none bg-accent text-sm"
+        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
+          {filteredTerms.map((term, index) => (
+            <AnimatedCard
+              key={term.id}
+              term={term}
+              onTagClick={handleTagClick}
+              // initial={{ opacity: 0, y: 50 }}
+              // whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className={
+                term.id.toString() === searchParams?.get("termId")
+                  ? "ring-2 ring-primary"
+                  : ""
+              }
+              onClick={() => handleTermClick(index)}
+              allTerms={terms}
             />
-            <Button variant="ghost" className="absolute right-0 top-0 bottom-0">
-              <X className="w-5 h-5" color="red" />
-            </Button>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
-            {filteredTerms.map((term, index) => (
-              <AnimatedCard
-                key={term.id}
-                term={term}
-                onTagClick={handleTagClick}
-                // initial={{ opacity: 0, y: 50 }}
-                // whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={
-                  term.id.toString() === searchParams?.get("termId")
-                    ? "ring-2 ring-primary"
-                    : ""
-                }
-                onClick={() => handleTermClick(index)}
-                allTerms={terms}
-              />
-            ))}
-          </div>
+          ))}
         </main>
       </div>
 

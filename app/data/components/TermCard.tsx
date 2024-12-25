@@ -111,7 +111,6 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                       )}&termId=${linkedTerm.id}`}
                       className="text-sky-600 hover:text-cyan-500"
                     >
-                      <span className="text-xs pr-1">■</span>
                       <span className="hover:underline">{subPart}</span>
                     </Link>
                   );
@@ -223,14 +222,24 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                         ))}
                       </div>
                     ))}
+
                   {term.relationship && (
                     <div className="space-y-2">
                       <div className="text-primary font-semibold text-lg">
                         関連人物
                       </div>
-                      {term.relationship.map((item, index) => (
+                      {term.relationship?.map((item, index) => (
                         <div key={index} className="space-y-1">
-                          <span>{addLinksToCharacter(item.character)}</span>
+                          <span className="text-sky-600">
+                            <span className="pr-1 text-xs">■</span>
+
+                            {item.character.map((char, charIndex) => (
+                              <React.Fragment key={charIndex}>
+                                {charIndex > 0 && " / "}
+                                {addLinksToCharacter(char)}
+                              </React.Fragment>
+                            ))}
+                          </span>
                           {item.details.map((detail, detailIndex) => (
                             <p key={detailIndex}>
                               {addLinksToDescription(detail)}
@@ -240,6 +249,19 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                       ))}
                     </div>
                   )}
+                  {term.description3 &&
+                    term.description3.map((item, index) => (
+                      <div key={index} className="space-y-1">
+                        <div className="text-primary font-semibold text-lg">
+                          {item.category}
+                        </div>
+                        {item.details.map((detail, detailIndex) => (
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
+                          </p>
+                        ))}
+                      </div>
+                    ))}
                 </div>
               </div>
               <div className="flex flex-col items-start gap-4">

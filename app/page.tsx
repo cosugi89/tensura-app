@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <main className="h-screen w-screen flex flex-col items-center justify-center overflow-hidden">
-      <div className="flex flex-col lg:flex-row items-center justify-center lg:space-x-10 lg:w-[80%]">
+      <div className="flex flex-col lg:flex-row items-center justify-center lg:space-x-10 lg:w-[80%] h-[90%]">
         <div className="flex flex-col w-[60vw] md:w-[50vw] lg:w-[20vw]">
           <div
             className="relative w-full items-center justify-center mx-auto"

@@ -13,7 +13,15 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { ChevronLeft, ChevronRight, Filter, Search, Undo2 } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Filter,
+  Home,
+  HomeIcon,
+  Search,
+  Undo2,
+} from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
@@ -288,16 +296,16 @@ export default function ClientComponent() {
   );
 
   return (
-    <div className="container mx-auto p-4 lg:grid grid-cols-10 lg:gap-6">
+    <div className="container mx-auto p-4 mt-20 lg:grid grid-cols-10 lg:gap-6">
       {/* デスクトップ用サイドバー */}
       <aside className="hidden lg:block col-span-3 space-y-6">
         <FilterMenu />
       </aside>
 
       <div className="col-span-7">
-        {/* モバイル用ヘッダー */}
-        <header className="lg:hidden fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
-          <div className="flex items-center max-w-6xl justify-between">
+        <header className="fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
+          {/* モバイルヘッダー */}
+          <div className="lg:hidden flex items-center justify-between container mx-auto px-4">
             <Button
               variant="ghost"
               className="flex items-center gap-2 w-48 justify-center shadow"
@@ -323,6 +331,15 @@ export default function ClientComponent() {
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
+          {/* デスクトップヘッダー */}
+          <div className="hidden lg:flex items-center justify-between container mx-auto px-4">
+            <Link href="/" className="pl-4 font-semibold">
+              転スラ百科
+            </Link>
+            <Button variant="ghost" className="shadow">
+              <Link href="/"></Link>
+            </Button>
           </div>
         </header>
 
@@ -354,7 +371,7 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         {/* メインコンテンツ：用語カードのグリッド */}
-        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 mt-20 lg:mt-0">
+        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
           {filteredTerms.map((term, index) => (
             <AnimatedCard
               key={term.id}

@@ -24,13 +24,9 @@ export function useTerminology(
   );
 
   const availableTags = useMemo(() => {
-    const tags = new Set<TagItem>();
-    terms.forEach((term) => {
-      if (term.category === selectedCategory) {
-        term.tags.forEach((tag) => tags.add(tag));
-      }
-    });
-    return Array.from(tags);
+    return allTags
+      .filter((tag) => tag.category === selectedCategory)
+      .map((tag) => tag.name);
   }, [selectedCategory]);
 
   const tagCounts = useMemo(
@@ -45,16 +41,25 @@ export function useTerminology(
     [selectedCategory, availableTags]
   );
 
-  const handleTagClick = useCallback((tag: TagItem) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
-    );
-  }, []);
+  const handleTagClick = useCallback(
+    (tag: TagItem) => {
+      if (selectedTags.includes(tag)) {
+        setSelectedTags(selectedTags.filter((t) => t !== tag));
+      } else {
+        setSelectedTags([...selectedTags, tag]);
+      }
+    },
+    [selectedTags]
+  );
 
-  const handleCategoryChange = useCallback((category: string) => {
-    setSelectedCategory(category);
-    setSelectedTags([]);
-  }, []);
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      setSelectedTags([]);
+      setSelectedTermIndex(0);
+    },
+    [setSelectedCategory, setSelectedTags, setSelectedTermIndex]
+  );
 
   const closeDetailView = useCallback(() => {
     router.push(pathname);

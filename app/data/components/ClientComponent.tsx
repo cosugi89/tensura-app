@@ -303,9 +303,9 @@ export default function ClientComponent() {
       </aside>
 
       <div className="col-span-7">
-        <header className="fixed top-0 left-0 right-0 bg-background z-50 p-4 shadow-md">
+        <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
           {/* モバイルヘッダー */}
-          <div className="lg:hidden flex items-center justify-between container mx-auto px-4">
+          <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
             <Button
               variant="ghost"
               className="flex items-center gap-2 w-48 justify-center shadow"

@@ -451,7 +451,7 @@ export default function ClientComponent() {
           className="p-0 max-w-4xl"
         >
           <DialogHeader className="p-6">
-            <DialogTitle>詳細情報</DialogTitle>
+            <DialogTitle>{selectedCategory}</DialogTitle>
           </DialogHeader>
           <AnimatePresence mode="wait">
             <motion.div

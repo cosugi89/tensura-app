@@ -198,7 +198,7 @@ export const TermCard = forwardRef<HTMLDivElement, TermCardProps>(
                           className="grid gap-3 grid-cols-4 border-b py-3"
                         >
                           <div className="text-sm">{item.category}</div>
-                          <div className="text-sm col-span-3 flex flex-wrap gap-x-3 gap-y-1">
+                          <div className="text-sm col-span-3 flex flex-wrap gap-x-4 gap-y-1">
                             {item.details.map((detail, detailIndex) => (
                               <p key={detailIndex} className="">
                                 {processStatusDetail(detail)}

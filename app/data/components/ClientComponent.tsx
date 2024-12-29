@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,6 +36,14 @@ import {
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 // アニメーション付きのTermCardコンポーネントを作成
 const AnimatedCard = motion(TermCard);
@@ -74,22 +82,12 @@ export default function ClientComponent() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
 
-  const filteredTermsMemo = useMemo(() => {
-    // Apply your filtering logic here
-    return terms.filter((term) => {
-      return (
-        term.category === selectedCategory &&
-        selectedTags.every((tag) => term.tags.includes(tag))
-      );
-    });
-  }, [terms, selectedCategory, selectedTags]);
-
   // Emblaカルーセルの選択変更時の処理
   useEffect(() => {
     if (emblaApi) {
       const onSelect = () => {
         const currentIndex = emblaApi.selectedScrollSnap();
-        const currentTerm = filteredTermsMemo[currentIndex];
+        const currentTerm = filteredTerms[currentIndex];
         if (currentTerm) {
           const newUrl = `/data?category=${encodeURIComponent(
             selectedCategory
@@ -104,7 +102,7 @@ export default function ClientComponent() {
         emblaApi.off("select", onSelect);
       };
     }
-  }, [emblaApi, filteredTermsMemo, selectedCategory, router]);
+  }, [emblaApi, filteredTerms, selectedCategory, router]);
 
   // 選択された用語インデックスが変更されたときにカルーセルをスクロール
   useEffect(() => {
@@ -125,8 +123,8 @@ export default function ClientComponent() {
         setAnimationKey((prev) => prev + 1);
       }
 
-      const termIndex = filteredTermsMemo.findIndex(
-        (term) => term.id === termId
+      const termIndex = filteredTerms.findIndex(
+        (term) => term.id.toString() === termId
       );
 
       if (termIndex !== -1) {
@@ -143,7 +141,7 @@ export default function ClientComponent() {
     selectedCategory,
     handleCategoryChange,
     setSelectedTermIndex,
-    filteredTermsMemo,
+    filteredTerms,
   ]);
 
   // カルーセルのナビゲーション関数
@@ -189,31 +187,24 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
-  const handleTermLinkClick = useCallback(
-    (category: string, termId: string) => {
-      handleCategoryChange(category);
-      const newUrl = `/data?category=${encodeURIComponent(
-        category
-      )}&termId=${termId}`;
-      router.push(newUrl, { scroll: false });
-    },
-    [handleCategoryChange, router]
-  );
-
+  // 用語カードクリック時の処理
   const handleTermClick = useCallback(
     (index: number) => {
       setSelectedTermIndex(index);
-      const term = filteredTermsMemo[index];
+      const term = filteredTerms[index];
       if (term) {
-        handleTermLinkClick(selectedCategory, term.id.toString());
+        const newUrl = `/data?category=${encodeURIComponent(
+          selectedCategory
+        )}&termId=${term.id}`;
+        router.push(newUrl, { scroll: false });
+        if (window.innerWidth >= 1024) {
+          setOpenSheet(true);
+        } else {
+          setOpenDrawer(true);
+        }
       }
     },
-    [
-      filteredTermsMemo,
-      handleTermLinkClick,
-      selectedCategory,
-      setSelectedTermIndex,
-    ]
+    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
   );
 
   // フィルターメニューコンポーネント
@@ -350,13 +341,21 @@ export default function ClientComponent() {
             </AnimatePresence>
           </div>
           {/* デスクトップヘッダー */}
-          <div className="hidden lg:flex items-center justify-between container mx-auto px-4">
-            <Link href="/" className="pl-4 font-semibold">
-              転スラ百科
-            </Link>
-            <Button variant="ghost" className="shadow">
-              <Link href="/"></Link>
-            </Button>
+          <div className="hidden lg:flex items-center justify-between container mx-auto p-4 min-h-[72px]">
+            <Breadcrumb className="pl-4">
+              <BreadcrumbList>
+                <BreadcrumbItem></BreadcrumbItem>
+                <BreadcrumbLink href="/" className="font-semibold text-base">
+                  転スラ百科
+                </BreadcrumbLink>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="font-medium text-base font">
+                    設定資料集
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
           </div>
         </header>
 
@@ -389,20 +388,22 @@ export default function ClientComponent() {
 
         {/* メインコンテンツ：用語カードのグリッド */}
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
-          {filteredTermsMemo.map((term, index) => (
-            <TermCard
+          {filteredTerms.map((term, index) => (
+            <AnimatedCard
               key={term.id}
               term={term}
               onTagClick={handleTagClick}
-              onTermLinkClick={handleTermLinkClick}
+              // initial={{ opacity: 0, y: 50 }}
+              // whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
               className={
-                term.id === searchParams?.get("termId")
+                term.id.toString() === searchParams?.get("termId")
                   ? "ring-2 ring-primary"
                   : ""
               }
               onClick={() => handleTermClick(index)}
               allTerms={terms}
-              selectedTags={selectedTags}
             />
           ))}
         </main>
@@ -425,7 +426,7 @@ export default function ClientComponent() {
               transition={{ duration: 0.3 }}
             >
               <div className="flex h-full">
-                {filteredTermsMemo.map((term, index) => (
+                {filteredTerms.map((term, index) => (
                   <div
                     className="flex-[0_0_100%] min-w-0 h-full px-4"
                     key={term.id}
@@ -434,7 +435,6 @@ export default function ClientComponent() {
                       term={term}
                       allTerms={terms}
                       onTagClick={handleTagClick}
-                      onTermLinkClick={handleTermLinkClick}
                       isDetailView={true}
                     />
                   </div>
@@ -480,7 +480,7 @@ export default function ClientComponent() {
               transition={{ duration: 0.3 }}
             >
               <div className="flex h-full">
-                {filteredTermsMemo.map((term, index) => (
+                {filteredTerms.map((term, index) => (
                   <div
                     className="flex-[0_0_100%] min-w-0 h-full px-4"
                     key={term.id}
@@ -489,7 +489,6 @@ export default function ClientComponent() {
                       term={term}
                       allTerms={terms}
                       onTagClick={handleTagClick}
-                      onTermLinkClick={handleTermLinkClick}
                       isDetailView={true}
                     />
                   </div>

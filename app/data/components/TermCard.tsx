@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
 import { Term, TagItem } from "@/data/terms";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 interface TermCardProps {
   term: Term;
@@ -156,6 +157,8 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
       addLinksToDescription(desc)
     );
 
+    const { toast } = useToast();
+
     return (
       <Card
         className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
@@ -268,7 +271,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                     ))}
                 </div>
               </div>
-              <div className="flex flex-col items-start gap-4">
+              {/* タグボタン　<div className="flex flex-col items-start gap-4">
                 <div className="flex flex-wrap gap-2">
                   {term.tags.map((tag) => (
                     <Button
@@ -280,6 +283,9 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                       onClick={(e) => {
                         e.stopPropagation();
                         onTagClick && onTagClick(tag);
+                        toast({
+                          description: "タグの絞り込みが変更されました。",
+                        });
                       }}
                       className={selectedTags.includes(tag) ? "text-white" : ""}
                     >
@@ -287,7 +293,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                     </Button>
                   ))}
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         ) : (

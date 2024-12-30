@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { M_PLUS_1 } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = M_PLUS_1({ subsets: ["latin"] });
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="jp" suppressHydrationWarning>
       <body className={inter.className}>{children}</body>
+      <Toaster />
     </html>
   );
 }

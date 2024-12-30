@@ -244,7 +244,10 @@ export default function ClientComponent() {
       const termIndex = terms.findIndex((t) => t.id === termId);
       if (termIndex !== -1) {
         const term = terms[termIndex];
-        handleCategoryChange(term.category);
+        // カテゴリーが現在のものと異なる場合のみ変更
+        if (term.category !== selectedCategory) {
+          handleCategoryChange(term.category);
+        }
         setSelectedTermIndex(filteredTerms.findIndex((t) => t.id === termId));
         const newUrl = `/data?category=${encodeURIComponent(
           term.category
@@ -257,7 +260,14 @@ export default function ClientComponent() {
         }
       }
     },
-    [terms, handleCategoryChange, filteredTerms, router, setSelectedTermIndex]
+    [
+      terms,
+      handleCategoryChange,
+      filteredTerms,
+      router,
+      setSelectedTermIndex,
+      selectedCategory,
+    ]
   );
 
   const FilterMenu = useCallback(
@@ -499,24 +509,34 @@ export default function ClientComponent() {
           )}
         </AnimatePresence>
 
-        <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
-          {filteredTerms.map((term, index) => (
-            <AnimatedCard
-              key={term.id}
-              term={term}
-              onTagClick={handleTagClick}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className={
-                term.id.toString() === searchParams?.get("termId")
-                  ? "ring-2 ring-primary"
-                  : ""
-              }
-              onClick={() => handleTermClick(term.id)}
-              allTerms={terms}
-            />
-          ))}
-        </main>
+        {filteredTerms.length > 0 ? (
+          <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
+            {filteredTerms.map((term) => (
+              <AnimatedCard
+                key={term.id}
+                term={term}
+                onTagClick={handleTagClick}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className={
+                  term.id.toString() === searchParams?.get("termId")
+                    ? "ring-2 ring-primary"
+                    : ""
+                }
+                onClick={() => handleTermClick(term.id)}
+                allTerms={terms}
+              />
+            ))}
+          </main>
+        ) : (
+          <div className="flex flex-col items-center p-4">
+            <p className="text-muted-foreground text-center">
+              該当する用語が見つかりませんでした。
+              <br />
+              絞り込み条件を変更してお試しください。
+            </p>
+          </div>
+        )}
       </div>
 
       <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>

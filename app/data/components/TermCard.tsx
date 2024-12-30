@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Share2 } from "lucide-react";
-import { Term, TagItem } from "@/data/terms";
+import { Term, TagItem, allCategory } from "@/data/terms";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 
@@ -159,6 +159,10 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
 
     const { toast } = useToast();
 
+    const isCategoryWithImage = (category: string) => {
+      return allCategory.find((c) => c.category === category)?.image ?? false;
+    };
+
     return (
       <Card
         className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
@@ -167,15 +171,20 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
         onClick={onClick}
       >
         {isDetailView ? (
-          <div className="p-6 md:grid grid-cols-6 gap-8">
+          <div
+            className={`p-6  grid-cols-6 gap-8 ${
+              isCategoryWithImage(term.category) ? "md:grid" : ""
+            }`}
+          >
             <div
-              className="relative col-span-2 justify-center mb-10 w-3/5 md:w-full mx-auto"
+              className={`relative col-span-2 justify-center mb-10 w-3/5 md:w-full mx-auto ${
+                isCategoryWithImage(term.category) ? "" : "hidden"
+              }`}
               style={{ aspectRatio: "4 / 5" }}
             >
               <Image
-                src="/sample.jpg"
-                alt=""
-                objectFit="cover"
+                src={term.image || "/placeholder.svg"}
+                alt={term.name || "Term image"}
                 className="object-cover shadow-md rounded-md"
                 layout="fill"
                 priority
@@ -297,21 +306,27 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
             </div>
           </div>
         ) : (
-          <div className="p-6 grid grid-cols-5 gap-6 h-full">
+          <div
+            className={`p-6 grid-cols-5 gap-6 h-full ${
+              isCategoryWithImage(term.category) ? "md:grid" : ""
+            }`}
+          >
             <div
-              className="relative col-span-2 justify-center"
+              className={`relative col-span-2 justify-center ${
+                isCategoryWithImage(term.category) ? "" : "hidden"
+              }`}
               // style={{ aspectRatio: "4 / 5" }}
             >
               <Image
-                src="/sample.jpg"
-                alt=""
+                src={term.image || "/placeholder.svg"} // Use a placeholder if image is undefined
+                alt={term.name || "Term image"}
                 objectFit="cover"
                 className="object-cover shadow-md rounded-md"
                 layout="fill"
                 priority
               />
             </div>
-            <div className="flex flex-col space-y-6 col-span-3 justify-between">
+            <div className="flex flex-col space-y-6 col-span-3 justify-between h-full">
               <div className="space-y-1.5">
                 <h3 className="text-lg font-semibold leading-none tracking-tight mt-3">
                   {term.name}

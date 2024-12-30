@@ -27,7 +27,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./TermCard";
-import { Term, terms, TagItem, allTags } from "@/data/terms";
+import { Term, terms, TagItem, allTags, allCategory } from "@/data/terms";
 import {
   Dialog,
   DialogContent,
@@ -90,6 +90,7 @@ export default function ClientComponent() {
 
     terms.forEach((term) => {
       const nameMatch = term.name?.toLowerCase().includes(lowercasedSearch);
+      const rubyMatch = term.ruby?.toLowerCase().includes(lowercasedSearch);
       const keywordMatch = term.keywords.some((keyword) =>
         keyword.toLowerCase().includes(lowercasedSearch)
       );
@@ -104,7 +105,7 @@ export default function ClientComponent() {
             )
         );
 
-      if (nameMatch || keywordMatch) {
+      if (nameMatch || rubyMatch || keywordMatch) {
         nameKeywordMatches.push(term);
       } else if (statusMatch) {
         statusMatches.push(term);
@@ -270,6 +271,10 @@ export default function ClientComponent() {
     ]
   );
 
+  const isCategoryWithImage = (category: string) => {
+    return allCategory.find((c) => c.category === category)?.image ?? false;
+  };
+
   const FilterMenu = useCallback(
     () => (
       <Tabs
@@ -290,16 +295,7 @@ export default function ClientComponent() {
                   onValueChange={handleCategoryChange}
                   className="grid grid-cols-2 gap-3"
                 >
-                  {[
-                    "キャラクター",
-                    "スキル",
-                    "魔法",
-                    "アーツ",
-                    "武具",
-                    "所属",
-                    "魔物",
-                    "その他",
-                  ].map((category) => (
+                  {allCategory.map(({ category }) => (
                     <div key={category} className="items-center flex">
                       <RadioGroupItem
                         value={category}
@@ -308,7 +304,7 @@ export default function ClientComponent() {
                       />
                       <Label
                         htmlFor={`category-${category}`}
-                        className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
+                        className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors"
                       >
                         {category}
                       </Label>
@@ -417,6 +413,7 @@ export default function ClientComponent() {
     [
       activeTab,
       allTags,
+      allCategory,
       handleCategoryChange,
       handleTagClick,
       selectedCategory,
@@ -510,7 +507,13 @@ export default function ClientComponent() {
         </AnimatePresence>
 
         {filteredTerms.length > 0 ? (
-          <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
+          <main
+            className={`grid gap-4 ${
+              isCategoryWithImage(selectedCategory)
+                ? "sm:grid-cols-1 md:grid-cols-2"
+                : "grid-cols-2 md:grid-cols-3"
+            } lg:mt-0`}
+          >
             {filteredTerms.map((term) => (
               <AnimatedCard
                 key={term.id}

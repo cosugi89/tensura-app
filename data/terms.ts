@@ -1,4 +1,5 @@
 export type TagItem = (typeof allTags)[number]["name"];
+export type CategoryItem = (typeof allCategory)[number]["category"];
 
 interface DescriptionItem {
   category: string;
@@ -19,13 +20,14 @@ export interface Term {
   id: number;
   name?: string;
   ruby?: string;
+  image?: string;
   description: string[];
   description2?: DescriptionItem[];
   status?: StatusItem[];
   relationship?: RelationshipItem[];
   description3?: DescriptionItem[];
   tags: TagItem[];
-  category: string;
+  category: CategoryItem;
   keywords: string[];
 }
 
@@ -51,6 +53,7 @@ export const terms: Term[] = [
     id: 1001,
     name: "リムル＝テンペスト",
     keywords: ["リムル", "リムル＝テンペスト"],
+    image: "/sample.jpg",
     description: [
       "主人公v。元人間の三上悟がスライムとして転生した姿。魔王となり、モンスター国家「テンペスト連邦国」を建国する。非常に強力な能力を持ち、味方からの信頼も厚い。知恵と力を兼ね備えたリーダーとして、様々な種族や国々と外交を行いながら、平和な世界の実現を目指している。捕食者のスキルを持ち、相手の能力を吸収して自身のものとすることができる。また、大賢者のスキルにより、膨大な情報処理と分析が可能。その人柄と能力により、多くの仲間や同盟国を作り上げ、世界の勢力図を大きく変えていく。",
       "リムルの持つユニークスキル。様々な情報を分析し、アドバイスを行う。後に魔法霊となり、ラファエルに進化する。リムルの意思決定や戦闘において重要な役割を果たし、常に冷静な判断を下す。その解析能力は他に類を見ないほど高度で、複雑な魔法や現象も瞬時に理解することができる。大賢者は単なる能力ではなく、独自の人格を持つ存在として描かれ、リムルとの対話を通じて成長していく。魔法や科学の知識を総合し、新たな技術や魔法の開発にも貢献する。",
@@ -149,6 +152,7 @@ export const terms: Term[] = [
     id: 1002,
     name: "ヴェルドラ＝テンペスト",
     keywords: ["ヴェルドラ", "ヴェルドラ＝テンペスト"],
+    image: "/sample.jpg",
     description: [
       "この世に四体しかいない最強生物、“竜種”の末弟。現存する“竜種”の中で最大の魔素量を誇る、“暴風竜”の異名を持つ漆黒のドラゴン。暴れることが好きで、300年前に勇者によって封印される以前は空飛ぶ大災害と恐れられていた。",
       "紛うことなき邪竜であるが、ジュラの大森林周辺諸国の民および大森林に住まう魔物からは、他国からの侵略を防いでくれる守り神として崇められていた側面もある。",
@@ -273,6 +277,7 @@ export const terms: Term[] = [
     id: 1003,
     name: "ベニマル",
     keywords: ["ベニマル"],
+    image: "/sample.jpg",
     description: [
       "魔王リムルの側近である四天王の筆頭。“紅丸”の名を与えられたリムルの副官にして、自他共に認める彼の右腕。",
       "「腹心にして最大の友」とリムルから全面的な信頼を得ており、“侍大将”として彼の守護とテンペスト軍の大将を務めている。",
@@ -383,6 +388,7 @@ export const terms: Term[] = [
     id: 1004,
     name: "シュナ",
     keywords: ["シュナ"],
+    image: "/sample.jpg",
     description: [
       "リムルの公私をサポートする補佐官。秘書を自認する二人を差し置いて本当の秘書といえる存在。",
       "ベニマルの妹でオーガの里では巫女の役割を担っていたことから、リムルから“巫女姫”の職業を与えられ、リムルに代わり公の場での口上や対外的なやり取りを行っている。",
@@ -662,4 +668,15 @@ export const allTags = [
   { name: "冒険", category: "その他" },
   { name: "交易", category: "その他" },
   { name: "観光", category: "その他" },
+] as const;
+
+export const allCategory = [
+  { category: "キャラクター", image: true },
+  { category: "スキル", image: false },
+  { category: "魔法", image: false },
+  { category: "アーツ", image: false },
+  { category: "武具", image: true },
+  { category: "所属", image: false },
+  { category: "魔物", image: false },
+  { category: "その他", image: false },
 ] as const;

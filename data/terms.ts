@@ -16,7 +16,7 @@ interface RelationshipItem {
 }
 
 export interface Term {
-  id: string;
+  id: number;
   name?: string;
   ruby?: string;
   description: string[];
@@ -48,7 +48,7 @@ export const terms: Term[] = [
   // キャラクター
   // リムル
   {
-    id: "リムル＝テンペスト",
+    id: 1001,
     name: "リムル＝テンペスト",
     keywords: ["リムル", "リムル＝テンペスト"],
     description: [
@@ -146,7 +146,7 @@ export const terms: Term[] = [
   },
   // ヴェルドラ
   {
-    id: "ヴェルドラ＝テンペスト",
+    id: 1002,
     name: "ヴェルドラ＝テンペスト",
     keywords: ["ヴェルドラ", "ヴェルドラ＝テンペスト"],
     description: [
@@ -270,7 +270,7 @@ export const terms: Term[] = [
   },
   // ベニマル
   {
-    id: "ベニマル",
+    id: 1003,
     name: "ベニマル",
     keywords: ["ベニマル"],
     description: [
@@ -380,7 +380,7 @@ export const terms: Term[] = [
   },
   // シュナ
   {
-    id: "シュナ",
+    id: 1004,
     name: "シュナ",
     keywords: ["シュナ"],
     description: [
@@ -485,7 +485,7 @@ export const terms: Term[] = [
 
   // スキル
   {
-    id: "大賢者",
+    id: 2001,
     name: "大賢者",
     ruby: "エイチアルモノ",
     keywords: ["大賢者"],
@@ -496,7 +496,7 @@ export const terms: Term[] = [
     category: "スキル",
   },
   {
-    id: "魔法",
+    id: 2002,
     name: "魔法",
     keywords: [""],
     description: [
@@ -506,7 +506,7 @@ export const terms: Term[] = [
     category: "スキル",
   },
   {
-    id: "正義之王",
+    id: 2003,
     name: "正義之王",
     ruby: "ミカエル",
     keywords: ["正義之王"],
@@ -568,7 +568,7 @@ export const terms: Term[] = [
 
   // 所属
   {
-    id: "ジュラ・テンペスト連邦国",
+    id: 6001,
     name: "ジュラ・テンペスト連邦国",
     keywords: ["ジュラ・テンペスト連邦国", "魔国連邦"],
     description: [
@@ -578,7 +578,7 @@ export const terms: Term[] = [
     category: "所属",
   },
   {
-    id: "迷宮都市",
+    id: 6002,
     name: "迷宮都市",
     keywords: [""],
     description: [
@@ -590,7 +590,7 @@ export const terms: Term[] = [
 
   // その他
   {
-    id: "魔王",
+    id: 8001,
     name: "魔王",
     keywords: [""],
     description: [
@@ -600,7 +600,7 @@ export const terms: Term[] = [
     category: "その他",
   },
   {
-    id: "黒幕",
+    id: 8002,
     name: "黒幕",
     keywords: [],
     description: [

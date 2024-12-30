@@ -181,10 +181,10 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 priority
               />
             </div>
-            <div className="flex flex-col space-y-6 justify-between col-span-4">
+            <div className="flex flex-col space-y-6 col-span-4">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
-                  {term.id}
+                  {term.name}
                 </h3>
                 <p className="text-base text-muted-foreground mx-auto text-center">
                   {term.ruby}
@@ -314,7 +314,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
             <div className="flex flex-col space-y-6 col-span-3 justify-between">
               <div className="space-y-1.5">
                 <h3 className="text-lg font-semibold leading-none tracking-tight mt-3">
-                  {term.id}
+                  {term.name}
                 </h3>
                 <p className="text-sm text-muted-foreground">{term.ruby}</p>
               </div>

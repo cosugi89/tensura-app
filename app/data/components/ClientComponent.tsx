@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,12 +21,13 @@ import {
   HomeIcon,
   Search,
   Undo2,
+  X,
 } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTerminology } from "@/lib/useTerminology";
 import { TermCard } from "./TermCard";
-import { Term, terms } from "@/data/terms";
+import { Term, terms, TagItem, allTags } from "@/data/terms";
 import {
   Dialog,
   DialogContent,
@@ -54,6 +55,7 @@ export default function ClientComponent() {
   const searchParams = useSearchParams();
   // Emblaカルーセルの初期化
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // URLパラメータから初期カテゴリとタームIDを取得
   const initialCategory = searchParams?.get("category") || "キャラクター";
@@ -81,6 +83,47 @@ export default function ClientComponent() {
   const [alertMessage, setAlertMessage] = useState("");
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+  const [activeTab, setActiveTab] = useState("category");
+
+  const searchTerms = useCallback((terms: Term[], searchValue: string) => {
+    if (!searchValue.trim()) return [];
+    const lowercasedSearch = searchValue.toLowerCase();
+    return terms.filter(
+      (term) =>
+        term.name?.toLowerCase().includes(lowercasedSearch) ||
+        term.keywords.some((keyword) =>
+          keyword.toLowerCase().includes(lowercasedSearch)
+        )
+    );
+  }, []);
+
+  const searchResults = useMemo(
+    () => searchTerms(terms, searchValue),
+    [searchTerms, terms, searchValue]
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // 入力中は状態を更新しない
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const newValue = e.target.value;
+    setSearchValue(newValue);
+    if (newValue) {
+      setActiveTab("keyword");
+    }
+  };
+
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    if (value === "category") {
+      setSearchValue("");
+      if (inputRef.current) {
+        inputRef.current.value = "";
+      }
+    }
+  };
 
   // Emblaカルーセルの選択変更時の処理
   useEffect(() => {
@@ -210,7 +253,11 @@ export default function ClientComponent() {
   // フィルターメニューコンポーネント
   const FilterMenu = useCallback(
     () => (
-      <Tabs defaultValue="category" className="p-4 space-y-3">
+      <Tabs
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className="p-4 space-y-3"
+      >
         <TabsList className="grid w-full grid-cols-2 shadow-inner">
           <TabsTrigger value="category">カテゴリー</TabsTrigger>
           <TabsTrigger value="keyword">キーワード</TabsTrigger>
@@ -224,49 +271,45 @@ export default function ClientComponent() {
                   onValueChange={handleCategoryChange}
                   className="grid grid-cols-2 gap-3"
                 >
-                  {[
-                    "キャラクター",
-                    "スキル",
-                    "魔法",
-                    "アーツ",
-                    "武具",
-                    "所属",
-                    "魔物",
-                    "その他",
-                  ].map((category) => (
-                    <div key={category} className="items-center flex">
-                      <RadioGroupItem
-                        value={category}
-                        id={`category-${category}`}
-                        className="peer sr-only"
-                      />
-                      <Label
-                        htmlFor={`category-${category}`}
-                        className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
-                      >
-                        {category}
-                      </Label>
-                    </div>
-                  ))}
+                  {["キャラクター", "スキル", "所属", "その他"].map(
+                    (category) => (
+                      <div key={category} className="items-center flex">
+                        <RadioGroupItem
+                          value={category}
+                          id={`category-${category}`}
+                          className="peer sr-only"
+                        />
+                        <Label
+                          htmlFor={`category-${category}`}
+                          className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
+                        >
+                          {category}
+                        </Label>
+                      </div>
+                    )
+                  )}
                 </RadioGroup>
               </div>
             </div>
             <div>
               <h3 className="font-medium mb-2">タグ</h3>
               <div className="space-y-2 shadow p-6 rounded-lg">
-                {availableTags.map((tag) => (
-                  <div key={tag} className="flex items-center justify-between">
+                {allTags.map((tag) => (
+                  <div
+                    key={tag.name}
+                    className="flex items-center justify-between"
+                  >
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id={`tag-${tag}`}
-                        checked={selectedTags.includes(tag)}
-                        onCheckedChange={() => handleTagClick(tag)}
+                        id={`tag-${tag.name}`}
+                        checked={selectedTags.includes(tag.name)}
+                        onCheckedChange={() => handleTagClick(tag.name)}
                         className="border-muted-foreground data-[state=checked]:bg-muted-foreground"
                       />
-                      <Label htmlFor={`tag-${tag}`}>{tag}</Label>
+                      <Label htmlFor={`tag-${tag.name}`}>{tag.name}</Label>
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      {tagCounts[tag]}
+                      {tagCounts[tag.name] || 0}
                     </span>
                   </div>
                 ))}
@@ -275,31 +318,71 @@ export default function ClientComponent() {
           </div>
         </TabsContent>
         <TabsContent value="keyword">
-          <div className="shadow p-6 rounded-lg min-h-[188px]">
-            <div className="flex relative mb-6">
+          <div className="shadow p-6 rounded-lg">
+            <div className="relative mb-6">
               <Input
+                ref={inputRef}
                 placeholder="検索"
                 className="shadow-inner border-none bg-muted pr-10 text-sm"
+                defaultValue={searchValue}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                aria-label="検索入力"
               />
-              <a
-                href=""
-                className="absolute right-0 text-muted-foreground h-10 px-4 py-2 font-black"
-              >
-                ✕
-              </a>
+              {searchValue && (
+                <button
+                  onClick={() => {
+                    setSearchValue("");
+                    if (inputRef.current) {
+                      inputRef.current.value = "";
+                    }
+                  }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  aria-label="検索をクリア"
+                >
+                  <X size={18} />
+                </button>
+              )}
             </div>
-            <div className="">lorem*3</div>
+            <div className="space-y-4">
+              {searchResults.length > 0 ? (
+                searchResults.map((term) => (
+                  <div
+                    key={term.id}
+                    className="p-2 hover:bg-muted transition-colors cursor-pointer"
+                    onClick={() =>
+                      handleTermClick(terms.findIndex((t) => t.id === term.id))
+                    }
+                  >
+                    <p className="font-medium">{term.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {term.category}
+                    </p>
+                  </div>
+                ))
+              ) : searchValue ? (
+                <p>検索結果がありません。</p>
+              ) : (
+                <p>検索キーワードを入力してください。</p>
+              )}
+            </div>
           </div>
         </TabsContent>
       </Tabs>
     ),
     [
-      availableTags,
+      activeTab,
+      allTags,
       handleCategoryChange,
       handleTagClick,
       selectedCategory,
       selectedTags,
       tagCounts,
+      searchValue,
+      setSearchValue,
+      searchResults,
+      handleTermClick,
+      terms,
     ]
   );
 
@@ -393,8 +476,6 @@ export default function ClientComponent() {
               key={term.id}
               term={term}
               onTagClick={handleTagClick}
-              // initial={{ opacity: 0, y: 50 }}
-              // whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className={
@@ -462,10 +543,7 @@ export default function ClientComponent() {
 
       {/* デスクトップ用ダイアログ */}
       <Dialog open={openSheet} onOpenChange={handleSheetOpenChange}>
-        <DialogContent
-          // side="right"
-          className="p-0 max-w-4xl"
-        >
+        <DialogContent className="p-0 max-w-4xl">
           <DialogHeader className="p-6">
             <DialogTitle>{selectedCategory}</DialogTitle>
           </DialogHeader>

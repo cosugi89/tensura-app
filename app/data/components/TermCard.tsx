@@ -43,10 +43,60 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
         .sort((a, b) => b.length - a.length);
     }, [allTerms]);
 
-    const addLinksToText = (text: string): JSX.Element => {
-      if (!isDetailView) return <>{text}</>;
+    const addLinksToDescription = (description: string): JSX.Element => {
+      if (!isDetailView) return <>{description}</>;
 
-      let result: (string | JSX.Element)[] = [text];
+      let result: (string | JSX.Element)[] = [description];
+
+      // Sort all keywords by length in descending order, excluding "キャラクター" category
+      const sortedKeywords = allTerms
+        .filter((term) => term.category !== "キャラクター")
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) => {
+              if (subPart.toLowerCase() === keyword.toLowerCase()) {
+                const linkedTerm = allTerms.find(
+                  (t) =>
+                    t.keywords.includes(keyword) &&
+                    t.category !== "キャラクター"
+                );
+                if (linkedTerm) {
+                  return (
+                    <Link
+                      key={`${keyword}-${index}`}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:underline hover:text-cyan-500"
+                    >
+                      {subPart}
+                    </Link>
+                  );
+                }
+              }
+              return subPart;
+            });
+          }
+          return part;
+        });
+      });
+
+      return <>{result}</>;
+    };
+
+    const addLinksToCharacter = (character: string): JSX.Element => {
+      if (!isDetailView) return <>{character}</>;
+
+      let result: (string | JSX.Element)[] = [character];
+
+      const sortedKeywords = allTerms
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
 
       sortedKeywords.forEach((keyword) => {
         result = result.flatMap((part) => {
@@ -59,20 +109,15 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 );
                 if (linkedTerm) {
                   return (
-                    <span
+                    <Link
                       key={`${keyword}-${index}`}
-                      className="text-sky-600 hover:underline hover:text-cyan-500 cursor-pointer"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onTermLinkClick &&
-                          onTermLinkClick(
-                            linkedTerm.category,
-                            linkedTerm.id.toString()
-                          );
-                      }}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:text-cyan-500"
                     >
-                      {subPart}
-                    </span>
+                      <span className="hover:underline">{subPart}</span>
+                    </Link>
                   );
                 }
               }
@@ -101,14 +146,14 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 </span>
               );
             }
-            return addLinksToText(part);
+            return addLinksToDescription(part);
           })}
         </>
       );
     };
 
     const descriptionsWithLinks = term.description.map((desc) =>
-      addLinksToText(desc)
+      addLinksToDescription(desc)
     );
 
     return (
@@ -175,7 +220,9 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                           {item.category}
                         </div>
                         {item.details.map((detail, detailIndex) => (
-                          <p key={detailIndex}>{addLinksToText(detail)}</p>
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
+                          </p>
                         ))}
                       </div>
                     ))}
@@ -193,12 +240,14 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                             {item.character.map((char, charIndex) => (
                               <React.Fragment key={charIndex}>
                                 {charIndex > 0 && " / "}
-                                {addLinksToText(char)}
+                                {addLinksToCharacter(char)}
                               </React.Fragment>
                             ))}
                           </span>
                           {item.details.map((detail, detailIndex) => (
-                            <p key={detailIndex}>{addLinksToText(detail)}</p>
+                            <p key={detailIndex}>
+                              {addLinksToDescription(detail)}
+                            </p>
                           ))}
                         </div>
                       ))}
@@ -211,7 +260,9 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                           {item.category}
                         </div>
                         {item.details.map((detail, detailIndex) => (
-                          <p key={detailIndex}>{addLinksToText(detail)}</p>
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
+                          </p>
                         ))}
                       </div>
                     ))}

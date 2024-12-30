@@ -46,22 +46,18 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-// アニメーション付きのTermCardコンポーネントを作成
 const AnimatedCard = motion(TermCard);
 
 export default function ClientComponent() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  // Emblaカルーセルの初期化
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // URLパラメータから初期カテゴリとタームIDを取得
   const initialCategory = searchParams?.get("category") || "キャラクター";
   const initialTermId = searchParams?.get("termId") || null;
 
-  // カスタムフックを使用して用語関連の状態と関数を取得
   const {
     selectedCategory,
     selectedTags,
@@ -75,7 +71,6 @@ export default function ClientComponent() {
     closeDetailView,
   } = useTerminology(initialCategory, initialTermId);
 
-  // UI状態の管理
   const [openDrawer, setOpenDrawer] = useState(false);
   const [openSheet, setOpenSheet] = useState(false);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
@@ -87,15 +82,36 @@ export default function ClientComponent() {
   const [activeTab, setActiveTab] = useState("category");
 
   const searchTerms = useCallback((terms: Term[], searchValue: string) => {
-    if (!searchValue.trim()) return [];
+    if (!searchValue.trim())
+      return { nameKeywordMatches: [], statusMatches: [] };
     const lowercasedSearch = searchValue.toLowerCase();
-    return terms.filter(
-      (term) =>
-        term.name?.toLowerCase().includes(lowercasedSearch) ||
-        term.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(lowercasedSearch)
-        )
-    );
+    const nameKeywordMatches: Term[] = [];
+    const statusMatches: Term[] = [];
+
+    terms.forEach((term) => {
+      const nameMatch = term.name?.toLowerCase().includes(lowercasedSearch);
+      const keywordMatch = term.keywords.some((keyword) =>
+        keyword.toLowerCase().includes(lowercasedSearch)
+      );
+      const statusMatch =
+        term.status &&
+        Array.isArray(term.status) &&
+        term.status.some(
+          (statusItem) =>
+            Array.isArray(statusItem.details) &&
+            statusItem.details.some((detail) =>
+              detail.toLowerCase().includes(lowercasedSearch)
+            )
+        );
+
+      if (nameMatch || keywordMatch) {
+        nameKeywordMatches.push(term);
+      } else if (statusMatch) {
+        statusMatches.push(term);
+      }
+    });
+
+    return { nameKeywordMatches, statusMatches };
   }, []);
 
   const searchResults = useMemo(
@@ -125,7 +141,6 @@ export default function ClientComponent() {
     }
   };
 
-  // Emblaカルーセルの選択変更時の処理
   useEffect(() => {
     if (emblaApi) {
       const onSelect = () => {
@@ -147,14 +162,12 @@ export default function ClientComponent() {
     }
   }, [emblaApi, filteredTerms, selectedCategory, router]);
 
-  // 選択された用語インデックスが変更されたときにカルーセルをスクロール
   useEffect(() => {
     if (emblaApi && selectedTermIndex !== undefined) {
       emblaApi.scrollTo(selectedTermIndex);
     }
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
-  // URLパラメータが変更されたときの処理
   useEffect(() => {
     const category = searchParams?.get("category");
     const termId = searchParams?.get("termId");
@@ -185,9 +198,9 @@ export default function ClientComponent() {
     handleCategoryChange,
     setSelectedTermIndex,
     filteredTerms,
+    terms,
   ]);
 
-  // カルーセルのナビゲーション関数
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
   }, [emblaApi]);
@@ -196,19 +209,16 @@ export default function ClientComponent() {
     if (emblaApi) emblaApi.scrollNext();
   }, [emblaApi]);
 
-  // フィルターメニューの開閉
   const toggleFilterMenu = useCallback(() => {
     setIsFilterMenuOpen((prev) => !prev);
   }, []);
 
-  // 詳細ビューを閉じる処理
   const handleCloseDetail = useCallback(() => {
     setOpenDrawer(false);
     setOpenSheet(false);
     closeDetailView();
   }, [closeDetailView]);
 
-  // ドロワーの開閉状態変更時の処理
   const handleDrawerOpenChange = useCallback(
     (open: boolean) => {
       setOpenDrawer(open);
@@ -219,7 +229,6 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
-  // シートの開閉状態変更時の処理
   const handleSheetOpenChange = useCallback(
     (open: boolean) => {
       setOpenSheet(open);
@@ -230,14 +239,15 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
-  // 用語カードクリック時の処理
   const handleTermClick = useCallback(
-    (index: number) => {
-      setSelectedTermIndex(index);
-      const term = filteredTerms[index];
-      if (term) {
+    (termId: number) => {
+      const termIndex = terms.findIndex((t) => t.id === termId);
+      if (termIndex !== -1) {
+        const term = terms[termIndex];
+        handleCategoryChange(term.category);
+        setSelectedTermIndex(filteredTerms.findIndex((t) => t.id === termId));
         const newUrl = `/data?category=${encodeURIComponent(
-          selectedCategory
+          term.category
         )}&termId=${term.id}`;
         router.push(newUrl, { scroll: false });
         if (window.innerWidth >= 1024) {
@@ -247,10 +257,9 @@ export default function ClientComponent() {
         }
       }
     },
-    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
+    [terms, handleCategoryChange, filteredTerms, router, setSelectedTermIndex]
   );
 
-  // フィルターメニューコンポーネント
   const FilterMenu = useCallback(
     () => (
       <Tabs
@@ -271,45 +280,49 @@ export default function ClientComponent() {
                   onValueChange={handleCategoryChange}
                   className="grid grid-cols-2 gap-3"
                 >
-                  {["キャラクター", "スキル", "所属", "その他"].map(
-                    (category) => (
-                      <div key={category} className="items-center flex">
-                        <RadioGroupItem
-                          value={category}
-                          id={`category-${category}`}
-                          className="peer sr-only"
-                        />
-                        <Label
-                          htmlFor={`category-${category}`}
-                          className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
-                        >
-                          {category}
-                        </Label>
-                      </div>
-                    )
-                  )}
+                  {[
+                    "キャラクター",
+                    "スキル",
+                    "魔法",
+                    "アーツ",
+                    "武具",
+                    "所属",
+                    "魔物",
+                    "その他",
+                  ].map((category) => (
+                    <div key={category} className="items-center flex">
+                      <RadioGroupItem
+                        value={category}
+                        id={`category-${category}`}
+                        className="peer sr-only"
+                      />
+                      <Label
+                        htmlFor={`category-${category}`}
+                        className="shadow w-full text-center py-2 rounded-full hover:bg-muted/80 peer-data-[state=checked]:bg-muted-foreground peer-data-[state=checked]:text-muted cursor-pointer transition-colors "
+                      >
+                        {category}
+                      </Label>
+                    </div>
+                  ))}
                 </RadioGroup>
               </div>
             </div>
             <div>
               <h3 className="font-medium mb-2">タグ</h3>
               <div className="space-y-2 shadow p-6 rounded-lg">
-                {allTags.map((tag) => (
-                  <div
-                    key={tag.name}
-                    className="flex items-center justify-between"
-                  >
+                {availableTags.map((tag) => (
+                  <div key={tag} className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Checkbox
-                        id={`tag-${tag.name}`}
-                        checked={selectedTags.includes(tag.name)}
-                        onCheckedChange={() => handleTagClick(tag.name)}
+                        id={`tag-${tag}`}
+                        checked={selectedTags.includes(tag)}
+                        onCheckedChange={() => handleTagClick(tag)}
                         className="border-muted-foreground data-[state=checked]:bg-muted-foreground"
                       />
-                      <Label htmlFor={`tag-${tag.name}`}>{tag.name}</Label>
+                      <Label htmlFor={`tag-${tag}`}>{tag}</Label>
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      {tagCounts[tag.name] || 0}
+                      {tagCounts[tag]}
                     </span>
                   </div>
                 ))}
@@ -318,7 +331,7 @@ export default function ClientComponent() {
           </div>
         </TabsContent>
         <TabsContent value="keyword">
-          <div className="shadow p-6 rounded-lg">
+          <div className="shadow p-6 rounded-lg min-h-[188PX]">
             <div className="relative mb-6">
               <Input
                 ref={inputRef}
@@ -345,25 +358,46 @@ export default function ClientComponent() {
               )}
             </div>
             <div className="space-y-4">
-              {searchResults.length > 0 ? (
-                searchResults.map((term) => (
-                  <div
-                    key={term.id}
-                    className="p-2 hover:bg-muted transition-colors cursor-pointer"
-                    onClick={() =>
-                      handleTermClick(terms.findIndex((t) => t.id === term.id))
-                    }
-                  >
-                    <p className="font-medium">{term.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {term.category}
-                    </p>
-                  </div>
-                ))
+              {searchResults.nameKeywordMatches.length > 0 ||
+              searchResults.statusMatches.length > 0 ? (
+                <>
+                  {searchResults.nameKeywordMatches.map((term) => (
+                    <div
+                      key={term.id}
+                      className="p-2 hover:bg-muted transition-colors cursor-pointer"
+                      onClick={() => handleTermClick(term.id)}
+                    >
+                      <p className="font-medium">{term.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {term.category}
+                      </p>
+                    </div>
+                  ))}
+                  {searchResults.nameKeywordMatches.length > 0 &&
+                    searchResults.statusMatches.length > 0 && (
+                      <div className="my-4 border-t border-gray-200"></div>
+                    )}
+                  {searchResults.statusMatches.map((term) => (
+                    <div
+                      key={term.id}
+                      className="p-2 hover:bg-muted transition-colors cursor-pointer"
+                      onClick={() => handleTermClick(term.id)}
+                    >
+                      <p className="font-medium">{term.name}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {term.category}（関連用語）
+                      </p>
+                    </div>
+                  ))}
+                </>
               ) : searchValue ? (
-                <p>検索結果がありません。</p>
+                <p className="text-sm text-muted-foreground">
+                  検索結果がありません
+                </p>
               ) : (
-                <p>検索キーワードを入力してください。</p>
+                <p className="text-sm text-muted-foreground">
+                  検索バーから離れると結果が表示されます
+                </p>
               )}
             </div>
           </div>
@@ -388,14 +422,12 @@ export default function ClientComponent() {
 
   return (
     <div className="container mx-auto p-4 mt-20 lg:grid grid-cols-10 lg:gap-6">
-      {/* デスクトップ用サイドバー */}
       <aside className="hidden lg:block col-span-3 space-y-6">
         <FilterMenu />
       </aside>
 
       <div className="col-span-7">
         <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
-          {/* モバイルヘッダー */}
           <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
             <Button
               variant="ghost"
@@ -423,7 +455,6 @@ export default function ClientComponent() {
               )}
             </AnimatePresence>
           </div>
-          {/* デスクトップヘッダー */}
           <div className="hidden lg:flex items-center justify-between container mx-auto p-4 min-h-[72px]">
             <Breadcrumb className="pl-4">
               <BreadcrumbList>
@@ -442,7 +473,6 @@ export default function ClientComponent() {
           </div>
         </header>
 
-        {/* モバイル用フィルターメニュー */}
         <AnimatePresence>
           {isFilterMenuOpen && (
             <motion.div
@@ -469,7 +499,6 @@ export default function ClientComponent() {
           )}
         </AnimatePresence>
 
-        {/* メインコンテンツ：用語カードのグリッド */}
         <main className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 lg:mt-0">
           {filteredTerms.map((term, index) => (
             <AnimatedCard
@@ -483,14 +512,13 @@ export default function ClientComponent() {
                   ? "ring-2 ring-primary"
                   : ""
               }
-              onClick={() => handleTermClick(index)}
+              onClick={() => handleTermClick(term.id)}
               allTerms={terms}
             />
           ))}
         </main>
       </div>
 
-      {/* モバイル用ドロワー */}
       <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>
         <DrawerContent className="bg-opacity-0">
           <DrawerHeader className="text-left">
@@ -541,7 +569,6 @@ export default function ClientComponent() {
         </DrawerContent>
       </Drawer>
 
-      {/* デスクトップ用ダイアログ */}
       <Dialog open={openSheet} onOpenChange={handleSheetOpenChange}>
         <DialogContent className="p-0 max-w-4xl">
           <DialogHeader className="p-6">

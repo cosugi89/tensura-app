@@ -508,7 +508,7 @@ export default function ClientComponent() {
 
         {filteredTerms.length > 0 ? (
           <main
-            className={`grid gap-4 ${
+            className={`grid gap-3 lg:gap-4 ${
               isCategoryWithImage(selectedCategory)
                 ? "sm:grid-cols-1 md:grid-cols-2"
                 : "grid-cols-2 md:grid-cols-3"

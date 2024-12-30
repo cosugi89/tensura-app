@@ -308,7 +308,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
         ) : (
           <div
             className={`p-6 grid-cols-5 gap-6 h-full ${
-              isCategoryWithImage(term.category) ? "md:grid" : ""
+              isCategoryWithImage(term.category) ? "grid" : ""
             }`}
           >
             <div

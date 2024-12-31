@@ -307,7 +307,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
           </div>
         ) : (
           <div
-            className={`p-6 grid-cols-5 gap-6 h-full ${
+            className={`p-4 md:p-6 grid-cols-5 gap-6 h-full ${
               isCategoryWithImage(term.category) ? "grid" : ""
             }`}
           >
@@ -328,13 +328,19 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
             </div>
             <div className="flex flex-col space-y-6 col-span-3 justify-between h-full">
               <div className="space-y-1.5">
-                <h3 className="text-lg font-semibold leading-none tracking-tight mt-3">
+                <h3
+                  className={`text-lg font-semibold leading-none tracking-tight ${
+                    isCategoryWithImage(term.category) ? "mt-3" : "mt-1"
+                  }`}
+                >
                   {term.name}
                 </h3>
-                <p className="text-sm text-muted-foreground">{term.ruby}</p>
+                <p className="text-xs md:text-sm text-muted-foreground">
+                  {term.ruby}
+                </p>
               </div>
               <div className="">
-                <p className="text-sm text-muted-foreground line-clamp-3">
+                <p className="text-xs md:text-sm text-muted-foreground line-clamp-3">
                   {term.description[0]}
                 </p>
               </div>

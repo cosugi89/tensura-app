@@ -536,7 +536,7 @@ export default function ClientComponent() {
             <p className="text-muted-foreground text-center">
               該当する用語が見つかりませんでした。
               <br />
-              絞り込み条件を変更してお試しください。
+              絞り込み条件を変えてお試しください。
             </p>
           </div>
         )}

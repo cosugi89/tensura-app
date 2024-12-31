@@ -12,8 +12,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { HelpCircle } from "lucide-react";
-import Info from "../components/Info";
-import News from "@/components/News";
+import Info from "../components/home/Info";
+import News from "@/components/home/News";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function Home() {

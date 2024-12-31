@@ -20,9 +20,9 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import SageContent from "@/components/SageContent";
-import EpRankingContent from "@/components/EpRankingContent";
-import QuizContent from "@/components/QuizContent";
+import SageContent from "@/components/sage/SageContent";
+import EpRankingContent from "@/components/sage/EpRankingContent";
+import QuizContent from "@/components/sage/QuizContent";
 
 export default function Page() {
   const [selectedContent, setSelectedContent] = useState("sage");
@@ -40,7 +40,7 @@ export default function Page() {
             defaultValue={selectedContent}
           >
             <SelectTrigger className="w-[180px] shadow border-none pl-5">
-              <SelectValue placeholder="解説・考察" />
+              <SelectValue placeholder="解説・考察" className="" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
@@ -76,7 +76,7 @@ export default function Page() {
           </Breadcrumb>
         </div>
       </header>
-      <main className="mt-24 p-4">
+      <main className="container mx-auto mt-24 p-4">
         {selectedContent === "sage" && <SageContent />}
         {selectedContent === "ep" && <EpRankingContent />}
         {selectedContent === "quiz" && <QuizContent />}

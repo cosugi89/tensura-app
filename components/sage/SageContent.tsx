@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import Link from "next/link";
+import React from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,11 +8,32 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Articles, terms } from "@/data/articles";
+
+function formatText(text: string): React.ReactNode[] {
+  const parts = text.split("//");
+
+  return parts.map((part, index) => {
+    const formattedPart = part.replace(
+      /\{(.*?)\}/g,
+      (_, p1) => `<span style="color: #DC143C;">${p1}</span>`
+    );
+
+    return (
+      <React.Fragment key={index}>
+        {index > 0 && <br />}
+        <span dangerouslySetInnerHTML={{ __html: formattedPart }} />
+      </React.Fragment>
+    );
+  });
+}
 
 export default function SageContent() {
+  const articles: Articles[] = terms;
+
   return (
     <div>
-      <div className="px-4 space-y-3">
+      <div className="px-4 space-y-3 ">
         <h3 className="text-xl font-semibold">解説・考察</h3>
         <p>
           作中のわかりにくい概念の解説や、私個人の考察記事を掲載しています。
@@ -28,109 +41,63 @@ export default function SageContent() {
         <p></p>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        <Dialog>
-          <DialogTrigger className="text-left">
-            <div className="p-6 shadow-sm border bg-card rounded-lg space-y-6">
-              <div className="space-y-1.5">
-                <h3 className="lg:text-lg font-bold">
-                  イヴァラージェ＝ヴェガの成れの果て説
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  ヴェガってイヴァラージェに似てない？
-                </p>
-              </div>
-              <div>
-                <div className="flex items-center space-x-2">
-                  <div className="text-xs border rounded-lg px-3 py-1">
-                    考察
+        {articles.map((article, index) => (
+          <Dialog key={index}>
+            <DialogTrigger className="text-left">
+              <div className="p-6 shadow-sm border bg-card rounded-lg space-y-6">
+                <div className="space-y-1.5">
+                  <h3 className="lg:text-lg font-bold">{article.title}</h3>
+                  <p className="text-muted-foreground text-sm">{article.sub}</p>
+                </div>
+                <div>
+                  <div className="flex items-center space-x-2">
+                    <div className="text-xs border rounded-lg px-3 py-1">
+                      {article.type}
+                    </div>
+                    <div className="text-xs border rounded-lg px-3 py-1">
+                      {article.volume}巻
+                    </div>
+                    <div className="text-sm">{article.date}</div>
                   </div>
-                  <div className="text-xs border rounded-lg px-3 py-1">
-                    21巻
-                  </div>
-                  <div className="text-sm">2023/11/02</div>
                 </div>
               </div>
-            </div>
-          </DialogTrigger>
-          <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%] h-full max-h-[90%] rounded-lg">
-            <ScrollArea>
-              <DialogHeader>
-                <DialogTitle className="pt-5 font-normal text-sm md:text-base">
-                  <div className="space-y-6">
-                    <div className="space-y-1.5">
-                      <h3 className="lg:text-lg font-bold">
-                        イヴァラージェ＝ヴェガの成れの果て説
-                      </h3>
-                      <p className="text-muted-foreground text-sm">
-                        ヴェガってイヴァラージェに似てない？
-                      </p>
-                    </div>
-                    <div className="flex items-center space-x-2 md:space-x-3 justify-center md:justify-normal">
-                      <div className="text-xs border rounded-lg px-3 py-1">
-                        考察
+            </DialogTrigger>
+            <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%] h-full max-h-[80%] rounded-lg">
+              <ScrollArea className="p-3">
+                <DialogHeader>
+                  <DialogTitle className="pt-5 font-normal text-sm md:text-base">
+                    <div className="space-y-6">
+                      <div className="space-y-1.5">
+                        <h3 className="lg:text-lg font-bold">
+                          {article.title}
+                        </h3>
+                        <p className="text-muted-foreground text-sm">
+                          {article.sub}
+                        </p>
                       </div>
-                      <div className="text-xs border rounded-lg px-3 py-1">
-                        21巻
+                      <div className="flex items-center space-x-2 md:space-x-3 justify-center md:justify-normal">
+                        <div className="text-xs border rounded-lg px-3 py-1">
+                          {article.type}
+                        </div>
+                        <div className="text-xs border rounded-lg px-3 py-1">
+                          {article.volume}巻
+                        </div>
+                        <div className="text-sm">{article.date}</div>
                       </div>
-                      <div className="text-sm">2023/11/02</div>
                     </div>
-                  </div>
-                </DialogTitle>
-                <DialogDescription className="pt-6 text-left">
-                  <p>
-                    先日発売された転スラ20巻ですが、内容は簡単に言ってしまえば、Web版の「vsダグリュール」と「迷宮への侵食」のリメイクとなりました。新規のキャラクターや特徴的な単語は登場しませんでしたが、その分既存のキャラクターに焦点を当てて深掘りした巻だったのかと思います。
-                    しかし、リメイクと言っても、これまでの書籍版で大きく変更があった天魔大戦の流れを組み込む訳ですから、それなりに違う点もありました。その中でも、一番のWeb版との違いとして、
-                    「あれ、ヴェガの『邪龍之王』は“竜種”へと進化しないんだ？」
-                    と不思議に思った方もいると思います。
-                    今まで醜くも生に執着してきたヴェガという男が、死ぬことも許されない“無”に置き去りにされるという20巻迷宮侵蝕編の終わり方は、一見自然に見えますが、Web版ではソレが“竜種”へと進化し、新たな“地帝竜”という5番目の竜を生み出すきっかけになるということを知っていれば、ヴェガの結末は少し物足りなく感じるようなものでした。
-                  </p>
-                  <p>
-                    あれだけ生き汚く逃げ続け、最後にはフェルドウェイと並ぶのは俺だと豪語していた彼はこれにて“おしまい”なのでしょうか？確かにヴェガの命運はおそらくここで終わりなのでしょう。何度も運が尽きたと言われているので、これが覆って復活というご都合もないと思われます。
-                    しかし、彼は“おしまい”でも彼の肉体と権能はどうでしょう？
-                    人間は外部からの刺激なくては異常をきたすようにできているらしいです。肉体は人外の域にある彼ですが、アリオスのように精神はまだ人の域を出てはおらず、完全なる“無”の中にいればその人格はたちまち崩壊してしまうことは容易く想像できます。逆に言えばその屈強な肉体は朽ちることがない訳で、自我の失われた不滅に近い空っぽの強靭な肉体が残るだけになります。そんな存在、どこかで見覚えないでしょうか…？
-                  </p>
-                  <p>
-                    これは例えばの話ですが、彼が跳ばされた“無”が、天地開闢前の“無”だったとしたらどうでしょうか。ヴェルダナーヴァが他次元並列世界を創造した時には既に、“彼”は存在していたとしたら、人はそれを悪鬼羅刹の一体と数えるのではないでしょうか。
-                    回りくどい言い方になってしまいましたが、私が言いたいのは、自我を失くしたヴェガが成れ果てた姿こそ、“滅界竜”イヴァラージェなのではないか、という考察です。もっと言えば、彼の『邪龍之王』がその肉体を乗っ取った姿なのではないでしょうか。それこそ、ルドラを乗っ取った『正義之王』のように。
-                  </p>
-                  <p>
-                    ヴェガとイヴァラージェに共通する特徴はかなり多くあります。まずその名前ですが、彼の『邪龍之王』の権能には、正直『龍』要素はありません。にもかかわらず『邪龍』とあるのは、本質的には『邪龍』ということなのだと思います。そうであるならば、『邪龍之王』が乗っ取った肉体が“滅界竜”と呼ばれそうな見た目を象るように変化したとしても何ら不思議ではなく、むしろ辻本があっているように見えます。
-                    そして『邪龍之王』の権能である『邪龍獣』。Web版から登場する『邪龍獣』ですが、『邪龍』に似せた『獣』を生み出すという意味で、『滅界竜』イヴァラージェと『幻獣族』の関係と非常に酷似していると言えます。またその容姿も、おぞましい異形として描写された『邪龍獣』に対して、幻獣族はその直接的な描写はないものの“神の失敗作”と称されています。能力も幻獣族が攻撃力より防御力の方が優れているという点やあまり群れることがないという特徴から『邪龍獣』とも似ているように思えます。
-                    何より幻獣族の中から突然変異のように生まれた、蟲魔族の祖であるゼラヌスが、ヴェガがイヴァラージェの元となったとすれば、ヴェガがかつてゼラヌスの肉体を喰らって力を得たことを考えると、ゼラヌスがイヴァラージェから生まれたことにも説明ができるようになります。
-                    またイヴァラージェの特徴として忘れてはいけないのが、異界に満たされたイヴァラージェの魔素によって肉体を持つ者は汚染されてしまうということです。迷宮でのヴェガは、ゼラヌスの暗黒細胞と融合したことで強化された魔性細菌を垂れ流し、空気中に満たすという戦法をとっています。無論、この細胞片は『邪龍之王』の影響下にあれば『有機支配』を受けると思われます。長い時間をかけてこの空気を吸い続けるとなると、汚染されて変質してしまうこともあり得そうです。これがイヴァラージェの魔素の正体であれば、異界で天使が妖魔にまで変質してしまうことにも納得がいきます。
-                  </p>
-                  <p>
-                    Web版では“竜種”モドキになったこと、自身を劣化させたような獣を生み出すこと、ヤツから突然変異のようにゼラヌスが生まれていること、ヴェガも自身の一部を空気中に散布するようなことを行っていたこと。
-                    ここまで要素が揃っているとかなり信憑性も高くなるのではないかと思うので、ここからはこの考察が正しかったらの仮定の話をしようかと思うのですが、まずそもそもイヴァラージェとは誰が付けた名前なのでしょうか？おそらくソレを滅ぼさない方針をとったヴェルダナーヴァだと思うのですが、その名づけはナニに対してだったのでしょうか？私が予想するように、イヴァラージェがヴェガの肉体を乗っ取った『邪龍之王』だとすれば、イヴァラージェとは『邪龍之王』に与えられた名前になっちゃうと思うのですが…どうでしょうか。
-                    今はまだ自我らしい自我もないとのことですが、19巻で“魂”を得て覚醒に入ったとのことなので、いよいよ自分のことを『邪龍之王』から進化した神智核：イヴァラージェと認識し出すのではないでしょうか。
-                    ヴェガはこれまで大いに力を増して来ましたが、その中にはまだ“魂”を取り込むことによる魔物的な進化はまだありません。邪神への進化を経て、そしてその肉体もまた更に大きく変化することになると思いますが、その本質的な部分にまで遡るとそれはユウキの手で作られた疑似人造粘性体（イミテーションスライム）といえます。以前の私の考察でも述べましたが、天魔大戦の早い段階で退場したユウキですが、やはり転スラのラスボスは彼で、その力の溝を埋めるためにも“滅界竜”イヴァラージェの力を手中におさめるのではないかと今も考えています。具体的にどのように両者が接触するかは全く想像できないですが、もし仮にユウキがイヴァラージェの解析を試みれば、様変わりしてはいるものの自分が作ったものであるヴェガの肉体をその天才性で掌握し、神智核：イヴァラージェをも自身のサポートとして従えるのではないでしょうか。それこそWeb版のユウキと神智核：ヴェルダの関係のように…
-                  </p>
-                  <p>
-                    ここまで来ると考察というより妄想に近くはなってしまいますが、思ったより自然に辻褄が合ってしまったので、ラスボス予想にも繋がる話として語らせていただきました。
-                    最後になりますが、この考察のダメなところは、幻獣族のクマラに対してその関連性を一切言及できなかったというところにあります。“親越え”を一つのテーマにしている21巻で、イヴァラージェとは何かしらの縁があるクマラとヴェガに一切触れられていないのは、やはり関係がない、つまりイヴァラージェとヴェガにも関係がないという見方もできます。
-                    まあですが、個人的な感想を言うのであれば、あれだけ文章量を割いたヴェガの最後をアレだけで終わらせるというのは、あっけなさを演出する分にはいいですが全体の進行度を考えれば、少し考えづらいとも思うのです。
-                    ヴェガが最後に抱いた破滅思想は“無”の中に消えるのか、それとも細胞にまで染みついて広がり、いつか“悪意の化身”として目醒めるのか──
-                  </p>
-                </DialogDescription>
-              </DialogHeader>
-            </ScrollArea>
-          </DialogContent>
-        </Dialog>
-        <Card>
-          <CardHeader>
-            <Link href="/"></Link>
-            <CardTitle className="text-base lg:text-lg">
-              時の輪廻についての考察
-            </CardTitle>
-            <CardDescription>クロエのループとはなんなのか？</CardDescription>
-          </CardHeader>
-          <CardFooter>
-            <div className="flex items-center space-x-3">
-              <div className="text-xs border rounded-lg px-3 py-1">考察</div>
-              <div className="text-sm">2022/03/10</div>
-            </div>
-          </CardFooter>
-        </Card>
+                  </DialogTitle>
+                  {article.description && (
+                    <DialogDescription className="pt-6 text-left space-y-3">
+                      {article.description.map((desc, i) => (
+                        <p key={i}>{formatText(desc)}</p>
+                      ))}
+                    </DialogDescription>
+                  )}
+                </DialogHeader>
+              </ScrollArea>
+            </DialogContent>
+          </Dialog>
+        ))}
       </div>
     </div>
   );

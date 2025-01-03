@@ -63,7 +63,7 @@ export default function SageContent() {
               </div>
             </DialogTrigger>
             <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%] h-full max-h-[80%] rounded-lg">
-              <ScrollArea className="p-3">
+              <ScrollArea className="p-2">
                 <DialogHeader>
                   <DialogTitle className="pt-5 font-normal text-sm md:text-base">
                     <div className="space-y-6">
@@ -87,7 +87,7 @@ export default function SageContent() {
                     </div>
                   </DialogTitle>
                   {article.description && (
-                    <DialogDescription className="pt-6 text-left space-y-3">
+                    <DialogDescription className="pt-6 text-left space-y-3 text-foreground">
                       {article.description.map((desc, i) => (
                         <p key={i}>{formatText(desc)}</p>
                       ))}

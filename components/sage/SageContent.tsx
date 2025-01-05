@@ -9,6 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Articles, terms } from "@/data/articles";
+import { Button } from "../ui/button";
+import Link from "next/link";
+import { SquareArrowOutUpRight } from "lucide-react";
 
 function formatText(text: string): React.ReactNode[] {
   const parts = text.split("//");
@@ -32,14 +35,24 @@ export default function SageContent() {
   const articles: Articles[] = terms;
 
   return (
-    <div>
-      <div className="px-4 space-y-3 ">
+    <div className="space-y-8">
+      <div className="px-4 space-y-3">
         <h3 className="text-xl font-semibold">解説・考察</h3>
-        <p>
-          作中のわかりにくい概念の解説や、私個人の考察記事を掲載しています。
-        </p>
-        <p></p>
+        <div className="space-y-1">
+          <p>
+            作中のわかりにくい概念の解説や、私個人の考察記事を掲載しています。
+          </p>
+          <p>用語ごとの解説は別ページ（設定資料集）でまとめています。</p>
+        </div>
       </div>
+      <Button variant="ghost" className="shadow p-4 mx-4 rounded-lg " asChild>
+        <Link href="/" target="_blank">
+          <div className="flex items-center space-x-5">
+            <p>それぞれの用語の解説はこちら</p>
+            <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />
+          </div>
+        </Link>
+      </Button>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         {articles.map((article, index) => (
           <Dialog key={index}>
@@ -71,7 +84,7 @@ export default function SageContent() {
                         <h3 className="lg:text-lg font-bold">
                           {article.title}
                         </h3>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-muted-foreground text-xs md:text-sm">
                           {article.sub}
                         </p>
                       </div>

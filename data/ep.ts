@@ -215,7 +215,7 @@ export const terms: Ep[] = [
   {
     name: "コルヌ［別身体］",
     ep: "1,800,000",
-    volume: 1616,
+    volume: 16,
     //
   },
   {

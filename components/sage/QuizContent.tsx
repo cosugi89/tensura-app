@@ -1,3 +1,3 @@
 export default function QuizContent() {
-  return <div>クイズのコンテンツがここに表示されます。</div>;
+  return <div className="text-center">更新予定です～</div>;
 }

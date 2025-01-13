@@ -22,26 +22,10 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Filter,
-  Home,
-  HomeIcon,
-  Search,
-  Undo2,
-  X,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Filter, Undo2, X } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,

@@ -1,7 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import React, {
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+  memo,
+} from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -25,16 +34,20 @@ import {
 } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useTerminology } from "@/lib/useTerminology";
-import { TermCard } from "./TermCard";
-import { Term, terms, TagItem, allTags, allCategory } from "@/data/terms";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import {
@@ -45,9 +58,396 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useToast } from "@/hooks/use-toast";
+import { terms, allTags, TagItem, allCategory, Term } from "@/data/terms";
 
-const AnimatedCard = motion(TermCard);
+// useTerminology フック
+function useTerminology(initialCategory: string, initialTermId: string | null) {
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+  const [selectedTags, setSelectedTags] = useState<TagItem[]>([]);
+  const [selectedTermIndex, setSelectedTermIndex] = useState(0);
+  const router = useRouter();
+  const pathname = usePathname();
 
+  // 選択されたカテゴリーとタグに基づいて用語をフィルタリング
+  const filteredTerms = useMemo(
+    () =>
+      terms.filter(
+        (term) =>
+          term.category === selectedCategory &&
+          (selectedTags.length === 0 ||
+            selectedTags.every((tag) => term.tags.includes(tag)))
+      ),
+    [selectedCategory, selectedTags]
+  );
+
+  // 選択されたカテゴリーに基づいて利用可能なタグを取得
+  const availableTags = useMemo(() => {
+    return allTags
+      .filter((tag) => tag.category === selectedCategory)
+      .map((tag) => tag.name);
+  }, [selectedCategory]);
+
+  // 各タグの用語数をカウント
+  const tagCounts = useMemo(
+    () =>
+      availableTags.reduce((acc, tag) => {
+        acc[tag] = terms.filter(
+          (term) =>
+            term.category === selectedCategory && term.tags.includes(tag)
+        ).length;
+        return acc;
+      }, {} as Record<TagItem, number>),
+    [selectedCategory, availableTags]
+  );
+
+  // タグクリックのハンドラ
+  const handleTagClick = useCallback(
+    (tag: TagItem) => {
+      if (selectedTags.includes(tag)) {
+        setSelectedTags(selectedTags.filter((t) => t !== tag));
+      } else {
+        setSelectedTags([...selectedTags, tag]);
+      }
+    },
+    [selectedTags]
+  );
+
+  // カテゴリー変更のハンドラ
+  const handleCategoryChange = useCallback(
+    (category: string) => {
+      setSelectedCategory(category);
+      setSelectedTags([]);
+      setSelectedTermIndex(0);
+    },
+    [setSelectedCategory, setSelectedTags, setSelectedTermIndex]
+  );
+
+  // 詳細ビューを閉じるハンドラ
+  const closeDetailView = useCallback(() => {
+    router.push(pathname);
+  }, [router, pathname]);
+
+  return {
+    selectedCategory,
+    selectedTags,
+    selectedTermIndex,
+    filteredTerms,
+    availableTags,
+    tagCounts,
+    setSelectedTermIndex,
+    handleTagClick,
+    handleCategoryChange,
+    closeDetailView,
+  };
+}
+
+// TermCard コンポーネント
+const TermCard: React.FC<{
+  term: Term;
+  allTerms?: Term[];
+  onShare?: (termId: number) => void;
+  onTagClick?: (tag: TagItem) => void;
+  onTermLinkClick?: (category: string, termId: string) => void;
+  isDetailView?: boolean;
+  onClick?: () => void;
+  className?: string;
+  selectedTags?: string[];
+}> = memo(
+  ({
+    term,
+    allTerms = [],
+    onShare,
+    onTagClick,
+    onTermLinkClick,
+    isDetailView = false,
+    onClick,
+    className,
+    selectedTags = [],
+  }) => {
+    // キーワードをソート
+    const sortedKeywords = useMemo(() => {
+      return allTerms
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+    }, [allTerms]);
+
+    // 説明文にリンクを追加する関数
+    const addLinksToDescription = (description: string): JSX.Element => {
+      if (!isDetailView) return <>{description}</>;
+
+      let result: (string | JSX.Element)[] = [description];
+
+      // キャラクターカテゴリーを除く全てのキーワードを長さの降順でソート
+      const sortedKeywords = allTerms
+        .filter((term) => term.category !== "キャラクター")
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) => {
+              if (subPart.toLowerCase() === keyword.toLowerCase()) {
+                const linkedTerm = allTerms.find(
+                  (t) =>
+                    t.keywords.includes(keyword) &&
+                    t.category !== "キャラクター"
+                );
+                if (linkedTerm) {
+                  return (
+                    <Link
+                      key={`${keyword}-${index}`}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:underline hover:text-cyan-500"
+                    >
+                      {subPart}
+                    </Link>
+                  );
+                }
+              }
+              return subPart;
+            });
+          }
+          return part;
+        });
+      });
+
+      return <>{result}</>;
+    };
+
+    // キャラクター名にリンクを追加する関数
+    const addLinksToCharacter = (character: string): JSX.Element => {
+      if (!isDetailView) return <>{character}</>;
+
+      let result: (string | JSX.Element)[] = [character];
+
+      const sortedKeywords = allTerms
+        .flatMap((term) => term.keywords)
+        .sort((a, b) => b.length - a.length);
+
+      sortedKeywords.forEach((keyword) => {
+        result = result.flatMap((part) => {
+          if (typeof part === "string") {
+            const parts = part.split(new RegExp(`(${keyword})`, "gi"));
+            return parts.map((subPart, index) => {
+              if (subPart.toLowerCase() === keyword.toLowerCase()) {
+                const linkedTerm = allTerms.find((t) =>
+                  t.keywords.includes(keyword)
+                );
+                if (linkedTerm) {
+                  return (
+                    <Link
+                      key={`${keyword}-${index}`}
+                      href={`/data?category=${encodeURIComponent(
+                        linkedTerm.category
+                      )}&termId=${linkedTerm.id}`}
+                      className="text-sky-600 hover:text-cyan-500"
+                    >
+                      <span className="hover:underline">{subPart}</span>
+                    </Link>
+                  );
+                }
+              }
+              return subPart;
+            });
+          }
+          return part;
+        });
+      });
+
+      return <>{result}</>;
+    };
+
+    // ステータス詳細を処理する関数
+    const processStatusDetail = (detail: string): JSX.Element => {
+      const parts = detail.split(/(\（[^）]+\）)/);
+      return (
+        <>
+          {parts.map((part, index) => {
+            if (part.startsWith("（") && part.endsWith("）")) {
+              return (
+                <span
+                  key={index}
+                  className="text-xs text-muted-foreground mx-1"
+                >
+                  {part.slice(1, -1)}
+                </span>
+              );
+            }
+            return addLinksToDescription(part);
+          })}
+        </>
+      );
+    };
+
+    const descriptionsWithLinks = term.description.map((desc) =>
+      addLinksToDescription(desc)
+    );
+
+    const { toast } = useToast();
+
+    const isCategoryWithImage = (category: string) => {
+      return allCategory.find((c) => c.category === category)?.image ?? false;
+    };
+
+    return (
+      <Card
+        className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
+          className || ""
+        }`}
+        onClick={onClick}
+      >
+        {isDetailView ? (
+          <div
+            className={`p-6  grid-cols-6 gap-8 ${
+              isCategoryWithImage(term.category) ? "md:grid" : ""
+            }`}
+          >
+            <div className="flex flex-col space-y-6 col-span-4">
+              <div className="space-y-1.5">
+                <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
+                  {term.name}
+                </h3>
+                <p className="text-base text-muted-foreground mx-auto text-center">
+                  {term.ruby}
+                </p>
+              </div>
+              <div className="">
+                <div className="text-sm space-y-6 tracking-widest">
+                  <div className="space-y-4">
+                    {descriptionsWithLinks.map((desc, index) => (
+                      <p key={index}>{desc}</p>
+                    ))}
+                  </div>
+                  {term.status && (
+                    <div className="pt-4 pb-6">
+                      {term.status.map((item, index) => (
+                        <div
+                          key={index}
+                          className="grid gap-3 grid-cols-4 border-b py-3"
+                        >
+                          <div className="text-sm">{item.category}</div>
+                          <div className="text-sm col-span-3 flex flex-wrap gap-x-4 gap-y-1">
+                            {item.details.map((detail, detailIndex) => (
+                              <p key={detailIndex} className="">
+                                {processStatusDetail(detail)}
+                              </p>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {term.description2 &&
+                    term.description2.map((item, index) => (
+                      <div key={index} className="space-y-1">
+                        <div className="text-primary font-semibold text-lg">
+                          {item.category}
+                        </div>
+                        {item.details.map((detail, detailIndex) => (
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
+                          </p>
+                        ))}
+                      </div>
+                    ))}
+
+                  {term.relationship && (
+                    <div className="space-y-2">
+                      <div className="text-primary font-semibold text-lg">
+                        関連人物
+                      </div>
+                      {term.relationship?.map((item, index) => (
+                        <div key={index} className="space-y-1">
+                          <span className="text-sky-600">
+                            <span className="pr-1 text-xs">■</span>
+
+                            {item.character.map((char, charIndex) => (
+                              <React.Fragment key={charIndex}>
+                                {charIndex > 0 && " / "}
+                                {addLinksToCharacter(char)}
+                              </React.Fragment>
+                            ))}
+                          </span>
+                          {item.details.map((detail, detailIndex) => (
+                            <p key={detailIndex}>
+                              {addLinksToDescription(detail)}
+                            </p>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {term.description3 &&
+                    term.description3.map((item, index) => (
+                      <div key={index} className="space-y-1">
+                        <div className="text-primary font-semibold text-lg">
+                          {item.category}
+                        </div>
+                        {item.details.map((detail, detailIndex) => (
+                          <p key={detailIndex}>
+                            {addLinksToDescription(detail)}
+                          </p>
+                        ))}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div
+            className={`p-4 md:p-6 grid-cols-5 gap-6 h-full min-h-36 ${
+              isCategoryWithImage(term.category) ? "grid" : ""
+            }`}
+          >
+            <div
+              className={`relative col-span-2 justify-center ${
+                isCategoryWithImage(term.category) ? "" : "hidden"
+              }`}
+            >
+              <Image
+                src={term.image || "/placeholder.svg"}
+                alt={term.name || "Term image"}
+                objectFit="cover"
+                className="object-cover shadow-md rounded-md"
+                layout="fill"
+                priority
+              />
+            </div>
+            <div className="flex flex-col space-y-6 col-span-3 justify-between h-full">
+              <div className="space-y-1.5">
+                <h3
+                  className={`text-lg font-semibold leading-none tracking-tight ${
+                    isCategoryWithImage(term.category) ? "mt-3" : "mt-1"
+                  }`}
+                >
+                  {term.name}
+                </h3>
+                <p className="text-xs md:text-sm text-muted-foreground">
+                  {term.ruby}
+                </p>
+              </div>
+              <div className="">
+                <p className="text-xs md:text-sm text-muted-foreground line-clamp-3">
+                  {term.description[0]}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </Card>
+    );
+  }
+);
+
+TermCard.displayName = "TermCard";
+
+// ClientComponent
 export default function ClientComponent() {
   const router = useRouter();
   const pathname = usePathname();
@@ -426,6 +826,8 @@ export default function ClientComponent() {
       terms,
     ]
   );
+
+  const AnimatedCard = motion(TermCard);
 
   return (
     <div className="container mx-auto p-4 mt-20 lg:grid grid-cols-10 lg:gap-6">

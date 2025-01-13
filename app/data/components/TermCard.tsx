@@ -176,7 +176,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
               isCategoryWithImage(term.category) ? "md:grid" : ""
             }`}
           >
-            <div
+            {/* <div
               className={`relative col-span-2 justify-center mb-10 w-3/5 md:w-full mx-auto ${
                 isCategoryWithImage(term.category) ? "" : "hidden"
               }`}
@@ -189,7 +189,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 layout="fill"
                 priority
               />
-            </div>
+            </div> */}
             <div className="flex flex-col space-y-6 col-span-4">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">

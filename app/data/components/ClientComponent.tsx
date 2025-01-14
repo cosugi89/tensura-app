@@ -501,7 +501,7 @@ export default function ClientComponent() {
 
   const searchResults = useMemo(
     () => searchTerms(terms, searchValue),
-    [searchTerms, terms, searchValue]
+    [searchTerms, searchValue]
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -526,6 +526,7 @@ export default function ClientComponent() {
     }
   };
 
+  // Emblaカルーセルの選択変更時の処理
   useEffect(() => {
     if (emblaApi) {
       const onSelect = () => {
@@ -553,6 +554,7 @@ export default function ClientComponent() {
     }
   }, [emblaApi, selectedTermIndex, openDrawer, openSheet]);
 
+  // URLパラメータが変更されたときの処理
   useEffect(() => {
     const category = searchParams?.get("category");
     const termId = searchParams?.get("termId");
@@ -583,7 +585,6 @@ export default function ClientComponent() {
     handleCategoryChange,
     setSelectedTermIndex,
     filteredTerms,
-    terms,
   ]);
 
   const scrollPrev = useCallback(() => {
@@ -624,18 +625,14 @@ export default function ClientComponent() {
     [handleCloseDetail]
   );
 
+  // 用語カードクリック時の処理
   const handleTermClick = useCallback(
-    (termId: number) => {
-      const termIndex = terms.findIndex((t) => t.id === termId);
-      if (termIndex !== -1) {
-        const term = terms[termIndex];
-        // カテゴリーが現在のものと異なる場合のみ変更
-        if (term.category !== selectedCategory) {
-          handleCategoryChange(term.category);
-        }
-        setSelectedTermIndex(filteredTerms.findIndex((t) => t.id === termId));
+    (index: number) => {
+      setSelectedTermIndex(index);
+      const term = filteredTerms[index];
+      if (term) {
         const newUrl = `/data?category=${encodeURIComponent(
-          term.category
+          selectedCategory
         )}&termId=${term.id}`;
         router.push(newUrl, { scroll: false });
         if (window.innerWidth >= 1024) {
@@ -645,14 +642,7 @@ export default function ClientComponent() {
         }
       }
     },
-    [
-      terms,
-      handleCategoryChange,
-      filteredTerms,
-      router,
-      setSelectedTermIndex,
-      selectedCategory,
-    ]
+    [filteredTerms, router, selectedCategory, setSelectedTermIndex]
   );
 
   const isCategoryWithImage = (category: string) => {

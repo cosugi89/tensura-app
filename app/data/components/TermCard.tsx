@@ -1,15 +1,6 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Share2 } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Term, TagItem, allCategory } from "@/data/terms";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";

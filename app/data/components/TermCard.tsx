@@ -163,7 +163,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
       >
         {isDetailView ? (
           <div
-            className={`p-6  grid-cols-6 gap-8 ${
+            className={`p-6 gap-8 md:max-w-xl lg:max-w-2xl mx-auto ${
               isCategoryWithImage(term.category) ? "md:grid" : ""
             }`}
           >
@@ -181,7 +181,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 priority
               />
             </div> */}
-            <div className="flex flex-col space-y-6 col-span-4">
+            <div className="flex flex-col space-y-6">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
                   {term.name}

@@ -31,14 +31,30 @@ export default function EpRankingContent() {
     setSelectedTerm(term);
   };
 
-  const formattedId = (id: number) => id.toString().padStart(3, "0");
+  const formattedId = (id: number | string) => {
+    if (id === "-") return id;
+    return id.toString().padStart(3, "0");
+  };
 
   const termsWithIds = useMemo(() => {
     let currentId = 1;
+    let consecutiveCount = 0;
+
     return terms.map((term, index) => {
-      if (index > 0 && term.ep === terms[index - 1].ep) {
+      if (!term.character) {
+        return { ...term, id: "-" };
+      }
+
+      if (
+        index > 0 &&
+        term.ep === terms[index - 1].ep &&
+        terms[index - 1].character
+      ) {
+        consecutiveCount++;
         return { ...term, id: currentId - 1 };
       } else {
+        currentId += consecutiveCount;
+        consecutiveCount = 0;
         return { ...term, id: currentId++ };
       }
     });

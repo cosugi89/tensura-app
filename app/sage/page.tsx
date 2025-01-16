@@ -3,14 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Undo2 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import {
   Breadcrumb,
@@ -20,6 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import SageContent from "@/components/sage/SageContent";
 import EpRankingContent from "@/components/sage/EpRankingContent";
 import QuizContent from "@/components/sage/QuizContent";
@@ -35,21 +28,7 @@ export default function Page() {
     <div>
       <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
         <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
-          <Select
-            onValueChange={handleValueChange}
-            defaultValue={selectedContent}
-          >
-            <SelectTrigger className="w-[180px] shadow border-none pl-5">
-              <SelectValue placeholder="解説・考察" className="" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value="sage">解説・考察</SelectItem>
-                <SelectItem value="ep">EP ランキング</SelectItem>
-                <SelectItem value="quiz">クイズ</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <h3 className="font-medium text-base pl-4">解説・考察</h3>
           <Button variant="ghost" className="shadow">
             <Link href="/">
               <Undo2 transform="scale(1, -1)" className="w-4 h-4" />
@@ -76,10 +55,27 @@ export default function Page() {
           </Breadcrumb>
         </div>
       </header>
-      <main className="container mx-auto mt-24 p-4">
-        {selectedContent === "sage" && <SageContent />}
-        {selectedContent === "ep" && <EpRankingContent />}
-        {selectedContent === "quiz" && <QuizContent />}
+      <main className="container mx-auto mt-[70px] p-4">
+        <Tabs
+          defaultValue={selectedContent}
+          onValueChange={handleValueChange}
+          className=""
+        >
+          <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsTrigger value="sage">解説・考察</TabsTrigger>
+            <TabsTrigger value="ep">EPランキング</TabsTrigger>
+            <TabsTrigger value="quiz">クイズ</TabsTrigger>
+          </TabsList>
+          <TabsContent value="sage">
+            <SageContent />
+          </TabsContent>
+          <TabsContent value="ep">
+            <EpRankingContent />
+          </TabsContent>
+          <TabsContent value="quiz">
+            <QuizContent />
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

@@ -57,7 +57,7 @@ export default function SageContent() {
         {articles.map((article, index) => (
           <Dialog key={index}>
             <DialogTrigger className="text-left">
-              <div className="p-6 shadow-sm border bg-card rounded-lg space-y-6">
+              <div className="p-6 shadow-sm border bg-card rounded-lg space-y-6 h-full flex flex-col justify-between">
                 <div className="space-y-1.5">
                   <h3 className="lg:text-lg font-bold">{article.title}</h3>
                   <p className="text-muted-foreground text-sm">{article.sub}</p>

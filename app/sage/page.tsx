@@ -54,18 +54,26 @@ export default function Page() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-      </header>
-      <main className="container mx-auto mt-[70px] p-4">
         <Tabs
           defaultValue={selectedContent}
           onValueChange={handleValueChange}
-          className=""
+          className="shadow-inner"
         >
-          <TabsList className="grid w-full grid-cols-3 mb-8">
-            <TabsTrigger value="sage">解説・考察</TabsTrigger>
-            <TabsTrigger value="ep">EPランキング</TabsTrigger>
-            <TabsTrigger value="quiz">クイズ</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-3 rounded-none px-4">
+            <TabsTrigger value="sage" className="text-xs">
+              解説・考察
+            </TabsTrigger>
+            <TabsTrigger value="ep" className="text-xs">
+              EPランキング
+            </TabsTrigger>
+            <TabsTrigger value="quiz" className="text-xs">
+              クイズ
+            </TabsTrigger>
           </TabsList>
+        </Tabs>
+      </header>
+      <main className="container mx-auto mt-28 p-4 bg-slate-50">
+        <Tabs value={selectedContent} onValueChange={handleValueChange}>
           <TabsContent value="sage">
             <SageContent />
           </TabsContent>

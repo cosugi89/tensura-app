@@ -36,23 +36,25 @@ export default function SageContent() {
 
   return (
     <div className="space-y-8">
-      <div className="px-4 space-y-3">
-        <h3 className="text-xl font-semibold">解説・考察</h3>
-        <div className="space-y-1">
-          <p>
-            作中のわかりにくい概念の解説や、私個人の考察記事を掲載しています。
-          </p>
-          <p>用語ごとの解説は別ページ（設定資料集）でまとめています。</p>
-        </div>
-      </div>
-      <Button variant="ghost" className="shadow p-4 mx-4 rounded-lg " asChild>
-        <Link href="/" target="_blank">
-          <div className="flex items-center space-x-5">
-            <p>それぞれの用語の解説はこちら</p>
-            <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />
+      <div className="shadow-lg rounded-lg p-4 text-sm bg-background">
+        <div className="px-4 space-y-3 mb-4">
+          {/* <h3 className="text-xl font-semibold">解説・考察</h3> */}
+          <div className="space-y-1">
+            <p>
+              作中のわかりにくい概念の解説や、私個人の考察記事を掲載しています。
+            </p>
+            <p>用語ごとの解説は別ページ（設定資料集）でまとめています。</p>
           </div>
-        </Link>
-      </Button>
+        </div>
+        <Button variant="ghost" className="shadow p-4 mx-4 rounded-lg " asChild>
+          <Link href="/" target="_blank">
+            <div className="flex items-center space-x-5">
+              <p>それぞれの用語の解説はこちら</p>
+              <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />
+            </div>
+          </Link>
+        </Button>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         {articles.map((article, index) => (
           <Dialog key={index}>

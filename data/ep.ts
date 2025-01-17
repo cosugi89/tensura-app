@@ -449,6 +449,7 @@ export const terms: Ep[] = [
     name: "アルベルト",
     ep: "682,639",
     volume: 16,
+    character: true,
   },
   {
     name: "トレイニー",
@@ -522,6 +523,7 @@ export const terms: Ep[] = [
     name: "グレゴリー",
     ep: "400,000",
     volume: 18,
+    character: true,
   },
   {
     name: "ヴェノム",

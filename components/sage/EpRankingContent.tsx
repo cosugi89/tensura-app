@@ -62,62 +62,76 @@ export default function EpRankingContent() {
 
   return (
     <div className="space-y-8">
-      <div className="px-4 space-y-4">
-        <div className=" w-auto">
-          <div className="relative text-xl font-semibold w-fit">
-            <span>EP ランキング</span>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  size="icon"
-                  variant="outline"
-                  className="absolute -top-2 -right-9 h-6 w-6 rounded-full p-0"
-                >
-                  <HelpCircleIcon className="h-4 w-4" />
-                  <span className="sr-only">Open description</span>
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%]  rounded-lg">
-                <DialogHeader>
-                  <DialogTitle>ランキングの見方</DialogTitle>
-                </DialogHeader>
-                <div className="flex space-x-2 text-muted-foreground text-sm">
-                  <div>※</div>
-                  <div>
-                    個人名が判明しているキャラクターのみをまとめています。
+      <div className="shadow-lg rounded-lg p-4 text-sm bg-background">
+        <div className=" container mx-auto">
+          <div className="px-4">
+            <div className="">
+              <div className="relative text-xl font-semibold w-fit">
+                {/* <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    className="absolute -top-2 -right-9 h-6 w-6 rounded-full p-0"
+                  >
+                    <HelpCircleIcon className="h-4 w-4" />
+                    <span className="sr-only">Open description</span>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-[90%] md:max-w-[70%] lg:max-w-[50%]  rounded-lg">
+                  <DialogHeader>
+                    <DialogTitle>ランキングの見方</DialogTitle>
+                  </DialogHeader>
+                  <div className="flex space-x-2 text-muted-foreground text-sm">
+                    <div>※</div>
+                    <div>
+                      個人名が判明しているキャラクターのみをまとめています。
+                    </div>
                   </div>
-                </div>
-                <div className="flex space-x-2 text-muted-foreground text-sm">
-                  <div>※</div>
-                  <div>
-                    数値の横のプラスとマイナスは、それぞれ「以上」と「以下」を表しています。
+                  <div className="flex space-x-2 text-muted-foreground text-sm">
+                    <div>※</div>
+                    <div>
+                      数値の横のプラスとマイナスは、それぞれ「以上」と「以下」を表しています。
+                    </div>
                   </div>
+                </DialogContent>
+              </Dialog> */}
+              </div>
+            </div>
+            <div className="space-y-1 mb-4">
+              <p>
+                EP（存在値）とは、魔素量や身体能力を数値化した上に、装備している武具の含有エネルギーを加味したもの。大ざっぱに言ってしまえば
+                “エネルギー量” です。
+              </p>
+              <p>
+                作中の強さを表す唯一といってもいい指標ですので、ランキング形式でまとめてみました。
+              </p>
+              <div className="flex space-x-2 text-muted-foreground text-xs pt-3">
+                <div>※</div>
+                <div>
+                  数値の横のプラスとマイナスは、それぞれ「以上」と「以下」を表しています。
                 </div>
-              </DialogContent>
-            </Dialog>
+              </div>
+            </div>
           </div>
-        </div>
-        <p>
-          EP（存在値）とは、魔素量や身体能力を数値化した上に、装備している武具の含有エネルギーを加味したもの。大ざっぱに言ってしまえば
-          “エネルギー量” です。
-        </p>
-        <div className="space-y-2">
-          <p>
-            作中の強さを表す唯一といってもいい指標ですので、ランキング形式でまとめてみました。
-          </p>
+          <Button
+            variant="ghost"
+            className="shadow p-4 mx-4 rounded-lg "
+            asChild
+          >
+            <Link href="/" target="_blank">
+              <div className="flex items-center space-x-5">
+                <p>EP（存在値）の詳細はこちら</p>
+                <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />
+              </div>
+            </Link>
+          </Button>
         </div>
       </div>
-      <Button variant="ghost" className="shadow p-4 mx-4 rounded-lg " asChild>
-        <Link href="/" target="_blank">
-          <div className="flex items-center space-x-5">
-            <p>EP（存在値）の詳細はこちら</p>
-            <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />
-          </div>
-        </Link>
-      </Button>
-      <div>
+
+      <div className="container mx-auto px-4 pb-8">
         <Table>
-          <TableCaption>21巻時点</TableCaption>
+          {/* <TableCaption>21巻時点</TableCaption> */}
           <TableHeader>
             <TableRow>
               <TableHead className="">

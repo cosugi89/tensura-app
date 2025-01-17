@@ -54,33 +54,33 @@ export default function Page() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
+      </header>
+      <main className="mx-auto pt-[88px]">
         <Tabs
           defaultValue={selectedContent}
           onValueChange={handleValueChange}
-          className="shadow-inner"
+          className="space-y-2"
         >
-          <TabsList className="grid w-full grid-cols-3 rounded-none px-4">
-            <TabsTrigger value="sage" className="text-xs">
-              解説・考察
-            </TabsTrigger>
-            <TabsTrigger value="ep" className="text-xs">
-              EPランキング
-            </TabsTrigger>
-            <TabsTrigger value="quiz" className="text-xs">
-              クイズ
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </header>
-      <main className="container mx-auto mt-28 p-4 bg-slate-50">
-        <Tabs value={selectedContent} onValueChange={handleValueChange}>
-          <TabsContent value="sage">
+          <div className="mx-4">
+            <TabsList className="container mx-auto grid w-full grid-cols-3 px-4">
+              <TabsTrigger value="sage" className="text-xs">
+                解説・考察
+              </TabsTrigger>
+              <TabsTrigger value="ep" className="text-xs">
+                EPランキング
+              </TabsTrigger>
+              <TabsTrigger value="quiz" className="text-xs">
+                クイズ
+              </TabsTrigger>
+            </TabsList>
+          </div>
+          <TabsContent value="sage" className="mt-0 bg-gray-50">
             <SageContent />
           </TabsContent>
-          <TabsContent value="ep">
+          <TabsContent value="ep" className="mt-0">
             <EpRankingContent />
           </TabsContent>
-          <TabsContent value="quiz">
+          <TabsContent value="quiz" className="mt-0">
             <QuizContent />
           </TabsContent>
         </Tabs>

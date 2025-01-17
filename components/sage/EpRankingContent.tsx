@@ -116,7 +116,7 @@ export default function EpRankingContent() {
           </div>
           <Button
             variant="ghost"
-            className="shadow p-4 mx-4 rounded-lg "
+            className="shadow p-4 mx-4 rounded-lg bg-gradient-to-br from-orange-50 md:my-3"
             asChild
           >
             <Link href="/" target="_blank">

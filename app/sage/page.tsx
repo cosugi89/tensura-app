@@ -25,7 +25,7 @@ export default function Page() {
   };
 
   return (
-    <div>
+    <div className="h-dvh bg-gray-50">
       <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
         <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
           <h3 className="font-medium text-base pl-4">解説・考察</h3>
@@ -55,24 +55,26 @@ export default function Page() {
           </Breadcrumb>
         </div>
       </header>
-      <main className="mx-auto pt-[88px]">
+      <main className="mx-auto">
         <Tabs
           defaultValue={selectedContent}
           onValueChange={handleValueChange}
-          className="space-y-2"
+          className=""
         >
-          <div className="mx-4">
-            <TabsList className="container mx-auto grid w-full grid-cols-3 px-4">
-              <TabsTrigger value="sage" className="text-xs">
-                解説・考察
-              </TabsTrigger>
-              <TabsTrigger value="ep" className="text-xs">
-                EPランキング
-              </TabsTrigger>
-              <TabsTrigger value="quiz" className="text-xs">
-                クイズ
-              </TabsTrigger>
-            </TabsList>
+          <div className="bg-background">
+            <div className="mx-4 pb-2 pt-[88px]">
+              <TabsList className="container mx-auto grid w-full grid-cols-3 px-4">
+                <TabsTrigger value="sage" className="text-xs">
+                  解説・考察
+                </TabsTrigger>
+                <TabsTrigger value="ep" className="text-xs">
+                  EPランキング
+                </TabsTrigger>
+                <TabsTrigger value="quiz" className="text-xs">
+                  クイズ
+                </TabsTrigger>
+              </TabsList>
+            </div>
           </div>
           <TabsContent value="sage" className="mt-0 bg-gray-50">
             <SageContent />

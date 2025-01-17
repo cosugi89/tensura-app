@@ -48,7 +48,7 @@ export default function SageContent() {
           </div>
           <Button
             variant="ghost"
-            className="shadow p-4 mx-4 rounded-lg "
+            className="shadow p-4 mx-4 rounded-lg bg-gradient-to-br from-rose-50 md:my-3"
             asChild
           >
             <Link href="/" target="_blank">

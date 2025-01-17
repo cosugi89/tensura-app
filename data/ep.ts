@@ -219,6 +219,12 @@ export const terms: Ep[] = [
     character: true,
   },
   {
+    name: "神化（神性の獲得）",
+    ep: "2,000,000",
+    volume: 18,
+    character: false,
+  },
+  {
     name: "シルビア",
     ep: "2,000,000 -",
     volume: 18,
@@ -364,6 +370,12 @@ export const terms: Ep[] = [
     character: true,
   },
   {
+    name: "超級覚醒者（ミリオンクラス）",
+    ep: "1,000,000",
+    volume: 16,
+    character: false,
+  },
+  {
     name: "精霊王",
     ep: "1,000,000",
     volume: 18,
@@ -386,6 +398,12 @@ export const terms: Ep[] = [
     ep: "882,869",
     volume: 16,
     character: true,
+  },
+  {
+    name: "特S級（天災級）",
+    ep: "800,000",
+    volume: 16,
+    character: false,
   },
   {
     name: "クレイマン［疑似覚醒］",
@@ -533,6 +551,12 @@ export const terms: Ep[] = [
     character: true,
   },
   {
+    name: "S級（災禍級）",
+    ep: "400,000",
+    volume: 16,
+    character: false,
+  },
+  {
     name: "フレイ［覚醒前］",
     ep: "400,000 -",
     volume: 18,
@@ -650,6 +674,12 @@ export const terms: Ep[] = [
     character: true,
   },
   {
+    name: "特A級（災厄級）",
+    ep: "100,000",
+    volume: 16,
+    character: false,
+  },
+  {
     name: "ハクロウ",
     ep: "60,000",
     volume: 0,
@@ -662,5 +692,11 @@ export const terms: Ep[] = [
     volume: 0,
     //
     character: true,
+  },
+  {
+    name: "A級（災害級）",
+    ep: "10,000",
+    volume: 16,
+    character: false,
   },
 ];

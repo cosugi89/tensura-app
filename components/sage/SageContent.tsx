@@ -35,7 +35,7 @@ export default function SageContent() {
   const articles: Articles[] = terms;
 
   return (
-    <div className="space-y-4">
+    <div className="h-dvh bg-gray-50 space-y-4">
       <div className="shadow-lg rounded-lg p-4 text-sm bg-background">
         <div className=" container mx-auto">
           <div className="px-4 space-y-3 mb-4">

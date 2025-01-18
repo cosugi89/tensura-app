@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useMemo } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
@@ -54,8 +56,9 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
             const parts = part.split(new RegExp(`(${keyword})`, "gi"));
             return parts.map((subPart, index) => {
               if (subPart.toLowerCase() === keyword.toLowerCase()) {
-                const linkedTerm = allTerms.find((t) =>
-                  t.keywords.includes(keyword)
+                const linkedTerm = allTerms.find(
+                  (t) => t.keywords.includes(keyword)
+                  // && t.category !== "キャラクター"
                 );
                 if (linkedTerm) {
                   return (

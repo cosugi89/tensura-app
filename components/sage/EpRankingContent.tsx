@@ -119,7 +119,7 @@ export default function EpRankingContent() {
             className="shadow p-4 mx-4 rounded-lg bg-gradient-to-br from-orange-50 md:my-3"
             asChild
           >
-            <Link href="/" target="_blank">
+            <Link href="/data?category=その他&termId=存在値" target="_blank">
               <div className="flex items-center space-x-5">
                 <p>EP（存在値）の詳細はこちら</p>
                 <SquareArrowOutUpRight className="h-4 w-4 mt-0.5" />

@@ -8981,6 +8981,16 @@ export const terms: Term[] = [
   },
 
   // その他
+  // 存在値
+  {
+    id: "存在値",
+    name: "存在値",
+    keywords: ["存在値"],
+    image: "/タグのフリー素材.svg",
+    description: ["存在値"],
+    tags: ["用語"],
+    category: "その他",
+  },
   // 停止世界
   {
     id: "停止世界",

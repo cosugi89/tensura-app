@@ -25,7 +25,7 @@ export default function Page() {
   };
 
   return (
-    <div className="h-max bg-gray-50">
+    <div className="h-max bg-gray-50/50">
       <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
         <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
           <h3 className="font-medium text-base pl-4">解説・考察</h3>
@@ -76,7 +76,7 @@ export default function Page() {
               </TabsList>
             </div>
           </div>
-          <TabsContent value="sage" className="mt-0 bg-gray-50">
+          <TabsContent value="sage" className="mt-0 bg-gray-50/50">
             <SageContent />
           </TabsContent>
           <TabsContent value="ep" className="mt-0">

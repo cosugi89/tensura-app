@@ -151,7 +151,7 @@ export default function Home() {
               </DialogContent>
             </Dialog>
           </div>
-          <ScrollArea className="h-full hidden lg:block shadow-inner px-4 rounded-md">
+          <ScrollArea className="h-full hidden lg:block shadow-inner px-4 rounded-md bg-gray-50/50">
             <News />
           </ScrollArea>
         </div>

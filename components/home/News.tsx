@@ -50,7 +50,10 @@ export default function News() {
   return (
     <div className="mx-2 py-4 space-y-4">
       {news.map((e) => (
-        <div key={e.detail} className="shadow p-4 rounded-md space-y-3">
+        <div
+          key={e.detail}
+          className="shadow p-4 rounded-md space-y-3 bg-background"
+        >
           <div className="flex items-center space-x-4">
             <div className="col-span-1 text-xs p-[3px] rounded-full bg-accent text-center w-28">
               {e.category}

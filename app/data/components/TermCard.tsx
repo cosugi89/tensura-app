@@ -40,7 +40,6 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
 
       let result: (string | JSX.Element)[] = [description];
 
-      // Sort all keywords by length in descending order, excluding "キャラクター" category
       const sortedKeywords = allTerms
         .filter((term) => term.category !== "キャラクター")
         .flatMap((term) => term.keywords)
@@ -157,31 +156,17 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
     return (
       <Card
         className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
-          className || "border-none"
+          className || "border-none shadow-none"
         }`}
         onClick={onClick}
       >
         {isDetailView ? (
           <div
-            className={`min-h-full max-h-dvh p-6 gap-8 md:max-w-xl lg:max-w-2xl mx-auto shadow-inner bg-gradient-to-tl from-gray-50 ${
+            className={`min-h-full p-6 gap-8 md:max-w-2xl lg:max-w-3xl mx-auto shadow-inner bg-gradient-to-tl rounded-lg from-gray-50 ${
               isCategoryWithImage(term.category) ? "md:grid" : ""
             }`}
           >
-            {/* <div
-              className={`relative col-span-2 justify-center mb-10 w-3/5 md:w-full mx-auto ${
-                isCategoryWithImage(term.category) ? "" : "hidden"
-              }`}
-              style={{ aspectRatio: "4 / 5" }}
-            >
-              <Image
-                src={term.image || "/placeholder.svg"}
-                alt={term.name || "Term image"}
-                className="object-cover shadow-md rounded-md"
-                layout="fill"
-                priority
-              />
-            </div> */}
-            <div className="flex flex-col space-y-6 h-full">
+            <div className="flex flex-col space-y-6 h-full w-full md:max-w-xl lg:max-w-2xl mx-auto">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
                   {term.name}

@@ -278,7 +278,7 @@ export default function ClientComponent() {
       <Tabs
         value={activeTab}
         onValueChange={handleTabChange}
-        className="p-4 space-y-3"
+        className="p-4 space-y-3 bg-background rounded-lg"
       >
         <TabsList className="grid w-full grid-cols-2 shadow-inner">
           <TabsTrigger value="category">カテゴリー</TabsTrigger>
@@ -424,8 +424,8 @@ export default function ClientComponent() {
   );
 
   return (
-    <div className="h-full bg-gray-50 pt-20">
-      <div className="container mx-auto p-4 lg:grid grid-cols-10 lg:gap-6">
+    <div className="h-dvh bg-gray-50/50">
+      <div className="container mx-auto p-4 pt-24 lg:grid grid-cols-10 lg:gap-6">
         <aside className="hidden lg:block col-span-3 space-y-6">
           <FilterMenu />
         </aside>
@@ -533,7 +533,7 @@ export default function ClientComponent() {
               ))}
             </main>
           ) : (
-            <div className="flex flex-col items-center p-4">
+            <div className="flex flex-col items-center p-4 text-sm">
               <p className="text-muted-foreground text-center">
                 該当する用語が見つかりませんでした。
                 <br />

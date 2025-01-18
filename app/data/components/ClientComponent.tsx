@@ -240,7 +240,7 @@ export default function ClientComponent() {
   );
 
   const handleTermClick = useCallback(
-    (termId: number) => {
+    (termId: string) => {
       const termIndex = terms.findIndex((t) => t.id === termId);
       if (termIndex !== -1) {
         const term = terms[termIndex];

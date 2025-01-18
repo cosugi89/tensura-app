@@ -17,7 +17,7 @@ interface RelationshipItem {
 }
 
 export interface Term {
-  id: number;
+  id: string;
   name?: string;
   ruby?: string;
   image?: string;
@@ -50,7 +50,7 @@ export const terms: Term[] = [
   // キャラクター
   // リムル
   {
-    id: 1001,
+    id: "リムル＝テンペスト",
     name: "リムル＝テンペスト",
     keywords: ["リムル", "リムル＝テンペスト"],
     image: "/人物アイコン.svg",
@@ -150,7 +150,7 @@ export const terms: Term[] = [
   },
   // ヴェルドラ
   {
-    id: 1002,
+    id: "ヴェルドラ＝テンペスト",
     name: "ヴェルドラ＝テンペスト",
     keywords: ["ヴェルドラ", "ヴェルドラ＝テンペスト"],
     image: "/人物アイコン.svg",
@@ -275,7 +275,7 @@ export const terms: Term[] = [
   },
   // ベニマル
   {
-    id: 1003,
+    id: "ベニマル",
     name: "ベニマル",
     keywords: ["ベニマル"],
     image: "/人物アイコン.svg",
@@ -386,7 +386,7 @@ export const terms: Term[] = [
   },
   // シュナ
   {
-    id: 1004,
+    id: "シュナ",
     name: "シュナ",
     keywords: ["シュナ"],
     image: "/人物アイコン.svg",
@@ -493,7 +493,7 @@ export const terms: Term[] = [
   // スキル
   // 正義之王
   {
-    id: 2003,
+    id: "正義之王",
     name: "正義之王",
     ruby: "ミカエル",
     keywords: ["正義之王"],
@@ -564,7 +564,7 @@ export const terms: Term[] = [
   },
   // 知識之王
   {
-    id: 2003,
+    id: "知識之王",
     name: "知識之王",
     ruby: "ラファエル",
     keywords: ["知識之王"],
@@ -601,7 +601,7 @@ export const terms: Term[] = [
   },
   // 智慧之王
   {
-    id: 2003,
+    id: "智慧之王",
     name: "智慧之王",
     ruby: "ラファエル",
     keywords: ["智慧之王"],
@@ -656,7 +656,7 @@ export const terms: Term[] = [
   },
   // 誓約之王
   {
-    id: 2003,
+    id: "誓約之王",
     name: "誓約之王",
     ruby: "ウリエル",
     keywords: ["誓約之王"],
@@ -731,7 +731,7 @@ export const terms: Term[] = [
   },
   // 希望之王
   {
-    id: 2003,
+    id: "希望之王",
     name: "希望之王",
     ruby: "サリエル",
     keywords: ["希望之王"],
@@ -766,7 +766,7 @@ export const terms: Term[] = [
   },
   // 純潔之王
   {
-    id: 2003,
+    id: "純潔之王",
     name: "純潔之王",
     ruby: "メタトロン",
     keywords: ["純潔之王"],
@@ -800,7 +800,7 @@ export const terms: Term[] = [
   },
   // 救恤之王
   {
-    id: 2003,
+    id: "救恤之王",
     name: "救恤之王",
     ruby: "ラグエル",
     keywords: ["救恤之王"],
@@ -835,7 +835,7 @@ export const terms: Term[] = [
   },
   // 忍耐之王
   {
-    id: 2003,
+    id: "忍耐之王",
     name: "忍耐之王",
     ruby: "ガブリエル",
     keywords: ["忍耐之王"],
@@ -871,7 +871,7 @@ export const terms: Term[] = [
   },
   // 審判之王
   {
-    id: 2003,
+    id: "審判之王",
     name: "審判之王",
     ruby: "イスラフィール",
     keywords: ["審判之王"],
@@ -905,7 +905,7 @@ export const terms: Term[] = [
   },
   // 救済之王
   {
-    id: 2003,
+    id: "救済之王",
     name: "救済之王",
     ruby: "アズラエル",
     keywords: ["救済之王"],
@@ -940,7 +940,7 @@ export const terms: Term[] = [
   },
   // 至天之王
   {
-    id: 2003,
+    id: "至天之王",
     name: "至天之王",
     ruby: "アスタルテ",
     keywords: ["至天之王"],
@@ -976,7 +976,7 @@ export const terms: Term[] = [
   },
   // 厳格之王
   {
-    id: 2003,
+    id: "厳格之王",
     name: "厳格之王",
     ruby: "ジブリール",
     keywords: ["厳格之王"],
@@ -1016,7 +1016,7 @@ export const terms: Term[] = [
   },
   // 栄光之王
   {
-    id: 2003,
+    id: "栄光之王",
     name: "栄光之王",
     ruby: "ハニエル",
     keywords: ["栄光之王"],
@@ -1051,7 +1051,7 @@ export const terms: Term[] = [
   },
   // 支配之王
   {
-    id: 2003,
+    id: "支配之王",
     name: "支配之王",
     ruby: "メルキゼデク",
     keywords: ["支配之王"],
@@ -1085,7 +1085,7 @@ export const terms: Term[] = [
   },
   // 刑罰之王
   {
-    id: 2003,
+    id: "刑罰之王",
     name: "刑罰之王",
     ruby: "サンダルフォン",
     keywords: ["刑罰之王"],
@@ -1119,7 +1119,7 @@ export const terms: Term[] = [
   },
   // 断罪之王
   {
-    id: 2003,
+    id: "断罪之王",
     name: "断罪之王",
     ruby: "サンダルフォン",
     keywords: ["断罪之王"],
@@ -1154,7 +1154,7 @@ export const terms: Term[] = [
   },
   // 憤怒之王
   {
-    id: 2003,
+    id: "憤怒之王",
     name: "憤怒之王",
     ruby: "サタナエル",
     keywords: ["憤怒之王"],
@@ -1189,7 +1189,7 @@ export const terms: Term[] = [
   },
   // 暴食之王
   {
-    id: 2003,
+    id: "暴食之王",
     name: "暴食之王",
     ruby: "ベルゼビュート",
     keywords: ["暴食之王"],
@@ -1235,7 +1235,7 @@ export const terms: Term[] = [
   },
   // 傲慢之王
   {
-    id: 2003,
+    id: "傲慢之王",
     name: "傲慢之王",
     ruby: "ルシファー",
     keywords: ["傲慢之王"],
@@ -1269,7 +1269,7 @@ export const terms: Term[] = [
   },
   // 怠惰之王
   {
-    id: 2003,
+    id: "怠惰之王",
     name: "怠惰之王",
     ruby: "ベルフェゴール",
     keywords: ["怠惰之王"],
@@ -1306,7 +1306,7 @@ export const terms: Term[] = [
   },
   // 色欲之王
   {
-    id: 2003,
+    id: "色欲之王",
     name: "色欲之王",
     ruby: "アスモデウス",
     keywords: ["色欲之王"],
@@ -1342,7 +1342,7 @@ export const terms: Term[] = [
   },
   // 強欲之王
   {
-    id: 2003,
+    id: "強欲之王",
     name: "強欲之王",
     ruby: "マモン",
     keywords: ["強欲之王"],
@@ -1388,7 +1388,7 @@ export const terms: Term[] = [
   },
   // 嫉妬之王
   {
-    id: 2003,
+    id: "嫉妬之王",
     name: "嫉妬之王",
     ruby: "レヴィアタン",
     keywords: ["嫉妬之王"],
@@ -1422,7 +1422,7 @@ export const terms: Term[] = [
   },
   // 死界之王
   {
-    id: 2003,
+    id: "死界之王",
     name: "死界之王",
     ruby: "ベリアル",
     keywords: ["死界之王"],
@@ -1463,7 +1463,7 @@ export const terms: Term[] = [
   },
   // 死毒之王
   {
-    id: 2003,
+    id: "死毒之王",
     name: "死毒之王",
     ruby: "サマエル",
     keywords: ["死毒之王"],
@@ -1512,7 +1512,7 @@ export const terms: Term[] = [
   },
   // 死滅之王
   {
-    id: 2003,
+    id: "死滅之王",
     name: "死滅之王",
     ruby: "アバドン",
     keywords: ["死滅之王"],
@@ -1556,7 +1556,7 @@ export const terms: Term[] = [
   },
   // 誘惑之王
   {
-    id: 2003,
+    id: "誘惑之王",
     name: "誘惑之王",
     ruby: "アザゼル",
     keywords: ["誘惑之王"],
@@ -1606,7 +1606,7 @@ export const terms: Term[] = [
   },
   // 幻想之王
   {
-    id: 2003,
+    id: "幻想之王",
     name: "幻想之王",
     ruby: "メフィスト",
     keywords: ["幻想之王"],
@@ -1669,7 +1669,7 @@ export const terms: Term[] = [
   },
   // 陽炎之王
   {
-    id: 2003,
+    id: "陽炎之王",
     name: "陽炎之王",
     ruby: "アマテラス",
     keywords: ["陽炎之王"],
@@ -1724,7 +1724,7 @@ export const terms: Term[] = [
   },
   // 月影之王
   {
-    id: 2003,
+    id: "月影之王",
     name: "月影之王",
     ruby: "ツクヨミ",
     keywords: ["月影之王"],
@@ -1769,7 +1769,7 @@ export const terms: Term[] = [
   },
   // 暴虐之王
   {
-    id: 2003,
+    id: "暴虐之王",
     name: "暴虐之王",
     ruby: "スサノオ",
     keywords: ["暴虐之王"],
@@ -1822,7 +1822,7 @@ export const terms: Term[] = [
   },
   // 導之巫女
   {
-    id: 2003,
+    id: "導之巫女",
     name: "導之巫女",
     ruby: "ヤオヨロズ",
     keywords: ["導之巫女"],
@@ -1857,7 +1857,7 @@ export const terms: Term[] = [
   },
   // 火焔之王
   {
-    id: 2003,
+    id: "火焔之王",
     name: "火焔之王",
     ruby: "アグニ",
     keywords: ["火焔之王"],
@@ -1890,7 +1890,7 @@ export const terms: Term[] = [
   },
   // 雷霆之王
   {
-    id: 2003,
+    id: "雷霆之王",
     name: "雷霆之王",
     ruby: "インドラ",
     keywords: ["雷霆之王"],
@@ -1927,7 +1927,7 @@ export const terms: Term[] = [
   },
   // 風天之王
   {
-    id: 2003,
+    id: "風天之王",
     name: "風天之王",
     ruby: "ヴァーユ",
     keywords: ["風天之王"],
@@ -1964,7 +1964,7 @@ export const terms: Term[] = [
   },
   // 光輝之王
   {
-    id: 2003,
+    id: "光輝之王",
     name: "光輝之王",
     ruby: "スーリヤ",
     keywords: ["光輝之王"],
@@ -1997,7 +1997,7 @@ export const terms: Term[] = [
   },
   // 審罰之王
   {
-    id: 2003,
+    id: "審罰之王",
     name: "審罰之王",
     ruby: "メーティス",
     keywords: ["審罰之王"],
@@ -2030,7 +2030,7 @@ export const terms: Term[] = [
   },
   // 数奇之王
   {
-    id: 2003,
+    id: "数奇之王",
     name: "数奇之王",
     ruby: "フォルトゥーナ",
     keywords: ["数奇之王"],
@@ -2074,7 +2074,7 @@ export const terms: Term[] = [
   },
   // 星界之王
   {
-    id: 2003,
+    id: "星界之王",
     name: "星界之王",
     ruby: "テラ・マーテル",
     keywords: ["星界之王"],
@@ -2107,7 +2107,7 @@ export const terms: Term[] = [
   },
   // 女王崇拝
   {
-    id: 2003,
+    id: "女王崇拝",
     name: "女王崇拝",
     ruby: "プロセルピナ",
     keywords: ["女王崇拝"],
@@ -2160,7 +2160,7 @@ export const terms: Term[] = [
   },
   // 楽天奏者
   {
-    id: 2003,
+    id: "楽天奏者",
     name: "楽天奏者",
     ruby: "オルフェウス",
     keywords: ["楽天奏者"],
@@ -2193,7 +2193,7 @@ export const terms: Term[] = [
   },
   // 虚空之神
   {
-    id: 2003,
+    id: "虚空之神",
     name: "虚空之神",
     ruby: "アザトース",
     keywords: ["虚空之神"],
@@ -2260,7 +2260,7 @@ export const terms: Term[] = [
   },
   // 時空之王
   {
-    id: 2003,
+    id: "時空之王",
     name: "時空之王",
     ruby: "ヨグ・ソトース",
     keywords: ["時空之王"],
@@ -2293,7 +2293,7 @@ export const terms: Term[] = [
   },
   // 時空之神
   {
-    id: 2003,
+    id: "時空之神",
     name: "時空之神",
     ruby: "ヨグ＝ソトホート",
     keywords: ["時空之神"],
@@ -2326,7 +2326,7 @@ export const terms: Term[] = [
   },
   // 混沌之王
   {
-    id: 2003,
+    id: "混沌之王",
     name: "混沌之王",
     ruby: "ナイアルラトホテップ",
     keywords: ["混沌之王"],
@@ -2372,7 +2372,7 @@ export const terms: Term[] = [
   },
   // 炎神之王
   {
-    id: 2003,
+    id: "炎神之王",
     name: "炎神之王",
     ruby: "クトゥグア",
     keywords: ["炎神之王"],
@@ -2420,7 +2420,7 @@ export const terms: Term[] = [
   },
   // 星風之王
   {
-    id: 2003,
+    id: "星風之王",
     name: "星風之王",
     ruby: "ハストゥール",
     keywords: ["星風之王"],
@@ -2470,7 +2470,7 @@ export const terms: Term[] = [
   },
   // 豊穣之王
   {
-    id: 2003,
+    id: "豊穣之王",
     name: "豊穣之王",
     ruby: "シュブ・ニグラト",
     keywords: ["豊穣之王"],
@@ -2519,7 +2519,7 @@ export const terms: Term[] = [
   },
   // 魔道之書
   {
-    id: 2003,
+    id: "ネクロノミコン",
     name: "魔道之書",
     ruby: "ネクロノミコン",
     keywords: ["魔道之書"],
@@ -2564,7 +2564,7 @@ export const terms: Term[] = [
   },
   // 厳正之王
   {
-    id: 2003,
+    id: "厳正之王",
     name: "厳正之王",
     ruby: "ジブリル",
     keywords: ["厳正之王"],
@@ -2597,7 +2597,7 @@ export const terms: Term[] = [
   },
   // 栄煌之王
   {
-    id: 2003,
+    id: "栄煌之王",
     name: "栄煌之王",
     ruby: "ハミエル",
     keywords: ["栄煌之王"],
@@ -2631,7 +2631,7 @@ export const terms: Term[] = [
   },
   // 堕天之王
   {
-    id: 2003,
+    id: "堕天之王",
     name: "堕天之王",
     ruby: "アスタロト",
     keywords: ["堕天之王"],
@@ -2664,7 +2664,7 @@ export const terms: Term[] = [
   },
   // 美食之王
   {
-    id: 2003,
+    id: "美食之王",
     name: "美食之王",
     ruby: "ベルゼバブ",
     keywords: ["美食之王"],
@@ -2721,7 +2721,7 @@ export const terms: Term[] = [
   },
   // 邪龍之王
   {
-    id: 2003,
+    id: "邪龍之王",
     name: "邪龍之王",
     ruby: "アジ・ダハーカ",
     keywords: ["邪龍之王"],
@@ -2786,7 +2786,7 @@ export const terms: Term[] = [
   },
   // 幻獣之王
   {
-    id: 2003,
+    id: "幻獣之王",
     name: "幻獣之王",
     ruby: "バハムート",
     keywords: ["幻獣之王"],
@@ -2826,7 +2826,7 @@ export const terms: Term[] = [
   },
   // 生命之王
   {
-    id: 2003,
+    id: "生命之王",
     name: "生命之王",
     ruby: "セフィロト",
     keywords: ["生命之王"],
@@ -2862,7 +2862,7 @@ export const terms: Term[] = [
   },
   // 機神之王
   {
-    id: 2003,
+    id: "機神之王",
     name: "機神之王",
     ruby: "デウス・エクス・マキナ",
     keywords: ["機神之王"],
@@ -2905,7 +2905,7 @@ export const terms: Term[] = [
   },
   // 究明之王
   {
-    id: 2003,
+    id: "究明之王",
     name: "究明之王",
     ruby: "ファウスト",
     keywords: ["究明之王"],
@@ -2950,7 +2950,7 @@ export const terms: Term[] = [
   },
   // 魔道之書
   {
-    id: 2003,
+    id: "グリモワール",
     name: "魔道之書",
     ruby: "グリモワール",
     keywords: ["魔道之書"],
@@ -2997,7 +2997,7 @@ export const terms: Term[] = [
   },
   // 予言之書
   {
-    id: 2003,
+    id: "予言之書",
     name: "予言之書",
     ruby: "アガスティア",
     keywords: ["予言之書"],
@@ -3034,7 +3034,7 @@ export const terms: Term[] = [
   },
   // 英雄之王
   {
-    id: 2003,
+    id: "英雄之王",
     name: "英雄之王",
     ruby: "シンナルエイユウ",
     keywords: ["英雄之王"],
@@ -3076,7 +3076,7 @@ export const terms: Term[] = [
   },
   // 心理之王
   {
-    id: 2003,
+    id: "心理之王",
     name: "心理之王",
     ruby: "ムードメーカー",
     keywords: ["心理之王"],
@@ -3121,7 +3121,7 @@ export const terms: Term[] = [
   },
   // 真贋作家
   {
-    id: 2003,
+    id: "真贋作家",
     name: "真贋作家",
     ruby: "アーティスト",
     keywords: ["真贋作家"],
@@ -3155,7 +3155,7 @@ export const terms: Term[] = [
   },
   // 刀身変化
   {
-    id: 2003,
+    id: "刀身変化",
     name: "刀身変化",
     keywords: ["刀身変化"],
     image: "/人魂アイコン.svg",
@@ -3187,7 +3187,7 @@ export const terms: Term[] = [
   },
   // 不老不死
   {
-    id: 2003,
+    id: "不老不死",
     name: "不老不死",
     ruby: "イモータル",
     keywords: ["不老不死"],
@@ -3220,7 +3220,7 @@ export const terms: Term[] = [
   },
   // 不朽不滅
   {
-    id: 2003,
+    id: "不朽不滅",
     name: "不朽不滅",
     ruby: "エターナル",
     keywords: ["不朽不滅"],
@@ -3253,7 +3253,7 @@ export const terms: Term[] = [
   },
   // 武創之王
   {
-    id: 2003,
+    id: "武創之王",
     name: "武創之王",
     ruby: "マルチプルウェポン",
     keywords: ["武創之王"],
@@ -3287,7 +3287,7 @@ export const terms: Term[] = [
   },
   // 地形之王
   {
-    id: 2003,
+    id: "地形之王",
     name: "地形之王",
     ruby: "ワールドマップ",
     keywords: ["地形之王"],
@@ -3323,7 +3323,7 @@ export const terms: Term[] = [
   },
   // 代行権利
   {
-    id: 2003,
+    id: "代行権利",
     name: "代行権利",
     ruby: "オルタナティブ",
     keywords: ["代行権利"],
@@ -3368,7 +3368,7 @@ export const terms: Term[] = [
   },
   // 暴風之王
   {
-    id: 2003,
+    id: "暴風之王",
     name: "暴風之王",
     ruby: "ヴェルドラ",
     keywords: ["暴風之王"],
@@ -3415,7 +3415,7 @@ export const terms: Term[] = [
   },
   // 灼熱之王
   {
-    id: 2003,
+    id: "灼熱之王",
     name: "灼熱之王",
     ruby: "ヴェルグリンド",
     keywords: ["灼熱之王"],
@@ -3450,7 +3450,7 @@ export const terms: Term[] = [
   // 魔法
   // 火炎球
   {
-    id: 3003,
+    id: "火炎球",
     name: "火炎球",
     ruby: "ファイア",
     keywords: ["火炎球"],
@@ -3475,7 +3475,7 @@ export const terms: Term[] = [
   },
   // 氷結地獄
   {
-    id: 3003,
+    id: "氷結地獄",
     name: "氷結地獄",
     ruby: "コキュートス",
     keywords: ["氷結地獄"],
@@ -3502,7 +3502,7 @@ export const terms: Term[] = [
   },
   // 氷塊破砕
   {
-    id: 3003,
+    id: "氷塊破砕",
     name: "氷塊破砕",
     ruby: "アイスブレイカー",
     keywords: ["氷塊破砕"],
@@ -3529,7 +3529,7 @@ export const terms: Term[] = [
   },
   // 不死者軍団創造
   {
-    id: 3003,
+    id: "不死者軍団創造",
     name: "不死者軍団創造",
     ruby: "イモータルレギオン",
     keywords: ["不死者軍団創造"],
@@ -3556,7 +3556,7 @@ export const terms: Term[] = [
   },
   // 爆覇流星嵐
   {
-    id: 3003,
+    id: "爆覇流星嵐",
     name: "爆覇流星嵐",
     ruby: "テンペストミーティア",
     keywords: ["爆覇流星嵐"],
@@ -3583,7 +3583,7 @@ export const terms: Term[] = [
   },
   // 霊子崩壊
   {
-    id: 3003,
+    id: "霊子崩壊",
     name: "霊子崩壊",
     ruby: "ディスインテグレーション",
     keywords: ["霊子崩壊"],
@@ -3611,7 +3611,7 @@ export const terms: Term[] = [
   },
   // 聖域型極大霊子崩壊
   {
-    id: 3003,
+    id: "聖域型極大霊子崩壊",
     name: "聖域型極大霊子崩壊",
     ruby: "サンクチュアリ・ディスインテグレーション",
     keywords: ["聖域型極大霊子崩壊"],
@@ -3638,7 +3638,7 @@ export const terms: Term[] = [
   },
   // 上位回復
   {
-    id: 3003,
+    id: "上位回復",
     name: "上位回復",
     ruby: "ハイ・ヒール",
     keywords: ["上位回復"],
@@ -3663,7 +3663,7 @@ export const terms: Term[] = [
   },
   // 死者蘇生
   {
-    id: 3003,
+    id: "死者蘇生",
     name: "死者蘇生",
     ruby: "リザレクション",
     keywords: ["死者蘇生"],
@@ -3688,7 +3688,7 @@ export const terms: Term[] = [
   },
   // 死者浄化
   {
-    id: 3003,
+    id: "死者浄化",
     name: "死者浄化",
     ruby: "ターンアンデッド",
     keywords: ["死者浄化"],
@@ -3715,7 +3715,7 @@ export const terms: Term[] = [
   },
   // 虚無消失獄
   {
-    id: 3003,
+    id: "虚無消失獄",
     name: "虚無消失獄",
     ruby: "ニヒリスティックバニッシュ",
     keywords: ["虚無消失獄"],
@@ -3742,7 +3742,7 @@ export const terms: Term[] = [
   },
   // 絶牙虚無飽喰
   {
-    id: 3003,
+    id: "絶牙虚無飽喰",
     name: "絶牙虚無飽喰",
     ruby: "ニヒリスティックパレード",
     keywords: ["絶牙虚無飽喰"],
@@ -3769,7 +3769,7 @@ export const terms: Term[] = [
   },
   // 妖死冥産
   {
-    id: 3003,
+    id: "妖死冥産",
     name: "妖死冥産",
     ruby: "バースディ",
     keywords: ["妖死冥産"],
@@ -3796,7 +3796,7 @@ export const terms: Term[] = [
   },
   // 星幽束縛術
   {
-    id: 3003,
+    id: "星幽束縛術",
     name: "星幽束縛術",
     ruby: "アストラルバインド",
     keywords: ["星幽束縛術"],
@@ -3823,7 +3823,7 @@ export const terms: Term[] = [
   },
   // 衝撃吸収領域
   {
-    id: 3003,
+    id: "衝撃吸収領域",
     name: "衝撃吸収領域",
     ruby: "アンチショックエリア",
     keywords: ["衝撃吸収領域"],
@@ -3850,7 +3850,7 @@ export const terms: Term[] = [
   },
   // 万物隔離結界
   {
-    id: 3003,
+    id: "万物隔離結界",
     name: "万物隔離結界",
     ruby: "マテリアルエリア",
     keywords: ["万物隔離結界"],
@@ -3877,7 +3877,7 @@ export const terms: Term[] = [
   },
   // 終末崩縮消滅波
   {
-    id: 3003,
+    id: "終末崩縮消滅波",
     name: "終末崩縮消滅波",
     ruby: "アビスアナイアレーション",
     keywords: ["終末崩縮消滅波"],
@@ -3902,7 +3902,7 @@ export const terms: Term[] = [
   },
   // 白閃滅炎覇
   {
-    id: 3003,
+    id: "白閃滅炎覇",
     name: "白閃滅炎覇",
     ruby: "ホワイトフレア",
     keywords: ["白閃滅炎覇"],
@@ -3931,7 +3931,7 @@ export const terms: Term[] = [
   // アーツ
   // 覇竜絶影拳
   {
-    id: 4003,
+    id: "覇竜絶影拳",
     name: "覇竜絶影拳",
     ruby: "ドラゴニックバースト",
     keywords: ["覇竜絶影拳"],
@@ -3954,7 +3954,7 @@ export const terms: Term[] = [
   },
   // 無限回廊
   {
-    id: 4003,
+    id: "無限回廊",
     name: "無限回廊",
     ruby: "エンドレスループ",
     keywords: ["無限回廊", "無限回廊の秘法"],
@@ -3978,7 +3978,7 @@ export const terms: Term[] = [
   },
   // 血魔爪
   {
-    id: 4003,
+    id: "血魔爪",
     name: "血魔爪",
     ruby: "ブラッディネイル",
     keywords: ["血魔爪"],
@@ -4001,7 +4001,7 @@ export const terms: Term[] = [
   },
   // 十字閃炎嵐撃
   {
-    id: 4003,
+    id: "十字閃炎嵐撃",
     name: "十字閃炎嵐撃",
     ruby: "クロスフレアストーム",
     keywords: ["十字閃炎嵐撃"],
@@ -4024,7 +4024,7 @@ export const terms: Term[] = [
   },
   // 獣王閃光咆
   {
-    id: 4003,
+    id: "獣王閃光咆",
     name: "獣王閃光咆",
     ruby: "バースト・ロア",
     keywords: ["獣王閃光咆"],
@@ -4047,7 +4047,7 @@ export const terms: Term[] = [
   },
   // 天光弾
   {
-    id: 4003,
+    id: "天光弾",
     name: "天光弾",
     keywords: ["天光弾"],
     image: "/コブシのアイコン.svg",
@@ -4067,7 +4067,7 @@ export const terms: Term[] = [
   },
   // 天罰轟雷
   {
-    id: 4003,
+    id: "天罰轟雷",
     name: "天罰轟雷",
     ruby: "ジュピター",
     keywords: ["天罰轟雷"],
@@ -4090,7 +4090,7 @@ export const terms: Term[] = [
   },
   // 冥威八掌
   {
-    id: 4003,
+    id: "冥威八掌",
     name: "冥威八掌",
     keywords: ["冥威八掌"],
     image: "/コブシのアイコン.svg",
@@ -4110,7 +4110,7 @@ export const terms: Term[] = [
   },
   // 終末魔狼演舞
   {
-    id: 4003,
+    id: "終末魔狼演舞",
     name: "終末魔狼演舞",
     ruby: "アポカリプス・ハウリング",
     keywords: ["終末魔狼演舞"],
@@ -4134,7 +4134,7 @@ export const terms: Term[] = [
   },
   // 暗死の一撃
   {
-    id: 4003,
+    id: "暗死の一撃",
     name: "暗死の一撃",
     ruby: "アサシネイト",
     keywords: ["暗死の一撃"],
@@ -4155,7 +4155,7 @@ export const terms: Term[] = [
   },
   // 滅殺分断波
   {
-    id: 4003,
+    id: "滅殺分断波",
     name: "滅殺分断波",
     ruby: "ドゥームエネミー",
     keywords: ["滅殺分断波"],
@@ -4178,7 +4178,7 @@ export const terms: Term[] = [
   },
   // 運命流転
   {
-    id: 4003,
+    id: "運命流転",
     name: "運命流転",
     ruby: "リバースフェイト",
     keywords: ["運命流転"],
@@ -4202,7 +4202,7 @@ export const terms: Term[] = [
   },
   // 聖覇崩拳
   {
-    id: 4003,
+    id: "聖覇崩拳",
     name: "聖覇崩拳",
     keywords: ["聖覇崩拳"],
     image: "/コブシのアイコン.svg",
@@ -4224,7 +4224,7 @@ export const terms: Term[] = [
   },
   // 虚喰無限獄
   {
-    id: 4003,
+    id: "虚喰無限獄",
     name: "虚喰無限獄",
     ruby: "インフィニットイーター",
     keywords: ["虚喰無限獄"],
@@ -4249,7 +4249,7 @@ export const terms: Term[] = [
   },
   // 星王竜閃
   {
-    id: 4003,
+    id: "星王竜閃",
     name: "星王竜閃",
     ruby: "ノヴァブレイク",
     keywords: ["星王竜閃"],
@@ -4272,7 +4272,7 @@ export const terms: Term[] = [
   },
   // 飛翔旋穿蹴撃
   {
-    id: 4003,
+    id: "飛翔旋穿蹴撃",
     name: "飛翔旋穿蹴撃",
     ruby: "スピンドルキック",
     keywords: ["飛翔旋穿蹴撃"],
@@ -4293,7 +4293,7 @@ export const terms: Term[] = [
   },
   // 飛翔旋穿針撃
   {
-    id: 4003,
+    id: "飛翔旋穿針撃",
     name: "飛翔旋穿針撃",
     ruby: "スピンドルニードルスピア",
     keywords: ["飛翔旋穿針撃"],
@@ -4314,7 +4314,7 @@ export const terms: Term[] = [
   },
   // 千裂次元斬
   {
-    id: 4003,
+    id: "千裂次元斬",
     name: "千裂次元斬",
     ruby: "ミダレギリ",
     keywords: ["千裂次元斬"],
@@ -4335,7 +4335,7 @@ export const terms: Term[] = [
   },
   // 千裂次元斬 ー 終焉の舞
   {
-    id: 4003,
+    id: "千裂次元斬 ー 終焉の舞",
     name: "千裂次元斬 ー 終焉の舞",
     ruby: "ミダレギリ ー オワリノマイ",
     keywords: ["千裂次元斬 ー 終焉の舞"],
@@ -4356,7 +4356,7 @@ export const terms: Term[] = [
   },
   // 喰牙
   {
-    id: 4003,
+    id: "喰牙",
     name: "喰牙",
     keywords: ["喰牙"],
     image: "/コブシのアイコン.svg",
@@ -4376,7 +4376,7 @@ export const terms: Term[] = [
   },
   // 極星爆撃覇
   {
-    id: 4003,
+    id: "極星爆撃覇",
     name: "極星爆撃覇",
     ruby: "プロネテスボウミング",
     keywords: ["極星爆撃覇"],
@@ -4397,7 +4397,7 @@ export const terms: Term[] = [
   },
   // 竜牙聖拳覇
   {
-    id: 4003,
+    id: "竜牙聖拳覇",
     name: "竜牙聖拳覇",
     ruby: "ドラゴニックカノン",
     keywords: ["竜牙聖拳覇"],
@@ -4418,7 +4418,7 @@ export const terms: Term[] = [
   },
   // 竜魔剛爆覇
   {
-    id: 4003,
+    id: "竜魔剛爆覇",
     name: "竜魔剛爆覇",
     ruby: "ドラゴニックブラスト",
     keywords: ["竜魔剛爆覇"],
@@ -4439,7 +4439,7 @@ export const terms: Term[] = [
   },
   // 暗黒増殖喰
   {
-    id: 4003,
+    id: "暗黒増殖喰",
     name: "暗黒増殖喰",
     ruby: "デヴァステイターウイルス",
     keywords: ["暗黒増殖喰"],
@@ -4462,7 +4462,7 @@ export const terms: Term[] = [
   },
   // 陽炎黒炎覇加速励起
   {
-    id: 4003,
+    id: "陽炎黒炎覇加速励起",
     name: "陽炎黒炎覇加速励起",
     ruby: "プロミネンスアクセラレーション",
     keywords: ["陽炎黒炎覇加速励起"],
@@ -4485,7 +4485,7 @@ export const terms: Term[] = [
   },
   // 百裂砕光霊覇
   {
-    id: 4003,
+    id: "百裂砕光霊覇",
     name: "百裂砕光霊覇",
     ruby: "ハンドレッドブレイカー",
     keywords: ["百裂砕光霊覇"],
@@ -4508,7 +4508,7 @@ export const terms: Term[] = [
   },
   // 百裂砕光霊檻
   {
-    id: 4003,
+    id: "百裂砕光霊檻",
     name: "百裂砕光霊檻",
     ruby: "ハンドレッドプリズン",
     keywords: ["百裂砕光霊檻"],
@@ -4529,7 +4529,7 @@ export const terms: Term[] = [
   },
   // 百裂砕光霊檻
   {
-    id: 4003,
+    id: "神覇剛斬裂閃",
     name: "神覇剛斬裂閃",
     ruby: "インサニティハッシュ",
     keywords: ["神覇剛斬裂閃"],
@@ -4552,7 +4552,7 @@ export const terms: Term[] = [
   },
   // 広範囲血魔熱波
   {
-    id: 4003,
+    id: "広範囲血魔熱波",
     name: "広範囲血魔熱波",
     ruby: "イビルブラッドウェーブ",
     keywords: ["広範囲血魔熱波"],
@@ -4575,7 +4575,7 @@ export const terms: Term[] = [
   },
   // 時空跳撃震覇
   {
-    id: 4003,
+    id: "時空跳撃震覇",
     name: "時空跳撃震覇",
     ruby: "クロノサルテーション",
     keywords: ["時空跳撃震覇"],
@@ -4598,7 +4598,7 @@ export const terms: Term[] = [
   },
   // 全天滅激震覇
   {
-    id: 4003,
+    id: "全天滅激震覇",
     name: "全天滅激震覇",
     ruby: "タイダルウェーブ",
     keywords: ["全天滅激震覇"],
@@ -4619,7 +4619,7 @@ export const terms: Term[] = [
   },
   // 極渦壊滅激震撃
   {
-    id: 4003,
+    id: "極渦壊滅激震撃",
     name: "極渦壊滅激震撃",
     ruby: "メイルストロムバスター",
     keywords: ["極渦壊滅激震撃"],
@@ -4642,7 +4642,7 @@ export const terms: Term[] = [
   },
   // 堕天終撃麗槍
   {
-    id: 4003,
+    id: "堕天終撃麗槍",
     name: "堕天終撃麗槍",
     ruby: "フォールンスピア",
     keywords: ["堕天終撃麗槍"],
@@ -4663,7 +4663,7 @@ export const terms: Term[] = [
   },
   // 星屑の流星雨
   {
-    id: 4003,
+    id: "星屑の流星雨",
     name: "星屑の流星雨",
     ruby: "スターダストレイン",
     keywords: ["星屑の流星雨"],
@@ -4686,7 +4686,7 @@ export const terms: Term[] = [
   },
   // 女帝の致命針
   {
-    id: 4003,
+    id: "女帝の致命針",
     name: "女帝の致命針",
     ruby: "エンブレススティンガー",
     keywords: ["女帝の致命針"],
@@ -4707,7 +4707,7 @@ export const terms: Term[] = [
   },
   // 猪突猛震撃
   {
-    id: 4003,
+    id: "猪突猛震撃",
     name: "猪突猛震撃",
     ruby: "カオスラッシュ",
     keywords: ["猪突猛震撃"],
@@ -4728,7 +4728,7 @@ export const terms: Term[] = [
   },
   // 無慈悲なる抵抗破壊因子
   {
-    id: 4003,
+    id: "無慈悲なる抵抗破壊因子",
     name: "無慈悲なる抵抗破壊因子",
     ruby: "アナフィラキシーショック",
     keywords: ["無慈悲なる抵抗破壊因子"],
@@ -4751,7 +4751,7 @@ export const terms: Term[] = [
   },
   // 円環連盾
   {
-    id: 4003,
+    id: "円環連盾",
     name: "円環連盾",
     ruby: "インビンシブル",
     keywords: ["円環連盾"],
@@ -4774,7 +4774,7 @@ export const terms: Term[] = [
   },
   // 濃縮魔力弾
   {
-    id: 4003,
+    id: "濃縮魔力弾",
     name: "濃縮魔力弾",
     ruby: "ディープブレット",
     keywords: ["濃縮魔力弾"],
@@ -4795,7 +4795,7 @@ export const terms: Term[] = [
   },
   // 黒炎竜化爆獄覇
   {
-    id: 4003,
+    id: "黒炎竜化爆獄覇",
     name: "黒炎竜化爆獄覇",
     ruby: "ドラゴニックフレア",
     keywords: ["黒炎竜化爆獄覇"],
@@ -4818,7 +4818,7 @@ export const terms: Term[] = [
   },
   // 天魔双撃覇
   {
-    id: 4003,
+    id: "天魔双撃覇",
     name: "天魔双撃覇",
     ruby: "フォールンクルセイド",
     keywords: ["天魔双撃覇"],
@@ -4839,7 +4839,7 @@ export const terms: Term[] = [
   },
   // 終末世界への鎮魂歌
   {
-    id: 4003,
+    id: "終末世界への鎮魂歌",
     name: "終末世界への鎮魂歌",
     ruby: "エンド・オブ・ワールド・レクイエム",
     keywords: ["終末世界への鎮魂歌"],
@@ -4862,7 +4862,7 @@ export const terms: Term[] = [
   },
   // 幻想増殖波動嵐
   {
-    id: 4003,
+    id: "幻想増殖波動嵐",
     name: "幻想増殖波動嵐",
     ruby: "デヴァステイターストーム",
     keywords: ["幻想増殖波動嵐"],
@@ -4885,7 +4885,7 @@ export const terms: Term[] = [
   },
   // 四重複合絶技：絶撃追憶滅光崩
   {
-    id: 4003,
+    id: "四重複合絶技：絶撃追憶滅光崩",
     name: "四重複合絶技：絶撃追憶滅光崩",
     ruby: "カルテットスキル：ブレイクダウンノスタルジア",
     keywords: ["四重複合絶技：絶撃追憶滅光崩"],
@@ -4908,7 +4908,7 @@ export const terms: Term[] = [
   },
   // 崩魔霊子斬
   {
-    id: 4003,
+    id: "崩魔霊子斬",
     name: "崩魔霊子斬",
     ruby: "メルトスラッシュ",
     keywords: ["崩魔霊子斬"],
@@ -4935,7 +4935,7 @@ export const terms: Term[] = [
   },
   // 暴風黒魔斬
   {
-    id: 4003,
+    id: "暴風黒魔斬",
     name: "暴風黒魔斬",
     ruby: "ストームブレイク",
     keywords: ["暴風黒魔斬"],
@@ -4963,7 +4963,7 @@ export const terms: Term[] = [
   },
   // 真意霊覇斬
   {
-    id: 4003,
+    id: "真意霊覇斬",
     name: "真意霊覇斬",
     ruby: "トルゥースラッシュ",
     keywords: ["真意霊覇斬"],
@@ -4990,7 +4990,7 @@ export const terms: Term[] = [
   },
   // 虚無の剣撃
   {
-    id: 4003,
+    id: "虚無の剣撃",
     name: "虚無の剣撃",
     ruby: "イマジナリーブレード",
     keywords: ["虚無の剣撃"],
@@ -5017,7 +5017,7 @@ export const terms: Term[] = [
   },
   // 朧・百華繚乱
   {
-    id: 4003,
+    id: "朧・百華繚乱",
     name: "朧・百華繚乱",
     keywords: ["朧・百華繚乱"],
     image: "/コブシのアイコン.svg",
@@ -5041,7 +5041,7 @@ export const terms: Term[] = [
   },
   // 朧黒炎・百華繚乱
   {
-    id: 4003,
+    id: "朧黒炎・百華繚乱",
     name: "朧黒炎・百華繚乱",
     keywords: ["朧黒炎・百華繚乱"],
     image: "/コブシのアイコン.svg",
@@ -5067,7 +5067,7 @@ export const terms: Term[] = [
   },
   // 虚崩朧・千変万華
   {
-    id: 4003,
+    id: "虚崩朧・千変万華",
     name: "虚崩朧・千変万華",
     keywords: ["虚崩朧・千変万華"],
     image: "/コブシのアイコン.svg",
@@ -5093,7 +5093,7 @@ export const terms: Term[] = [
   },
   // ヴェルドラ流闘殺法『虚空拳』
   {
-    id: 4003,
+    id: "ヴェルドラ流闘殺法『虚空拳』",
     name: "ヴェルドラ流闘殺法『虚空拳』",
     keywords: ["ヴェルドラ流闘殺法『虚空拳』"],
     image: "/コブシのアイコン.svg",
@@ -5119,7 +5119,7 @@ export const terms: Term[] = [
   },
   // ヴェルドラ流闘殺法『灼熱連弾』
   {
-    id: 4003,
+    id: "ヴェルドラ流闘殺法『灼熱連弾』",
     name: "ヴェルドラ流闘殺法『灼熱連弾』",
     ruby: "バーニングブレット",
     keywords: ["ヴェルドラ流闘殺法『灼熱連弾』"],
@@ -5148,7 +5148,7 @@ export const terms: Term[] = [
   // 武具
   // 竜魔刀
   {
-    id: 5003,
+    id: "竜魔刀",
     name: "竜魔刀",
     keywords: ["竜魔刀"],
     image: "/ブレードソードアイコン1.svg",
@@ -5181,7 +5181,7 @@ export const terms: Term[] = [
   },
   // 紅蓮
   {
-    id: 5003,
+    id: "紅蓮",
     name: "紅蓮",
     keywords: ["紅蓮"],
     image: "/ブレードソードアイコン1.svg",
@@ -5212,7 +5212,7 @@ export const terms: Term[] = [
   },
   // 神・剛力丸
   {
-    id: 5003,
+    id: "神・剛力丸",
     name: "神・剛力丸",
     keywords: ["神・剛力丸"],
     image: "/ブレードソードアイコン1.svg",
@@ -5244,7 +5244,7 @@ export const terms: Term[] = [
   },
   // 水渦槍
   {
-    id: 5003,
+    id: "水渦槍",
     name: "水渦槍",
     ruby: "ボルテクス・スピア",
     keywords: ["水渦槍"],
@@ -5279,7 +5279,7 @@ export const terms: Term[] = [
   },
   // 黄金銃
   {
-    id: 5003,
+    id: "黄金銃",
     name: "黄金銃",
     keywords: ["黄金銃"],
     image: "/ブレードソードアイコン1.svg",
@@ -5310,7 +5310,7 @@ export const terms: Term[] = [
   },
   // 無限円環
   {
-    id: 5003,
+    id: "無限円環",
     name: "無限円環",
     ruby: "ループアニュラス",
     keywords: ["無限円環"],
@@ -5334,7 +5334,7 @@ export const terms: Term[] = [
   },
   // 神鋼棒
   {
-    id: 5003,
+    id: "神鋼棒",
     name: "神鋼棒",
     ruby: "しんこんぼう",
     keywords: ["神鋼棒"],
@@ -5362,7 +5362,7 @@ export const terms: Term[] = [
   },
   // 月光の神女剣
   {
-    id: 5003,
+    id: "月光の神女剣",
     name: "月光の神女剣",
     ruby: "ムーンミストレス",
     keywords: ["月光の神女剣"],
@@ -5383,7 +5383,7 @@ export const terms: Term[] = [
   },
   // 夜薔薇の刀
   {
-    id: 5003,
+    id: "夜薔薇の刀",
     name: "夜薔薇の刀",
     ruby: "ナイトローズ",
     keywords: ["夜薔薇の刀"],
@@ -5406,7 +5406,7 @@ export const terms: Term[] = [
   },
   // 真意の長剣
   {
-    id: 5003,
+    id: "真意の長剣",
     name: "真意の長剣",
     ruby: "トルゥース",
     keywords: ["真意の長剣"],
@@ -5436,7 +5436,7 @@ export const terms: Term[] = [
   },
   // 聖炎細剣
   {
-    id: 5003,
+    id: "聖炎細剣",
     name: "聖炎細剣",
     ruby: "フレイムピラー",
     keywords: ["聖炎細剣"],
@@ -5459,7 +5459,7 @@ export const terms: Term[] = [
   },
   // 崩牙
   {
-    id: 5003,
+    id: "崩牙",
     name: "崩牙",
     ruby: "ホウガ",
     keywords: ["崩牙"],
@@ -5489,7 +5489,7 @@ export const terms: Term[] = [
   },
   // 黄金の剣
   {
-    id: 5003,
+    id: "黄金の剣",
     name: "黄金の剣",
     ruby: "エクスカリバー",
     keywords: ["黄金の剣"],
@@ -5513,7 +5513,7 @@ export const terms: Term[] = [
   },
   // 闇銀の剣
   {
-    id: 5003,
+    id: "闇銀の剣",
     name: "闇銀の剣",
     ruby: "カリバーン",
     keywords: ["闇銀の剣"],
@@ -5537,7 +5537,7 @@ export const terms: Term[] = [
   },
   // 神盾
   {
-    id: 5003,
+    id: "神盾",
     name: "神盾",
     ruby: "イージス",
     keywords: ["神盾"],
@@ -5560,7 +5560,7 @@ export const terms: Term[] = [
   },
   // 巨獣狩りの大剣
   {
-    id: 5003,
+    id: "巨獣狩りの大剣",
     name: "巨獣狩りの大剣",
     ruby: "ビーストスレイヤー",
     keywords: ["巨獣狩りの大剣"],
@@ -5584,7 +5584,7 @@ export const terms: Term[] = [
   },
   // 金剛杵
   {
-    id: 5003,
+    id: "金剛杵",
     name: "金剛杵",
     ruby: "ヴァジュラ",
     keywords: ["金剛杵"],
@@ -5608,7 +5608,7 @@ export const terms: Term[] = [
   },
   // 円月輪刃
   {
-    id: 5003,
+    id: "円月輪刃",
     name: "円月輪刃",
     ruby: "チャクラム",
     keywords: ["円月輪刃"],
@@ -5631,7 +5631,7 @@ export const terms: Term[] = [
   },
   // 破壊の王笏
   {
-    id: 5003,
+    id: "破壊の王笏",
     name: "破壊の王笏",
     ruby: "ルーインセプター",
     keywords: ["破壊の王笏"],
@@ -5654,7 +5654,7 @@ export const terms: Term[] = [
   },
   // 神祖の血槍
   {
-    id: 5003,
+    id: "神祖の血槍",
     name: "神祖の血槍",
     ruby: "オリジンブラッド",
     keywords: ["神祖の血槍"],
@@ -5686,7 +5686,7 @@ export const terms: Term[] = [
   },
   // 聖魔封じの鎖
   {
-    id: 5003,
+    id: "聖魔封じの鎖",
     name: "聖魔封じの鎖",
     ruby: "グレイプニール",
     keywords: ["聖魔封じの鎖"],
@@ -5710,7 +5710,7 @@ export const terms: Term[] = [
   },
   // 地神
   {
-    id: 5003,
+    id: "地神",
     name: "地神",
     ruby: "デーヴァ",
     keywords: ["地神"],
@@ -5734,7 +5734,7 @@ export const terms: Term[] = [
   },
   // 天魔
   {
-    id: 5003,
+    id: "天魔",
     name: "天魔",
     ruby: "アスラ",
     keywords: ["天魔"],
@@ -5757,7 +5757,7 @@ export const terms: Term[] = [
   },
   // 虚空
   {
-    id: 5003,
+    id: "虚空",
     name: "虚空",
     ruby: "アーク",
     keywords: ["虚空"],
@@ -5780,7 +5780,7 @@ export const terms: Term[] = [
   },
   // 神霊武装
   {
-    id: 5003,
+    id: "神霊武装",
     name: "神霊武装",
     keywords: ["神霊武装"],
     image: "/ブレードソードアイコン1.svg",
@@ -5803,7 +5803,7 @@ export const terms: Term[] = [
   },
   // ガゼルの剣
   {
-    id: 5003,
+    id: "ガゼルの剣",
     name: "ガゼルの剣",
     keywords: ["ガゼルの剣"],
     image: "/ブレードソードアイコン1.svg",
@@ -5825,7 +5825,7 @@ export const terms: Term[] = [
   },
   // 幻虹細剣
   {
-    id: 5003,
+    id: "幻虹細剣",
     name: "幻虹細剣",
     ruby: "ファントムペイン",
     keywords: ["幻虹細剣"],
@@ -5852,7 +5852,7 @@ export const terms: Term[] = [
   },
   // 落涙の大鎌
   {
-    id: 5003,
+    id: "落涙の大鎌",
     name: "落涙の大鎌",
     ruby: "ティアーサイス",
     keywords: ["落涙の大鎌"],
@@ -5880,7 +5880,7 @@ export const terms: Term[] = [
   },
   // クマラの扇子
   {
-    id: 5003,
+    id: "クマラの扇子",
     name: "クマラの扇子",
     keywords: ["クマラの扇子"],
     image: "/ブレードソードアイコン1.svg",
@@ -5904,7 +5904,7 @@ export const terms: Term[] = [
   },
   // 鮫雲
   {
-    id: 5003,
+    id: "鮫雲",
     name: "鮫雲",
     keywords: ["鮫雲"],
     image: "/ブレードソードアイコン1.svg",
@@ -5930,7 +5930,7 @@ export const terms: Term[] = [
   },
   // 火炎の短剣
   {
-    id: 5003,
+    id: "火炎の短剣",
     name: "火炎の短剣",
     ruby: "フレイムナイフ",
     keywords: ["火炎の短剣"],
@@ -5953,7 +5953,7 @@ export const terms: Term[] = [
   },
   // 飛翔靴
   {
-    id: 5003,
+    id: "飛翔靴",
     name: "飛翔靴",
     ruby: "ウィングシューズ",
     keywords: ["飛翔靴"],
@@ -5974,7 +5974,7 @@ export const terms: Term[] = [
   },
   // 魔王の指輪
   {
-    id: 5003,
+    id: "魔王の指輪",
     name: "魔王の指輪",
     ruby: "デモンズリング",
     keywords: ["魔王の指輪"],
@@ -6001,7 +6001,7 @@ export const terms: Term[] = [
   },
   // 携帯電話
   {
-    id: 5003,
+    id: "携帯電話",
     name: "携帯電話",
     keywords: ["携帯電話"],
     image: "/ブレードソードアイコン1.svg",
@@ -6023,7 +6023,7 @@ export const terms: Term[] = [
   },
   // 転移用魔法陣
   {
-    id: 5003,
+    id: "転移用魔法陣",
     name: "転移用魔法陣",
     keywords: ["転移用魔法陣"],
     image: "/ブレードソードアイコン1.svg",
@@ -6047,7 +6047,7 @@ export const terms: Term[] = [
   // 所属
   // 魔国連邦
   {
-    id: 6001,
+    id: "ジュラ・テンペスト連邦国",
     name: "ジュラ・テンペスト連邦国",
     keywords: ["ジュラ・テンペスト連邦国", "魔国連邦"],
     image: "/チームアイコン.svg",
@@ -6082,7 +6082,7 @@ export const terms: Term[] = [
   },
   // ブルムンド王国
   {
-    id: 6002,
+    id: "ブルムンド王国",
     name: "ブルムンド王国",
     keywords: ["ブルムンド王国"],
     image: "/チームアイコン.svg",
@@ -6122,7 +6122,7 @@ export const terms: Term[] = [
   },
   // ファルムス王国
   {
-    id: 6003,
+    id: "ファルムス王国",
     name: "ファルムス王国",
     keywords: ["ファルムス王国"],
     image: "/チームアイコン.svg",
@@ -6162,7 +6162,7 @@ export const terms: Term[] = [
   },
   // ファルメナス王国
   {
-    id: 6004,
+    id: "ファルメナス王国",
     name: "ファルメナス王国",
     keywords: ["ファルメナス王国"],
     image: "/チームアイコン.svg",
@@ -6199,7 +6199,7 @@ export const terms: Term[] = [
   },
   // イングラシア王国
   {
-    id: 6005,
+    id: "イングラシア王国",
     name: "イングラシア王国",
     keywords: ["イングラシア王国"],
     image: "/チームアイコン.svg",
@@ -6239,7 +6239,7 @@ export const terms: Term[] = [
   },
   // 神聖法皇ルベリオス
   {
-    id: 6006,
+    id: "神聖法皇国ルベリオス",
     name: "神聖法皇国ルベリオス",
     keywords: ["神聖法皇国ルベリオス"],
     image: "/チームアイコン.svg",
@@ -6293,7 +6293,7 @@ export const terms: Term[] = [
   },
   // 魔導王朝サリオン
   {
-    id: 6007,
+    id: "魔導王朝サリオン",
     name: "魔導王朝サリオン",
     keywords: ["魔導王朝サリオン"],
     image: "/チームアイコン.svg",
@@ -6357,7 +6357,7 @@ export const terms: Term[] = [
   },
   // 武装国家ドワルゴン
   {
-    id: 6008,
+    id: "武装国家ドワルゴン",
     name: "武装国家ドワルゴン",
     keywords: ["武装国家ドワルゴン", "ドワーフ王国"],
     image: "/チームアイコン.svg",
@@ -6400,7 +6400,7 @@ export const terms: Term[] = [
   },
   // 東の帝国
   {
-    id: 6009,
+    id: "東の帝国",
     name: "東の帝国",
     keywords: ["東の帝国"],
     image: "/チームアイコン.svg",
@@ -6433,7 +6433,7 @@ export const terms: Term[] = [
   },
   // ミリムの国
   {
-    id: 6010,
+    id: "ミリムの国",
     name: "ミリムの国",
     keywords: ["ミリムの国", "ミリム領"],
     image: "/チームアイコン.svg",
@@ -6476,7 +6476,7 @@ export const terms: Term[] = [
   },
   // 黄金郷エルドラド
   {
-    id: 6011,
+    id: "黄金郷エルドラド",
     name: "黄金郷エルドラド",
     keywords: ["黄金郷エルドラド"],
     image: "/チームアイコン.svg",
@@ -6518,7 +6518,7 @@ export const terms: Term[] = [
   },
   // “聖虚”ダマルガニア
   {
-    id: 6012,
+    id: "“聖虚”ダマルガニア",
     name: "“聖虚”ダマルガニア",
     keywords: ["“聖虚”ダマルガニア"],
     image: "/チームアイコン.svg",
@@ -6577,7 +6577,7 @@ export const terms: Term[] = [
   },
   // マルクシュア王国
   {
-    id: 6013,
+    id: "マルクシュア王国",
     name: "マルクシュア王国",
     keywords: ["マルクシュア王国"],
     image: "/チームアイコン.svg",
@@ -6606,7 +6606,7 @@ export const terms: Term[] = [
   },
   // 超魔導大国
   {
-    id: 6014,
+    id: "超魔導大国",
     name: "超魔導大国",
     keywords: ["超魔導大国"],
     image: "/チームアイコン.svg",
@@ -6648,7 +6648,7 @@ export const terms: Term[] = [
   },
   // 天星宮
   {
-    id: 6015,
+    id: "天星宮",
     name: "天星宮",
     keywords: ["天星宮"],
     image: "/チームアイコン.svg",
@@ -6670,7 +6670,7 @@ export const terms: Term[] = [
   },
   // 西方評議会
   {
-    id: 6016,
+    id: "西方評議会",
     name: "西方評議会",
     ruby: "カウンシル・オブ・ウエスト",
     keywords: ["西方評議会"],
@@ -6701,7 +6701,7 @@ export const terms: Term[] = [
   },
   // 自由組合
   {
-    id: 6017,
+    id: "自由組合",
     name: "自由組合",
     keywords: ["自由組合"],
     image: "/チームアイコン.svg",
@@ -6740,7 +6740,7 @@ export const terms: Term[] = [
   },
   // 中庸道化連
   {
-    id: 6018,
+    id: "中庸道化連",
     name: "中庸道化連",
     keywords: ["中庸道化連"],
     image: "/チームアイコン.svg",
@@ -6781,7 +6781,7 @@ export const terms: Term[] = [
   },
   // 秘密結社 “三賢酔”
   {
-    id: 6019,
+    id: "秘密結社 “三賢酔”",
     name: "秘密結社 “三賢酔”",
     ruby: "リエガ",
     keywords: ["秘密結社 “三賢酔”"],
@@ -6835,7 +6835,7 @@ export const terms: Term[] = [
   },
   // 四ヶ国通商連盟
   {
-    id: 6020,
+    id: "四ヶ国通商連盟",
     name: "四ヶ国通商連盟",
     keywords: ["四ヶ国通商連盟"],
     image: "/チームアイコン.svg",
@@ -6864,7 +6864,7 @@ export const terms: Term[] = [
   },
   // 西方総合商社
   {
-    id: 6021,
+    id: "西方総合商社",
     name: "西方総合商社",
     keywords: ["西方総合商社"],
     image: "/チームアイコン.svg",
@@ -6897,7 +6897,7 @@ export const terms: Term[] = [
   },
   // 天軍
   {
-    id: 6022,
+    id: "天軍",
     name: "天軍",
     keywords: ["天軍"],
     image: "/チームアイコン.svg",
@@ -6945,7 +6945,7 @@ export const terms: Term[] = [
   // 魔物
   // 聖霊
   {
-    id: 7004,
+    id: "聖霊",
     name: "聖霊",
     keywords: ["聖霊"],
     image: "/魔王のアイコン.svg",
@@ -6964,7 +6964,7 @@ export const terms: Term[] = [
   },
   // 竜種
   {
-    id: 7004,
+    id: "竜種",
     name: "竜種",
     keywords: ["竜種"],
     image: "/魔王のアイコン.svg",
@@ -7020,7 +7020,7 @@ export const terms: Term[] = [
   },
   // 精霊族
   {
-    id: 7004,
+    id: "精霊族",
     name: "精霊族",
     ruby: "エレメンタル",
     keywords: ["精霊族"],
@@ -7086,7 +7086,7 @@ export const terms: Term[] = [
   },
   // 火精人
   {
-    id: 7004,
+    id: "火精人",
     name: "火精人",
     ruby: "エンキ",
     keywords: ["火精人"],
@@ -7115,7 +7115,7 @@ export const terms: Term[] = [
   },
   // 水精人
   {
-    id: 7004,
+    id: "水精人",
     name: "水精人",
     ruby: "セイレーン",
     keywords: ["水精人"],
@@ -7140,7 +7140,7 @@ export const terms: Term[] = [
   },
   // 風精人
   {
-    id: 7004,
+    id: "風精人",
     name: "風精人",
     ruby: "ハイエルフ",
     keywords: ["風精人"],
@@ -7168,7 +7168,7 @@ export const terms: Term[] = [
   },
   // 地精人
   {
-    id: 7004,
+    id: "地精人",
     name: "地精人",
     ruby: "ハイ・ドワーフ",
     keywords: ["地精人"],
@@ -7195,9 +7195,52 @@ export const terms: Term[] = [
     category: "魔物",
   },
   // 悪魔族
+  {
+    id: "悪魔族",
+    name: "悪魔族",
+    ruby: "デーモン",
+    keywords: ["悪魔族"],
+    image: "/魔王のアイコン.svg",
+    description: [
+      "悪魔にとって、死は単なる状態変化である。心核さえ損傷しなければ数年がかりで復活が可能（ダメージの過多によっては百年以上の年月が必要になる）。",
+      "悪魔契約　…悪魔が人間を堕落させる際に使われる契約。人間の願いを叶える代価として“魂”への通路が開き、人間の肉体を乗っ取りることができる。どんな願いにも対応できるよう、古参の悪魔はあらゆる魔法に精通している。",
+    ],
+    description2: [
+      {
+        category: "『憑依』",
+        details: [
+          "契約を行った者の肉体を乗っ取るために用いられる能力。受肉では悪魔族は人間の細胞を魔素が侵食し、魔法に馴染むように作り変えている。",
+        ],
+      },
+    ],
+    status: [
+      {
+        category: "ランク",
+        details: ["下位悪魔：B⁺", "上位悪魔：A⁻", "上位魔将：A⁺", "悪魔公：S"],
+      },
+      {
+        category: "固有能力",
+        details: ["物質創造", "憑依"],
+      },
+      {
+        category: "支配地",
+        details: ["冥界"],
+      },
+      {
+        category: "始祖",
+        details: ["原初の七悪魔"],
+      },
+      {
+        category: "例",
+        details: ["ディアブロ", "ギィ", "ベレッタ", "他多数"],
+      },
+    ],
+    tags: ["種族", "精神生命体"],
+    category: "魔物",
+  },
   // 天使族
   {
-    id: 7004,
+    id: "天使族",
     name: "天使族",
     ruby: "エンジェル",
     keywords: ["天使族"],
@@ -7257,7 +7300,7 @@ export const terms: Term[] = [
   },
   // 堕天族
   {
-    id: 7004,
+    id: "堕天族",
     name: "堕天族",
     ruby: "フォールン",
     keywords: ["堕天族"],
@@ -7287,7 +7330,7 @@ export const terms: Term[] = [
   },
   // 妖魔族
   {
-    id: 7004,
+    id: "妖魔族",
     name: "妖魔族",
     ruby: "ファントム",
     keywords: ["妖魔族", "妖天"],
@@ -7343,7 +7386,7 @@ export const terms: Term[] = [
   },
   // 幻獣族
   {
-    id: 7004,
+    id: "幻獣族",
     name: "幻獣族",
     ruby: "クリプテッド",
     keywords: ["幻獣族"],
@@ -7371,9 +7414,63 @@ export const terms: Term[] = [
     category: "魔物",
   },
   // 蟲魔族
+  {
+    id: "蟲魔族",
+    name: "蟲魔族",
+    ruby: "インセクター",
+    keywords: ["蟲魔族"],
+    image: "/魔王のアイコン.svg",
+    description: [
+      "大きな昆虫の幾つもの要素を取り込み、魔物化したような姿。人型は少ないが、人の姿に近づくほど力が増している。特性として、魔素を凝固させたような肉体を創り出せるため、どの世界にでも進出することができる。ラズルやミナザも物質界の物質を取り込み受肉し、基軸世界への侵略を画策した（基軸世界に侵攻した蟲魔族の軍勢、その数300万以上）。",
+    ],
+    description2: [
+      {
+        category: "生体異鋼（アリオニウム）",
+        details: [
+          "蟲魔族の身体を覆う特殊な物質。その強度は生体魔鋼をも凌ぎ、神話級にすら届く。",
+        ],
+      },
+      {
+        category: "『複眼』",
+        details: [
+          "魔素の流れなどのあらゆる情報を読み解く眼。敵の動きをスローモーションで捉え、未来予測を行う。",
+        ],
+      },
+      {
+        category: "暴走狂化状態（オーバードライブ）",
+        details: [
+          "蟲魔族の特殊個体が体力が尽きかけると入る、制限時間付きの強化状態。身体能力・回復力が数倍に向上するが暴走状態に突入する。また上位蟲将のティスホーンは、これを自分の意思で発動できる上、完全に制御することまで可能にしていた。",
+        ],
+      },
+    ],
+    status: [
+      {
+        category: "ランク",
+        details: ["Bランク上位"],
+      },
+      {
+        category: "固有能力",
+        details: ["複眼"],
+      },
+      {
+        category: "支配地",
+        details: ["異界"],
+      },
+      {
+        category: "始祖",
+        details: ["蟲魔王ゼラヌス"],
+      },
+      {
+        category: "例",
+        details: ["ゼラヌス", "ピリオド", "ゼス", "ゼラヌス", "アピト", "他"],
+      },
+    ],
+    tags: ["種族"],
+    category: "魔物",
+  },
   // 真なる巨人
   {
-    id: 7004,
+    id: "真なる巨人",
     name: "真なる巨人",
     keywords: ["真なる巨人"],
     description: [""],
@@ -7397,7 +7494,7 @@ export const terms: Term[] = [
   },
   // 巨人族
   {
-    id: 7004,
+    id: "巨人族",
     name: "巨人族",
     ruby: "ジャイアント",
     keywords: ["巨人族"],
@@ -7454,7 +7551,7 @@ export const terms: Term[] = [
   },
   // 吸血鬼族
   {
-    id: 7004,
+    id: "吸血鬼族",
     name: "吸血鬼族",
     ruby: "ヴァンパイア",
     keywords: ["吸血鬼族"],
@@ -7515,7 +7612,7 @@ export const terms: Term[] = [
   },
   // 真なる人類
   {
-    id: 7004,
+    id: "真なる人類",
     name: "真なる人類",
     ruby: "ハイ・ヒューマン",
     keywords: ["真なる人類"],
@@ -7553,7 +7650,7 @@ export const terms: Term[] = [
   },
   // 人間
   {
-    id: 7004,
+    id: "人間",
     name: "人間",
     ruby: "ヒューマン",
     keywords: ["人間"],
@@ -7612,7 +7709,7 @@ export const terms: Term[] = [
   },
   // 人魔族
   {
-    id: 7004,
+    id: "人魔族",
     name: "人魔族",
     ruby: "デモノイド",
     keywords: ["人魔族"],
@@ -7636,7 +7733,7 @@ export const terms: Term[] = [
   },
   // 妖死族
   {
-    id: 7004,
+    id: "妖死族",
     name: "妖死族",
     ruby: "デスマン",
     keywords: ["妖死族"],
@@ -7678,7 +7775,7 @@ export const terms: Term[] = [
   },
   // 龍族
   {
-    id: 7004,
+    id: "龍族",
     name: "龍族",
     ruby: "ドラゴン",
     keywords: ["龍族"],
@@ -7748,7 +7845,7 @@ export const terms: Term[] = [
   },
   // 龍人族
   {
-    id: 7004,
+    id: "龍人族",
     name: "龍人族",
     ruby: "ドラゴニュート",
     keywords: ["龍人族"],
@@ -7831,7 +7928,7 @@ export const terms: Term[] = [
   },
   // 蜥蜴人族
   {
-    id: 7004,
+    id: "蜥蜴人族",
     name: "蜥蜴人族",
     ruby: "リザードマン",
     keywords: ["蜥蜴人族"],
@@ -7894,7 +7991,7 @@ export const terms: Term[] = [
   },
   // 妖精族
   {
-    id: 7004,
+    id: "妖精族",
     name: "妖精族",
     ruby: "ピクシー",
     keywords: ["妖精族"],
@@ -7927,7 +8024,7 @@ export const terms: Term[] = [
   },
   // 樹妖精
   {
-    id: 7004,
+    id: "樹妖精",
     name: "樹妖精",
     ruby: "ドライアド",
     keywords: ["樹妖精"],
@@ -7985,7 +8082,7 @@ export const terms: Term[] = [
   },
   // 樹人族
   {
-    id: 7004,
+    id: "樹人族",
     name: "樹人族",
     ruby: "トレント",
     keywords: ["樹人族"],
@@ -8014,7 +8111,7 @@ export const terms: Term[] = [
   },
   // 大鬼族
   {
-    id: 7004,
+    id: "大鬼族",
     name: "大鬼族",
     ruby: "オーガ",
     keywords: ["大鬼族"],
@@ -8092,7 +8189,7 @@ export const terms: Term[] = [
   },
   // 小鬼族
   {
-    id: 7004,
+    id: "小鬼族",
     name: "小鬼族",
     ruby: "ゴブリン",
     keywords: ["小鬼族", "ゴブリン"],
@@ -8133,7 +8230,7 @@ export const terms: Term[] = [
   },
   // 死鬼族
   {
-    id: 7004,
+    id: "死鬼族",
     name: "死鬼族",
     ruby: "しきぞく",
     keywords: ["死鬼族"],
@@ -8161,7 +8258,7 @@ export const terms: Term[] = [
   },
   // 魚人族
   {
-    id: 7004,
+    id: "魚人族",
     name: "魚人族",
     ruby: "マーマン",
     keywords: ["魚人族"],
@@ -8196,7 +8293,7 @@ export const terms: Term[] = [
   },
   // 耳長族
   {
-    id: 7004,
+    id: "耳長族",
     name: "耳長族",
     ruby: "エルフ",
     keywords: ["耳長族"],
@@ -8239,7 +8336,7 @@ export const terms: Term[] = [
   },
   // 黒妖耳長族
   {
-    id: 7004,
+    id: "黒妖耳長族",
     name: "黒妖耳長族",
     ruby: "ダークエルフ",
     keywords: ["黒妖耳長族"],
@@ -8264,7 +8361,7 @@ export const terms: Term[] = [
   },
   // 地人族
   {
-    id: 7004,
+    id: "地人族",
     name: "地人族",
     ruby: "ドワーフ",
     keywords: ["地人族"],
@@ -8301,7 +8398,7 @@ export const terms: Term[] = [
   },
   // 獣人族
   {
-    id: 7004,
+    id: "獣人族",
     name: "獣人族",
     ruby: "ライカンスロープ",
     keywords: ["獣人族"],
@@ -8349,7 +8446,7 @@ export const terms: Term[] = [
   },
   // 牛頭族
   {
-    id: 7004,
+    id: "牛頭族",
     name: "牛頭族",
     ruby: "ゴズ",
     keywords: ["牛頭族"],
@@ -8385,7 +8482,7 @@ export const terms: Term[] = [
   },
   // 馬頭族
   {
-    id: 7004,
+    id: "馬頭族",
     name: "馬頭族",
     ruby: "メズ",
     keywords: ["馬頭族"],
@@ -8421,7 +8518,7 @@ export const terms: Term[] = [
   },
   // 犬頭族
   {
-    id: 7004,
+    id: "犬頭族",
     name: "犬頭族",
     ruby: "コボルト",
     keywords: ["犬頭族"],
@@ -8453,7 +8550,7 @@ export const terms: Term[] = [
   },
   // 豚頭族
   {
-    id: 7004,
+    id: "豚頭族",
     name: "豚頭族",
     ruby: "オーク",
     keywords: ["豚頭族"],
@@ -8521,7 +8618,7 @@ export const terms: Term[] = [
   },
   // 兎人族
   {
-    id: 7004,
+    id: "兎人族",
     name: "兎人族",
     ruby: "ラビットマン",
     keywords: ["兎人族"],
@@ -8553,7 +8650,7 @@ export const terms: Term[] = [
   },
   // 山狼族
   {
-    id: 7004,
+    id: "山狼族",
     name: "山狼族",
     ruby: "オオカミ",
     keywords: ["山狼族"],
@@ -8576,7 +8673,7 @@ export const terms: Term[] = [
   },
   // 鼻長族
   {
-    id: 7004,
+    id: "鼻長族",
     name: "鼻長族",
     ruby: "テング",
     keywords: ["鼻長族"],
@@ -8614,7 +8711,7 @@ export const terms: Term[] = [
   },
   // 有翼族
   {
-    id: 7004,
+    id: "有翼族",
     name: "有翼族",
     ruby: "ハーピィ",
     keywords: ["有翼族"],
@@ -8662,7 +8759,7 @@ export const terms: Term[] = [
   },
   // 小人族
   {
-    id: 7004,
+    id: "小人族",
     name: "小人族",
     ruby: "ハーフリング",
     keywords: ["小人族"],
@@ -8694,110 +8791,9 @@ export const terms: Term[] = [
     tags: ["種族"],
     category: "魔物",
   },
-
-  // 悪魔族
-  {
-    id: 7004,
-    name: "悪魔族",
-    ruby: "デーモン",
-    keywords: ["悪魔族"],
-    image: "/魔王のアイコン.svg",
-    description: [
-      "悪魔にとって、死は単なる状態変化である。心核さえ損傷しなければ数年がかりで復活が可能（ダメージの過多によっては百年以上の年月が必要になる）。",
-      "悪魔契約　…悪魔が人間を堕落させる際に使われる契約。人間の願いを叶える代価として“魂”への通路が開き、人間の肉体を乗っ取りることができる。どんな願いにも対応できるよう、古参の悪魔はあらゆる魔法に精通している。",
-    ],
-    description2: [
-      {
-        category: "『憑依』",
-        details: [
-          "契約を行った者の肉体を乗っ取るために用いられる能力。受肉では悪魔族は人間の細胞を魔素が侵食し、魔法に馴染むように作り変えている。",
-        ],
-      },
-    ],
-    status: [
-      {
-        category: "ランク",
-        details: ["下位悪魔：B⁺", "上位悪魔：A⁻", "上位魔将：A⁺", "悪魔公：S"],
-      },
-      {
-        category: "固有能力",
-        details: ["物質創造", "憑依"],
-      },
-      {
-        category: "支配地",
-        details: ["冥界"],
-      },
-      {
-        category: "始祖",
-        details: ["原初の七悪魔"],
-      },
-      {
-        category: "例",
-        details: ["ディアブロ", "ギィ", "ベレッタ", "他多数"],
-      },
-    ],
-    tags: ["種族", "精神生命体"],
-    category: "魔物",
-  },
-
-  // 蟲魔族
-  {
-    id: 7004,
-    name: "蟲魔族",
-    ruby: "インセクター",
-    keywords: ["蟲魔族"],
-    image: "/魔王のアイコン.svg",
-    description: [
-      "大きな昆虫の幾つもの要素を取り込み、魔物化したような姿。人型は少ないが、人の姿に近づくほど力が増している。特性として、魔素を凝固させたような肉体を創り出せるため、どの世界にでも進出することができる。ラズルやミナザも物質界の物質を取り込み受肉し、基軸世界への侵略を画策した（基軸世界に侵攻した蟲魔族の軍勢、その数300万以上）。",
-    ],
-    description2: [
-      {
-        category: "生体異鋼（アリオニウム）",
-        details: [
-          "蟲魔族の身体を覆う特殊な物質。その強度は生体魔鋼をも凌ぎ、神話級にすら届く。",
-        ],
-      },
-      {
-        category: "『複眼』",
-        details: [
-          "魔素の流れなどのあらゆる情報を読み解く眼。敵の動きをスローモーションで捉え、未来予測を行う。",
-        ],
-      },
-      {
-        category: "暴走狂化状態（オーバードライブ）",
-        details: [
-          "蟲魔族の特殊個体が体力が尽きかけると入る、制限時間付きの強化状態。身体能力・回復力が数倍に向上するが暴走状態に突入する。また上位蟲将のティスホーンは、これを自分の意思で発動できる上、完全に制御することまで可能にしていた。",
-        ],
-      },
-    ],
-    status: [
-      {
-        category: "ランク",
-        details: ["Bランク上位"],
-      },
-      {
-        category: "固有能力",
-        details: ["複眼"],
-      },
-      {
-        category: "支配地",
-        details: ["異界"],
-      },
-      {
-        category: "始祖",
-        details: ["蟲魔王ゼラヌス"],
-      },
-      {
-        category: "例",
-        details: ["ゼラヌス", "ピリオド", "ゼス", "ゼラヌス", "アピト", "他"],
-      },
-    ],
-    tags: ["種族"],
-    category: "魔物",
-  },
   // スライム
   {
-    id: 7004,
+    id: "粘性体",
     name: "粘性体",
     ruby: "スライム",
     keywords: ["スライム"],
@@ -8852,7 +8848,7 @@ export const terms: Term[] = [
   },
   // 嵐蛇
   {
-    id: 7004,
+    id: "嵐蛇",
     name: "嵐蛇",
     ruby: "テンペストサーペント",
     keywords: ["嵐蛇"],
@@ -8883,7 +8879,7 @@ export const terms: Term[] = [
   },
   // 槍頭鎧魚
   {
-    id: 7004,
+    id: "槍頭鎧魚",
     name: "槍頭鎧魚",
     ruby: "スピアトロ",
     keywords: ["槍頭鎧魚"],
@@ -8912,7 +8908,7 @@ export const terms: Term[] = [
   },
   // 牙狼族
   {
-    id: 7004,
+    id: "牙狼族",
     name: "牙狼族",
     keywords: ["牙狼族"],
     image: "/魔王のアイコン.svg",
@@ -8958,7 +8954,7 @@ export const terms: Term[] = [
   },
   // 弧刃虎
   {
-    id: 7004,
+    id: "弧刃虎",
     name: "弧刃虎",
     ruby: "ブレードタイガー",
     keywords: ["弧刃虎"],
@@ -8987,7 +8983,7 @@ export const terms: Term[] = [
   // その他
   // 停止世界
   {
-    id: 8001,
+    id: "停止世界",
     name: "停止世界",
     keywords: ["停止世界"],
     image: "/タグのフリー素材.svg",
@@ -9001,7 +8997,7 @@ export const terms: Term[] = [
   },
   // 情報子
   {
-    id: 8002,
+    id: "情報子",
     name: "情報子",
     keywords: ["情報子"],
     image: "/タグのフリー素材.svg",
@@ -9015,7 +9011,7 @@ export const terms: Term[] = [
   },
   // 情報生命体
   {
-    id: 8003,
+    id: "情報生命体",
     name: "情報生命体",
     ruby: "デジタルネイチャー",
     keywords: ["情報生命体", "情報生命体（デジタルネイチャー）"],
@@ -9029,7 +9025,7 @@ export const terms: Term[] = [
   },
   //
   {
-    id: 8004,
+    id: "魔王・勇者・監視者",
     name: "魔王・勇者・監視者",
     keywords: [""],
     image: "/タグのフリー素材.svg",
@@ -9042,7 +9038,7 @@ export const terms: Term[] = [
   },
   // 能力
   {
-    id: 8005,
+    id: "能力",
     name: "能力",
     ruby: "スキル",
     keywords: [""],
@@ -9056,7 +9052,7 @@ export const terms: Term[] = [
   },
   // 究極能力
   {
-    id: 8006,
+    id: "究極能力",
     name: "究極能力",
     ruby: "アルティメットスキル",
     keywords: [""],
@@ -9069,7 +9065,7 @@ export const terms: Term[] = [
   },
   // 天使系スキル
   {
-    id: 8007,
+    id: "天使系スキル",
     name: "天使系スキル",
     keywords: ["天使系"],
     image: "/タグのフリー素材.svg",
@@ -9082,7 +9078,7 @@ export const terms: Term[] = [
   },
   // 悪魔系スキル
   {
-    id: 8008,
+    id: "悪魔系スキル",
     name: "悪魔系スキル",
     keywords: ["悪魔系"],
     image: "/タグのフリー素材.svg",
@@ -9096,7 +9092,7 @@ export const terms: Term[] = [
   },
   // 究極の領域
   {
-    id: 8009,
+    id: "究極の領域",
     name: "究極の領域",
     keywords: [""],
     image: "/タグのフリー素材.svg",
@@ -9109,7 +9105,7 @@ export const terms: Term[] = [
   },
   // 神性
   {
-    id: 8010,
+    id: "神性",
     name: "神性",
     keywords: [""],
     image: "/タグのフリー素材.svg",
@@ -9121,7 +9117,7 @@ export const terms: Term[] = [
   },
   // 冥界門
   {
-    id: 8011,
+    id: "冥界門",
     name: "冥界門",
     keywords: ["冥界門", "地獄門"],
     image: "/タグのフリー素材.svg",
@@ -9134,7 +9130,7 @@ export const terms: Term[] = [
   },
   // 果ての世界
   {
-    id: 8012,
+    id: "果ての世界",
     name: "果ての世界",
     keywords: ["果ての世界"],
     image: "/タグのフリー素材.svg",

@@ -1,9 +1,12 @@
+"use client";
+
 import React, { useMemo } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { Term, TagItem, allCategory } from "@/data/terms";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import { useSearchParams } from "next/navigation";
 
 interface TermCardProps {
   term: Term;
@@ -29,21 +32,23 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
     className,
     selectedTags = [],
   }) => {
+    const searchParams = useSearchParams();
+    const currentTermId = searchParams.get("termId");
+
     const sortedKeywords = useMemo(() => {
+      const currentTerm = allTerms.find((term) => term.id === currentTermId);
+      const excludedKeywords = currentTerm ? currentTerm.keywords : [];
+
       return allTerms
         .flatMap((term) => term.keywords)
+        .filter((keyword) => !excludedKeywords.includes(keyword))
         .sort((a, b) => b.length - a.length);
-    }, [allTerms]);
+    }, [allTerms, currentTermId]);
 
     const addLinksToDescription = (description: string): JSX.Element => {
       if (!isDetailView) return <>{description}</>;
 
       let result: (string | JSX.Element)[] = [description];
-
-      const sortedKeywords = allTerms
-        .filter((term) => term.category !== "キャラクター")
-        .flatMap((term) => term.keywords)
-        .sort((a, b) => b.length - a.length);
 
       sortedKeywords.forEach((keyword) => {
         result = result.flatMap((part) => {
@@ -51,10 +56,8 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
             const parts = part.split(new RegExp(`(${keyword})`, "gi"));
             return parts.map((subPart, index) => {
               if (subPart.toLowerCase() === keyword.toLowerCase()) {
-                const linkedTerm = allTerms.find(
-                  (t) =>
-                    t.keywords.includes(keyword) &&
-                    t.category !== "キャラクター"
+                const linkedTerm = allTerms.find((t) =>
+                  t.keywords.includes(keyword)
                 );
                 if (linkedTerm) {
                   return (

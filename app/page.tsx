@@ -30,13 +30,19 @@ export default function Home() {
     {
       name: "Data",
       name2: "設定資料集",
-      description: "View and analyze data related to the book.",
+      description: [
+        "『転生したらスライムだった件』に登場する設定をまとめています。",
+        "キャラクター、スキル、魔法、アーツ、武具、所属、魔物、その他用語のカテゴリーに分けており、それぞれの詳細画面から関連の用語にアクセスすることができます。",
+      ],
       href: "/data",
     },
     {
       name: "Sage",
       name2: "解説・考察",
-      description: "Get insights and recommendations from our AI sage.",
+      description: [
+        "いくつかのコンテンツを用意しています。",
+        "現在は私個人の解説・考察記事とEPランキングのみですが、将来的にはクイズも作る予定です。",
+      ],
       href: "/sage",
     },
   ];
@@ -124,7 +130,13 @@ export default function Home() {
                     <DialogHeader>
                       <DialogTitle>{button.name2}</DialogTitle>
                     </DialogHeader>
-                    <p>{button.description}</p>
+                    <div className="space-y-2 text-sm">
+                      {button.description.map((desc, index) => (
+                        <p key={index} className="">
+                          {desc}
+                        </p>
+                      ))}
+                    </div>
                   </DialogContent>
                 </Dialog>
               </div>

@@ -424,7 +424,7 @@ export default function ClientComponent() {
   );
 
   return (
-    <div className="h-dvh bg-gray-50/50">
+    <div className="min-h-dvh bg-gray-50/50">
       <div className="container mx-auto p-4 pt-24 lg:grid grid-cols-10 lg:gap-6">
         <aside className="hidden lg:block col-span-3 space-y-6">
           <FilterMenu />

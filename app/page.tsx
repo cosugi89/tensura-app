@@ -101,11 +101,14 @@ export default function Home() {
         <div className="w-full max-w-md md:max-w-lg grid grid-cols-1 gap-5 pt-6 lg:h-[75%] -mt-28 md:-mt-56 lg:-mt-0">
           <div className="grid grid-cols-2 gap-5 w-full">
             {buttons.map((button) => (
-              <div key={button.name} className="relative bg-white z-10">
+              <div
+                key={button.name}
+                className="relative bg-white z-10 rounded-md"
+              >
                 <Link href={button.href} className="w-full">
                   <Button
                     variant="ghost"
-                    className="w-full h-14 shadow relative overflow-hidden"
+                    className="w-full h-14 shadow relative overflow-hidden rounded-md"
                   >
                     <span className="absolute bottom-1 left-2 text-xs text-muted">
                       {button.name}

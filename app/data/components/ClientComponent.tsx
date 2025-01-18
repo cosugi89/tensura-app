@@ -424,221 +424,223 @@ export default function ClientComponent() {
   );
 
   return (
-    <div className="container mx-auto p-4 mt-20 lg:grid grid-cols-10 lg:gap-6">
-      <aside className="hidden lg:block col-span-3 space-y-6">
-        <FilterMenu />
-      </aside>
+    <div className="h-full bg-gray-50 pt-20">
+      <div className="container mx-auto p-4 lg:grid grid-cols-10 lg:gap-6">
+        <aside className="hidden lg:block col-span-3 space-y-6">
+          <FilterMenu />
+        </aside>
 
-      <div className="col-span-7">
-        <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
-          <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
-            <h3 className="font-medium text-base pl-4">設定資料集</h3>
-            <div className="flex space-x-3">
-              <div>
-                <Button
-                  variant="ghost"
-                  className="shadow"
-                  onClick={toggleFilterMenu}
-                >
-                  <Filter className="w-4 h-4" />
-                </Button>
+        <div className="col-span-7">
+          <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-md">
+            <div className="lg:hidden flex items-center justify-between container mx-auto p-4">
+              <h3 className="font-medium text-base pl-4">設定資料集</h3>
+              <div className="flex space-x-3">
+                <div>
+                  <Button
+                    variant="ghost"
+                    className="shadow"
+                    onClick={toggleFilterMenu}
+                  >
+                    <Filter className="w-4 h-4" />
+                  </Button>
+                </div>
+                <AnimatePresence>
+                  {!isFilterMenuOpen ? (
+                    <Button variant="ghost" className="shadow">
+                      <Link href="/">
+                        <Undo2 transform="scale(1, -1)" className="w-4 h-4" />
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button variant="secondary" className="shadow">
+                      <X
+                        transform="scale(1, 1)"
+                        className="w-4 h-4"
+                        onClick={toggleFilterMenu}
+                      />
+                    </Button>
+                  )}
+                </AnimatePresence>
               </div>
-              <AnimatePresence>
-                {!isFilterMenuOpen ? (
-                  <Button variant="ghost" className="shadow">
-                    <Link href="/">
-                      <Undo2 transform="scale(1, -1)" className="w-4 h-4" />
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button variant="secondary" className="shadow">
-                    <X
-                      transform="scale(1, 1)"
-                      className="w-4 h-4"
-                      onClick={toggleFilterMenu}
-                    />
-                  </Button>
-                )}
-              </AnimatePresence>
             </div>
-          </div>
-          <div className="hidden lg:flex items-center justify-between container mx-auto p-4 min-h-[72px]">
-            <Breadcrumb className="pl-4">
-              <BreadcrumbList>
-                <BreadcrumbItem></BreadcrumbItem>
-                <BreadcrumbLink href="/" className="font-semibold text-base">
-                  転スラ百科
-                </BreadcrumbLink>
-                <BreadcrumbSeparator />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="font-medium text-base font">
-                    設定資料集
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
+            <div className="hidden lg:flex items-center justify-between container mx-auto p-4 min-h-[72px]">
+              <Breadcrumb className="pl-4">
+                <BreadcrumbList>
+                  <BreadcrumbItem></BreadcrumbItem>
+                  <BreadcrumbLink href="/" className="font-semibold text-base">
+                    転スラ百科
+                  </BreadcrumbLink>
+                  <BreadcrumbSeparator />
+                  <BreadcrumbItem>
+                    <BreadcrumbPage className="font-medium text-base font">
+                      設定資料集
+                    </BreadcrumbPage>
+                  </BreadcrumbItem>
+                </BreadcrumbList>
+              </Breadcrumb>
+            </div>
+          </header>
 
-        <AnimatePresence>
-          {isFilterMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="lg:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
-              onClick={toggleFilterMenu}
-            >
+          <AnimatePresence>
+            {isFilterMenuOpen && (
               <motion.div
-                initial={{ y: "-100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="fixed inset-x-0 top-0 bg-background shadow-lg z-50 pt-20 pb-6 px-6 overflow-y-auto h-screen"
-                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="lg:hidden fixed inset-0 bg-background/80 backdrop-blur-sm z-40"
+                onClick={toggleFilterMenu}
               >
-                <div className="max-w-2xl mx-auto">
-                  <FilterMenu />
+                <motion.div
+                  initial={{ y: "-100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-100%", opacity: 0 }}
+                  transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                  className="fixed inset-x-0 top-0 bg-background shadow-lg z-50 pt-20 pb-6 px-6 overflow-y-auto h-screen"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <div className="max-w-2xl mx-auto">
+                    <FilterMenu />
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {filteredTerms.length > 0 ? (
+            <main
+              className={`grid gap-3 lg:gap-4 ${
+                isCategoryWithImage(selectedCategory)
+                  ? "sm:grid-cols-1 md:grid-cols-2"
+                  : "grid-cols-2 md:grid-cols-3"
+              } lg:mt-0`}
+            >
+              {filteredTerms.map((term) => (
+                <AnimatedCard
+                  key={term.id}
+                  term={term}
+                  onTagClick={handleTagClick}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className={
+                    term.id.toString() === searchParams?.get("termId")
+                      ? "ring-2 ring-primary"
+                      : ""
+                  }
+                  onClick={() => handleTermClick(term.id)}
+                  allTerms={terms}
+                />
+              ))}
+            </main>
+          ) : (
+            <div className="flex flex-col items-center p-4">
+              <p className="text-muted-foreground text-center">
+                該当する用語が見つかりませんでした。
+                <br />
+                絞り込み条件を変えてお試しください。
+              </p>
+            </div>
+          )}
+        </div>
+
+        <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>
+          <DrawerContent className="bg-opacity-0">
+            <DrawerHeader className="text-left">
+              <DrawerTitle>{selectedCategory}</DrawerTitle>
+            </DrawerHeader>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${animationKey}-${selectedCategory}`}
+                className="h-[calc(100vh-200px)] overflow-hidden"
+                ref={emblaRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex h-full">
+                  {filteredTerms.map((term, index) => (
+                    <div
+                      className="flex-[0_0_100%] min-w-0 h-full px-4"
+                      key={term.id}
+                    >
+                      <TermCard
+                        term={term}
+                        allTerms={terms}
+                        onTagClick={handleTagClick}
+                        isDetailView={true}
+                      />
+                    </div>
+                  ))}
                 </div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </AnimatePresence>
+            <div className="p-4 flex justify-between items-center">
+              <Button onClick={scrollPrev} variant="outline" size="icon">
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">前の用語</span>
+              </Button>
+              <DrawerClose asChild>
+                <Button variant="outline" onClick={handleCloseDetail}>
+                  閉じる
+                </Button>
+              </DrawerClose>
+              <Button onClick={scrollNext} variant="outline" size="icon">
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">次の用語</span>
+              </Button>
+            </div>
+          </DrawerContent>
+        </Drawer>
 
-        {filteredTerms.length > 0 ? (
-          <main
-            className={`grid gap-3 lg:gap-4 ${
-              isCategoryWithImage(selectedCategory)
-                ? "sm:grid-cols-1 md:grid-cols-2"
-                : "grid-cols-2 md:grid-cols-3"
-            } lg:mt-0`}
-          >
-            {filteredTerms.map((term) => (
-              <AnimatedCard
-                key={term.id}
-                term={term}
-                onTagClick={handleTagClick}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className={
-                  term.id.toString() === searchParams?.get("termId")
-                    ? "ring-2 ring-primary"
-                    : ""
-                }
-                onClick={() => handleTermClick(term.id)}
-                allTerms={terms}
-              />
-            ))}
-          </main>
-        ) : (
-          <div className="flex flex-col items-center p-4">
-            <p className="text-muted-foreground text-center">
-              該当する用語が見つかりませんでした。
-              <br />
-              絞り込み条件を変えてお試しください。
-            </p>
-          </div>
-        )}
-      </div>
-
-      <Drawer open={openDrawer} onOpenChange={handleDrawerOpenChange}>
-        <DrawerContent className="bg-opacity-0">
-          <DrawerHeader className="text-left">
-            <DrawerTitle>{selectedCategory}</DrawerTitle>
-          </DrawerHeader>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${animationKey}-${selectedCategory}`}
-              className="h-[calc(100vh-200px)] overflow-hidden"
-              ref={emblaRef}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex h-full">
-                {filteredTerms.map((term, index) => (
-                  <div
-                    className="flex-[0_0_100%] min-w-0 h-full px-4"
-                    key={term.id}
-                  >
-                    <TermCard
-                      term={term}
-                      allTerms={terms}
-                      onTagClick={handleTagClick}
-                      isDetailView={true}
-                    />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="p-4 flex justify-between items-center">
-            <Button onClick={scrollPrev} variant="outline" size="icon">
-              <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">前の用語</span>
-            </Button>
-            <DrawerClose asChild>
+        <Dialog open={openSheet} onOpenChange={handleSheetOpenChange}>
+          <DialogContent className="p-0 max-w-4xl bg-background">
+            <DialogHeader className="p-6">
+              <DialogTitle>{selectedCategory}</DialogTitle>
+            </DialogHeader>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`${animationKey}-${selectedCategory}`}
+                className="h-[calc(100vh-200px)] overflow-hidden"
+                ref={emblaRef}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex h-full">
+                  {filteredTerms.map((term, index) => (
+                    <div
+                      className="flex-[0_0_100%] min-w-0 h-full px-4"
+                      key={term.id}
+                    >
+                      <TermCard
+                        term={term}
+                        allTerms={terms}
+                        onTagClick={handleTagClick}
+                        isDetailView={true}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+            <div className="p-4 flex justify-between items-center">
+              <Button onClick={scrollPrev} variant="outline" size="icon">
+                <ChevronLeft className="h-4 w-4" />
+                <span className="sr-only">前の用語</span>
+              </Button>
               <Button variant="outline" onClick={handleCloseDetail}>
                 閉じる
               </Button>
-            </DrawerClose>
-            <Button onClick={scrollNext} variant="outline" size="icon">
-              <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">次の用語</span>
-            </Button>
-          </div>
-        </DrawerContent>
-      </Drawer>
-
-      <Dialog open={openSheet} onOpenChange={handleSheetOpenChange}>
-        <DialogContent className="p-0 max-w-4xl">
-          <DialogHeader className="p-6">
-            <DialogTitle>{selectedCategory}</DialogTitle>
-          </DialogHeader>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${animationKey}-${selectedCategory}`}
-              className="h-[calc(100vh-200px)] overflow-hidden"
-              ref={emblaRef}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="flex h-full">
-                {filteredTerms.map((term, index) => (
-                  <div
-                    className="flex-[0_0_100%] min-w-0 h-full px-4"
-                    key={term.id}
-                  >
-                    <TermCard
-                      term={term}
-                      allTerms={terms}
-                      onTagClick={handleTagClick}
-                      isDetailView={true}
-                    />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="p-4 flex justify-between items-center">
-            <Button onClick={scrollPrev} variant="outline" size="icon">
-              <ChevronLeft className="h-4 w-4" />
-              <span className="sr-only">前の用語</span>
-            </Button>
-            <Button variant="outline" onClick={handleCloseDetail}>
-              閉じる
-            </Button>
-            <Button onClick={scrollNext} variant="outline" size="icon">
-              <ChevronRight className="h-4 w-4" />
-              <span className="sr-only">次の用語</span>
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+              <Button onClick={scrollNext} variant="outline" size="icon">
+                <ChevronRight className="h-4 w-4" />
+                <span className="sr-only">次の用語</span>
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 }

@@ -157,13 +157,13 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
     return (
       <Card
         className={`${isDetailView ? "h-full overflow-auto" : "w-full"} ${
-          className || ""
+          className || "border-none"
         }`}
         onClick={onClick}
       >
         {isDetailView ? (
           <div
-            className={`p-6 gap-8 md:max-w-xl lg:max-w-2xl mx-auto ${
+            className={`min-h-full max-h-dvh p-6 gap-8 md:max-w-xl lg:max-w-2xl mx-auto shadow-inner bg-gradient-to-tl from-gray-50 ${
               isCategoryWithImage(term.category) ? "md:grid" : ""
             }`}
           >
@@ -298,7 +298,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
           </div>
         ) : (
           <div
-            className={`p-4 md:p-6 grid-cols-5 gap-6 h-full min-h-36 ${
+            className={`p-4 md:p-6 grid-cols-5 gap-6 h-full min-h-36 shadow-md rounded-md ${
               isCategoryWithImage(term.category) ? "grid" : ""
             }`}
           >
@@ -312,7 +312,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 src={term.image || "/placeholder.svg"} // Use a placeholder if image is undefined
                 alt={term.name || "Term image"}
                 objectFit="cover"
-                className="object-cover shadow-md rounded-md"
+                className="object-cover shadow-inner rounded-md bg-gradient-to-tl from-gray-50"
                 layout="fill"
                 priority
               />

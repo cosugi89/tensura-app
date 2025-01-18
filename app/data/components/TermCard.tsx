@@ -181,7 +181,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                 priority
               />
             </div> */}
-            <div className="flex flex-col space-y-6 h-full">
+            <div className="flex flex-col space-y-6">
               <div className="space-y-1.5">
                 <h3 className="text-xl font-semibold leading-none tracking-tight mt-3 text-center">
                   {term.name}

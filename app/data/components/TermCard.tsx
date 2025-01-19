@@ -208,7 +208,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                   {term.description2 &&
                     term.description2.map((item, index) => (
                       <div key={index} className="space-y-1">
-                        <div className="text-primary font-semibold text-lg">
+                        <div className="text-primary font-semibold text-base">
                           {item.category}
                         </div>
                         {item.details.map((detail, detailIndex) => (
@@ -221,7 +221,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
 
                   {term.relationship && (
                     <div className="space-y-2">
-                      <div className="text-primary font-semibold text-lg">
+                      <div className="text-primary font-semibold text-base">
                         関連人物
                       </div>
                       {term.relationship?.map((item, index) => (
@@ -248,7 +248,7 @@ export const TermCard: React.FC<TermCardProps> = React.memo(
                   {term.description3 &&
                     term.description3.map((item, index) => (
                       <div key={index} className="space-y-1">
-                        <div className="text-primary font-semibold text-lg">
+                        <div className="text-primary font-semibold text-base">
                           {item.category}
                         </div>
                         {item.details.map((detail, detailIndex) => (

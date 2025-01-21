@@ -3671,6 +3671,19 @@ export const terms: Term[] = [
   // 元素魔法
   // 他
   {
+    id: "元素魔法",
+    name: "《元素魔法》",
+    keywords: ["元素魔法"],
+    image: "/六芒星のアイコン.svg",
+    description: [
+      "詠唱により法則に干渉する詠唱魔法。使用者は法術師（ソーサラー）と呼ばれる。",
+      "一般的な魔法使いは自分の体内の魔素を着火源としつつ、呪文の詠唱により大気に満ちる周囲の魔素を集めて術式を構築する。制御には相応の精神力と魔力が必要なため、これを欠けば行使は不可能となる。",
+      "物理法則とは異なる法則で発動しているため、術者のイメージ通りに効果を発揮することができる。酸素がなくても炎は燃え、熱を奪うイメージで氷を具現化させる。",
+    ],
+    tags: ["元素魔法", "魔法の系統"],
+    category: "魔法",
+  },
+  {
     id: "強制離脱",
     name: "強制離脱",
     ruby: "エスケープ",
@@ -3681,11 +3694,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3707,11 +3716,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3732,11 +3737,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3759,11 +3760,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3785,11 +3782,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3811,11 +3804,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3837,11 +3826,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3863,11 +3848,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3889,11 +3870,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3913,11 +3890,7 @@ export const terms: Term[] = [
     description: ["編集中"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3937,11 +3910,7 @@ export const terms: Term[] = [
     description: ["編集中"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3961,11 +3930,7 @@ export const terms: Term[] = [
     description: ["脳内に位置情報を表示させる魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -3976,10 +3941,10 @@ export const terms: Term[] = [
     tags: ["元素魔法"],
     category: "魔法",
   },
-
   {
     id: "魔法障壁",
     name: "魔法障壁",
+    ruby: "マジックバリア",
     keywords: ["魔法障壁"],
     image: "/六芒星のアイコン.svg",
     description: [
@@ -3987,11 +3952,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4010,11 +3971,7 @@ export const terms: Term[] = [
     description: ["魔素の反発を利用した魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4035,11 +3992,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4062,17 +4015,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4091,17 +4035,8 @@ export const terms: Term[] = [
     description: ["エレンの最強魔法の一つ。火炎球の発展型。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4120,17 +4055,8 @@ export const terms: Term[] = [
     description: ["火炎系の火炎大魔球（ファイアボール）を応用させた魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4149,17 +4075,8 @@ export const terms: Term[] = [
     description: ["火炎系の火炎大魔球（ファイアボール）を応用させた魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4180,17 +4097,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4211,17 +4119,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["火"],
       },
       {
         category: "使用者",
@@ -4243,17 +4142,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["水"],
       },
       {
         category: "使用者",
@@ -4274,17 +4164,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["水"],
       },
       {
         category: "使用者",
@@ -4305,16 +4186,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: ["13巻", "18巻"],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["水"],
       },
       {
         category: "使用者",
@@ -4335,16 +4208,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["水"],
       },
       {
         category: "使用者",
@@ -4364,16 +4229,8 @@ export const terms: Term[] = [
     description: ["エレンの最強魔法の一つ。名前のみの登場で作中では未使用。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["風"],
       },
       {
         category: "使用者",
@@ -4394,16 +4251,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["風"],
       },
       {
         category: "使用者",
@@ -4424,16 +4273,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["風"],
       },
       {
         category: "使用者",
@@ -4454,16 +4295,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
-      },
-      {
-        category: "属性",
-        details: ["風"],
       },
       {
         category: "使用者",
@@ -4485,11 +4318,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4511,11 +4340,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4537,11 +4362,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4563,11 +4384,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4584,14 +4401,10 @@ export const terms: Term[] = [
     ruby: "サクリファイス",
     keywords: ["生命昇華"],
     image: "/六芒星のアイコン.svg",
-    description: ["サクリファイス"],
+    description: ["自身の生命力を燃料に変えて、激しく燃焼するという自爆魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["元素魔法"],
       },
       {
@@ -4605,14 +4418,14 @@ export const terms: Term[] = [
   // 核撃魔法
   {
     id: "核撃魔法",
-    name: "核撃魔法",
+    name: "《核撃魔法》",
     keywords: ["核撃魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "元素魔法の究極。使用するには、十数名の法術士が必要となり、呪文の構築（詠唱）にも時間がかかる。一部の英雄級の者ならば、個人でも操れるが、その威力は精々100mの範囲で爆発を起こす程度。",
+      "元素魔法の究極とされる魔法。主に霊子を操る高位の儀式・集団魔法であり、使用には十数名の法術士が必要となり、呪文の構築（詠唱）にも時間がかかる。一部の英雄級の者ならば、個人でも操れるが、その威力は精々100mの範囲で爆発を起こす程度。",
       "作中に登場している4種の核撃魔法は、いずれも黒炎核（アビスコア）という制御困難な地獄の業火が発動段階に使用される。黒炎核を放置すれば、膨張して“破滅の炎”となり、凝縮し握り潰されることで生じる光は“死の祝福”と呼ばれ、膨張を抑え込み、圧縮へと転じさせると“重力崩壊”になる。",
     ],
-    tags: ["核撃魔法", "魔法の分類"],
+    tags: ["核撃魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -4627,11 +4440,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["核撃魔法"],
       },
       {
@@ -4654,11 +4463,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["核撃魔法"],
       },
       {
@@ -4681,11 +4486,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["核撃魔法"],
       },
       {
@@ -4708,11 +4509,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["核撃魔法"],
       },
       {
@@ -4726,13 +4523,15 @@ export const terms: Term[] = [
   // 精霊魔法
   {
     id: "精霊魔法",
-    name: "精霊魔法",
+    name: "《精霊魔法》",
     keywords: ["精霊魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "対価として自分の魔素を渡すことで、精霊の力を借り受け、行使する。呪文の詠唱を必要としない魔法。ただし、精霊に認められて契約を結ぶ必要がある。契約した精霊の力に左右され、そこまで魔素を持たない人間は修行を積んでいない一般人では大きな力は使えない。より強く精霊と繋がり支配することで、精霊そのものの力の行使が可能となる。契約した精霊を呼び出して、自由自在に行使できる。この＜精霊魔法＞を極めると、＜元素魔法＞の対となる攻撃系魔法となる。さらに修練を積むことで＜精霊召喚＞を習得できる。精霊の干渉力による物理法則の書き換え。威力は小規模になる。精霊の干渉力による物理法則の書き換え。威力は小規模になる。聖騎士の中には、自身の属性の精霊と元素魔法を融合し、無詠唱で高威力魔法を発動できる者もいる。詠唱を必要とする＜元素魔法＞では、発動の早い＜精霊魔法＞に遅れを取る。",
+      "精霊という自然現象に準じた上位存在と契約し、その干渉力を借りて物理法則の書き換えを行う魔法。使用者は呪術師（シャーマン）と呼ばれる。",
+      "対価として自分の魔素を話あすことで使用でき、借りた精霊の力をそのままの形で行使するため呪文の詠唱は必要とせず、実践的と言えるが魔素や修練が足りない一般人では大きな力は使えず、また契約するためには精霊に認められる必要がある。",
+      "より契約を強く支配することで精霊そのものの力を行使することができ、極めれば元素魔法の対となる攻撃系魔法となり、精霊召喚をも習得することが可能となる。",
     ],
-    tags: ["精霊魔法", "魔法の分類"],
+    tags: ["精霊魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -4746,11 +4545,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["精霊魔法"],
       },
       {
@@ -4772,11 +4567,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["精霊魔法"],
       },
       {
@@ -4790,13 +4581,13 @@ export const terms: Term[] = [
   // 死霊魔法
   {
     id: "死霊魔法",
-    name: "死霊魔法",
+    name: "《死霊魔法》",
     keywords: ["死霊魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "精霊魔法の亜種にして、悪霊や亡霊といった負の怨念を利用する魔法である。",
+      "精霊魔法の亜種。悪霊や亡霊といった負の怨念を利用する魔法。使用者は死霊術師（ネクロマンサー）と呼ばれる。",
     ],
-    tags: ["死霊魔法", "魔法の分類"],
+    tags: ["死霊魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -4806,15 +4597,11 @@ export const terms: Term[] = [
     keywords: ["死霊蘇生"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "死霊術師（ネクロマンサー）が使用する死者を使い魔（サーヴァント）とする魔法。禁断の魔法として口伝でしか継承されていない“禁呪”とされる。",
+      "死者を使い魔（サーヴァント）とする魔法。禁断の魔法として口伝でしか継承されていない“禁呪”とされる。",
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["死霊魔法"],
       },
       {
@@ -4836,11 +4623,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["死霊魔法"],
       },
       {
@@ -4862,11 +4645,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["死霊魔法"],
       },
       {
@@ -4888,11 +4667,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["死霊魔法"],
       },
       {
@@ -4914,11 +4689,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["死霊魔法"],
       },
       {
@@ -4933,12 +4704,13 @@ export const terms: Term[] = [
   {
     id: "幻覚魔法",
     name: "幻覚魔法",
-    keywords: ["幻覚魔法"],
+    keywords: ["《幻覚魔法》"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "呪術師の〈精霊魔法〉に似る。妖術が属している系統。妖術師（マーヤー）。",
+      "呪術師の精霊魔法に似た魔法。使用者は妖術師（マーヤー）と呼ばれる。",
+      "元素魔法に基づくものと精霊魔法に基づくものがあるとされ、知識と言える元素魔法は人間が使う魔法が、精霊魔法は妖気を用いる妖術などがそれぞれ該当すると思われる。",
     ],
-    tags: ["幻覚魔法", "魔法の分類"],
+    tags: ["幻覚魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -4952,11 +4724,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -4978,11 +4746,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -5004,11 +4768,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -5028,11 +4788,7 @@ export const terms: Term[] = [
     description: ["対象の精神体及び星幽体を砕く魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -5054,11 +4810,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -5080,11 +4832,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["幻覚魔法"],
       },
       {
@@ -5098,13 +4846,15 @@ export const terms: Term[] = [
   // 神聖魔法
   {
     id: "神聖魔法",
-    name: "神性魔法",
+    name: "《神性魔法》",
     keywords: ["神聖魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "世間一般では精霊との契約でなされると言われている。が、聖なる存在との契約以外でも＜神聖魔法＞は操れる。信仰の力、奇跡を信じる心こそが＜神聖魔法＞を習得するための条件。そこには善も悪も存在せず、想いの強さこそが力へと変わる。それこそが、魔法の真実。ミリムを信仰する竜を祀る民が＜神聖魔法＞を扱えたのもこれが理由。信仰の力。大気中の魔素を集める必要もなく、自身の魔素量にも左右されない。知識と詠唱時間／集中力さえあれば、自己負担は少なくても大魔法を行使可能。但し、“神との契約が成り立っている場合に限る。この場合の神とは、魔素を構成する特殊な粒子である“霊子”を扱える存在、“霊子”に直接干渉可能な存在を指す。ルミナス教においては、魔王ルミナスが神である。ここで言う信仰の力は魔物であっても関係ない。アダルマンは信仰対象が魔王ルミナスから、リムルに変わったため、使用不可能になっていた。（退化したからではない。）要は、＜精霊魔法＞と仕組みは同じで、契約に従い、上位存在の力を借り受けているだけ。つまり人類は、“神”という名の魔王／ルミナスに依存しなければ、魔物に対抗する有効な手段の一つを失う。シュナの場合、『解析者』でなんとなく模倣したものであり、厳密には＜神聖魔法＞とは異なる。神聖魔法には、無属性で“霊子”を操作する系統と、聖属性で魔素を打ち消す系統がある。",
+      "魔素ではなく霊子を操作する魔法。聖騎士（ホーリーナイト）などが使用する。",
+      "世間一般では精霊との契約で為されるとされていたが、その正体は上位存在である神の信仰者が神の“名”を媒介として力を借りる契約魔法。このシステムを“信仰と恩寵の秘奥”といい、「信仰」とは術者が神に魔力を捧げることを、「恩寵」は“霊子”の制御を神が代行してあげることを指す。大気中の魔素を集める必要もなく、自身の魔素量にも左右されず、知識と詠唱時間（集中力）さえあれば、自己負担は少なくても大魔法を行使可能。ただし使用には“神”との契約が成り立っている場合に限られる。",
+      "この神、“霊子”を制御できる上位存在は、ルミナス教の信徒にとっては唯一神ルミナスが、魔国連邦の術者にとっては国家元首リムルが該当する。",
     ],
-    tags: ["神聖魔法", "魔法の分類"],
+    tags: ["神聖魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -5116,11 +4866,7 @@ export const terms: Term[] = [
     description: ["体力を回復させる神聖魔法。出血による貧血を治した。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5142,11 +4888,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5168,11 +4910,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5194,11 +4932,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5220,11 +4954,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5246,11 +4976,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5270,11 +4996,7 @@ export const terms: Term[] = [
     description: ["神の奇跡のひとつ。怨念に満ちた亡者達を成仏させる。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5296,11 +5018,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5322,11 +5040,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5350,11 +5064,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5376,11 +5086,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["神聖魔法"],
       },
       {
@@ -5393,6 +5099,20 @@ export const terms: Term[] = [
   },
   // 召喚魔法
   {
+    id: "召喚魔法",
+    name: "《召喚魔法》",
+    keywords: ["召喚魔法"],
+    image: "/六芒星のアイコン.svg",
+    description: [
+      "使役する魔物や精神生命体の悪魔や精霊を召喚する魔法。使用者は召喚術師（サモナー）と呼ばれる。",
+      "使用するためには空間の理を理解し、元素魔法や精霊魔法を習得している必要がある。",
+      "精霊召喚でも精霊との契約は必須であり、精霊魔法の習得が必要となるため、召喚魔法は他の魔法を修めたうえで初めて習得可能な習得可能な魔法といえる。",
+      "作中で使用される機会は他の魔法と比べて少ないが、それだけに及ぼす影響力は大きく、上位者のリムルなどが使う召喚魔法ともなると、戦況を一気に変えるほどの規模にもなる。",
+    ],
+    tags: ["召喚魔法", "魔法の系統"],
+    category: "魔法",
+  },
+  {
     id: "悪魔召喚",
     name: "悪魔召喚",
     keywords: ["悪魔召喚"],
@@ -5400,11 +5120,7 @@ export const terms: Term[] = [
     description: ["ジーギスが使用した較的簡単な魔法。下位悪魔を召喚する。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["召喚魔法"],
       },
       {
@@ -5426,11 +5142,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["召喚魔法"],
       },
       {
@@ -5444,13 +5156,15 @@ export const terms: Term[] = [
   // 刻印魔法
   {
     id: "刻印魔法",
-    name: "刻印魔法",
+    name: "《刻印魔法》",
     keywords: ["刻印魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "あらかじめ発動させたい魔法陣を刻んでおき、魔力を持つ者が触れた時に発動するようにした細工。例として、蛇口のハンドルに熱魔法の刻印を仕込むことでお湯を出すなど。。",
+      "魔法効果を付与する魔法。使用者は符術師（エンチャンター）と呼ばれる。",
+      "詠唱ではなく刻まれた刻印を通して発動する魔法であり、自身の魔法のみならず他者の魔法も刻印することができる。",
+      "一般的には、札や宝珠のようなアイテムにあらかじめ発動させたい魔法陣を刻んで魔法を付与することで、魔力を持つ者が触れた時に発動する。例として、蛇口のハンドルに熱魔法の刻印を仕込むことでお湯を出すなどがある。一時的に、武器や防具に魔法効果を付与することも可能。",
     ],
-    tags: ["刻印魔法", "魔法の分類"],
+    tags: ["刻印魔法", "魔法の系統"],
     category: "魔法",
   },
   {
@@ -5464,11 +5178,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["刻印魔法"],
       },
       {
@@ -5490,11 +5200,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["刻印魔法"],
       },
       {
@@ -5516,11 +5222,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["刻印魔法"],
       },
       {
@@ -5542,11 +5244,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["刻印魔法"],
       },
       {
@@ -5568,12 +5266,8 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
-        details: ["刻印魔法"],
+        category: "系統",
+        details: ["創造魔法"],
       },
       {
         category: "使用者",
@@ -5585,6 +5279,15 @@ export const terms: Term[] = [
   },
   // 生活魔法
   {
+    id: "生活魔法",
+    name: "《生活魔法》",
+    keywords: ["生活魔法"],
+    image: "/六芒星のアイコン.svg",
+    description: ["一般冒険者たちが使用する魔法。"],
+    tags: ["生活魔法", "魔法の系統"],
+    category: "魔法",
+  },
+  {
     id: "状態清潔化",
     name: "状態清潔化",
     ruby: "クリーンウォッシュ",
@@ -5595,11 +5298,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["生活魔法"],
       },
       {
@@ -5621,11 +5320,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["生活魔法"],
       },
       {
@@ -5647,11 +5342,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["生活魔法"],
       },
       {
@@ -5665,14 +5356,14 @@ export const terms: Term[] = [
   // 軍団魔法
   {
     id: "軍団魔法",
-    name: "軍団魔法",
+    name: "《軍団魔法》",
     ruby: "レギオンマジック",
     keywords: ["軍団魔法"],
     image: "/六芒星のアイコン.svg",
     description: [
-      "軍団に向けて展開される、専属の魔法師団による防御結界。あらゆる属性の魔法への警戒が為されている。最低二種類の結界を多重に運用する。この魔法効果を打ち消すには解呪魔法／ディスペルを使用する他ない。",
+      "軍団に向けて多重に展開される、専属の魔法師団による魔法。防御結界は最低二種類の結界を多重に運用されて張られており、あらゆる属性の魔法への警戒が為されている。打ち消すには解呪魔法（ディスペル）を使用する他ない。",
     ],
-    tags: ["魔法の分類", "軍団魔法"],
+    tags: ["魔法の系統", "軍団魔法"],
     category: "魔法",
   },
   {
@@ -5686,11 +5377,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["軍団魔法"],
       },
       {
@@ -5709,11 +5396,7 @@ export const terms: Term[] = [
     description: ["軍団魔法の一つ。異空間からの不意打ちを防ぐ魔法。"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["軍団魔法"],
       },
       {
@@ -5735,11 +5418,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["軍団魔法"],
       },
       {
@@ -5751,6 +5430,17 @@ export const terms: Term[] = [
     category: "魔法",
   },
   // 物理魔法
+  {
+    id: "物理魔法",
+    name: "《物理魔法》",
+    keywords: ["物理魔法"],
+    image: "/六芒星のアイコン.svg",
+    description: [
+      "リムルが編み出した物理現象を利用する魔法。作中では二種類が開発・運用されている。",
+    ],
+    tags: ["物理魔法", "魔法の系統"],
+    category: "魔法",
+  },
   {
     id: "神之怒",
     name: "神之怒",
@@ -5764,11 +5454,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["物理魔法"],
       },
       {
@@ -5791,11 +5477,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["物理魔法"],
       },
       {
@@ -5818,11 +5500,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["暗黒魔法"],
       },
       {
@@ -5844,11 +5522,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["暗黒魔法"],
       },
       {
@@ -5871,11 +5545,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["禁忌呪法"],
       },
       {
@@ -5897,11 +5567,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["禁忌呪法"],
       },
       {
@@ -5925,11 +5591,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["呪符術"],
       },
       {
@@ -5953,11 +5615,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["結界"],
       },
       {
@@ -5980,11 +5638,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["結界"],
       },
       {
@@ -6006,11 +5660,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["結界"],
       },
       {
@@ -6032,11 +5682,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["結界"],
       },
       {
@@ -6084,11 +5730,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["結界"],
       },
       {
@@ -6111,11 +5753,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6137,11 +5775,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6161,11 +5795,7 @@ export const terms: Term[] = [
     description: ["迎撃術式"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6187,11 +5817,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6214,11 +5840,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6238,11 +5860,7 @@ export const terms: Term[] = [
     description: ["編集中"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6262,11 +5880,7 @@ export const terms: Term[] = [
     description: ["編集中"],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6288,11 +5902,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -6314,11 +5924,7 @@ export const terms: Term[] = [
     ],
     status: [
       {
-        category: "使用回",
-        details: [""],
-      },
-      {
-        category: "分類",
+        category: "系統",
         details: ["不明"],
       },
       {
@@ -11631,7 +11237,7 @@ export const allTags = [
   { name: "呪符術", category: "魔法" },
   { name: "結界", category: "魔法" },
   { name: "分類不明", category: "魔法" },
-  { name: "魔法の分類", category: "魔法" },
+  { name: "魔法の系統", category: "魔法" },
 
   // アーツ
   { name: "聖剣技", category: "アーツ" },

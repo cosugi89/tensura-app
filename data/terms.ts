@@ -882,7 +882,7 @@ export const terms: Term[] = [
         category: "種族",
         details: ["蟲神＝最上位聖魔霊─幻霊蟲"],
       },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国"] },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
       { category: "加護", details: ["リムルの加護"] },
       { category: "称号", details: ["幽幻王（ミストロード）"] },
       { category: "魔法", details: ["水霊魔法"] },
@@ -956,7 +956,7 @@ export const terms: Term[] = [
         category: "種族",
         details: ["神蜂"],
       },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国"] },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
       { category: "加護", details: ["ゼギオンの加護"] },
       { category: "称号", details: ["蟲女王（インセクトクイーン）"] },
       { category: "魔法", details: ["暗黒魔法", "元素魔法"] },
@@ -1032,7 +1032,7 @@ export const terms: Term[] = [
         category: "種族",
         details: ["神狐＝上位聖魔霊─地霊獣"],
       },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国"] },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
       { category: "加護", details: ["リムルの加護"] },
       { category: "称号", details: ["幻獣王（キメラロード）"] },
       { category: "魔法", details: ["地霊魔法"] },
@@ -1093,7 +1093,7 @@ export const terms: Term[] = [
         category: "種族",
         details: ["死霊＝中位聖魔霊─光霊骨"],
       },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国"] },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
       { category: "加護", details: ["リムルの加護"] },
       { category: "称号", details: ["冥霊王（ゲヘナロード）"] },
       { category: "魔法", details: ["死霊魔法", "神聖魔法"] },
@@ -1386,6 +1386,102 @@ export const terms: Term[] = [
       },
     ],
     tags: ["四天王", "聖魔十二守護王", "悪魔族", "テンペスト"],
+    category: "キャラクター",
+  },
+  // ラミリス
+  {
+    id: "ラミリス",
+    name: "ラミリス",
+    keywords: ["ラミリス"],
+    image: "/人物アイコン.svg",
+    description: [""],
+    description2: [
+      {
+        category: "概要",
+        details: [""],
+      },
+      {
+        category: "人物",
+        details: [""],
+      },
+      {
+        category: "能力",
+        details: [""],
+      },
+    ],
+    status: [
+      { category: "EP", details: ["不明"] },
+      {
+        category: "種族",
+        details: ["妖精族"],
+      },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
+      { category: "称号", details: ["迷宮妖精（ラビリンス）"] },
+      { category: "魔法", details: ["精霊魔法", "幻覚魔法"] },
+      { category: "固有能力", details: ["迷宮創造（チイサナセカイ）"] },
+      {
+        category: "使用技",
+        details: ["48の必殺技"],
+      },
+    ],
+    tags: ["八星魔王", "妖精族", "テンペスト"],
+    category: "キャラクター",
+  },
+  // ベレッタ
+  {
+    id: "ベレッタ",
+    name: "ベレッタ",
+    keywords: ["ベレッタ"],
+    image: "/人物アイコン.svg",
+    description: [""],
+    description2: [
+      {
+        category: "概要",
+        details: [""],
+      },
+      {
+        category: "人物",
+        details: [""],
+      },
+      {
+        category: "能力",
+        details: [""],
+      },
+    ],
+    status: [
+      { category: "EP", details: ["197万8743"] },
+      {
+        category: "種族",
+        details: ["上位聖魔霊─聖魔金属生命体（カオスメタロイド）"],
+      },
+      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
+      { category: "加護", details: ["迷宮の加護"] },
+      {
+        category: "称号",
+        details: ["ラミリスの守護者", "迷宮統括者（ダンジョンマスター）"],
+      },
+      { category: "魔法", details: ["暗黒魔法"] },
+      { category: "究極能力", details: ["機神之王（デウス・エクス・マキナ）"] },
+      {
+        category: "耐性",
+        details: [
+          "物理攻撃無効",
+          "自然影響無効",
+          "状態異常無効",
+          "精神攻撃無効",
+          "聖魔攻撃耐性",
+        ],
+      },
+      {
+        category: "使用技",
+        details: [
+          "絶望の時間（ディスペアータイム）",
+          "崩壊する世界（エンド・オブ・ワールド）",
+          "終末世界への鎮魂歌（エンド・オブ・ワールド・レクイエム）",
+        ],
+      },
+    ],
+    tags: ["悪魔族", "テンペスト"],
     category: "キャラクター",
   },
   // ミリム・ナーヴァ
@@ -13659,6 +13755,7 @@ export const allTags = [
   { name: "人間", category: "キャラクター" },
   { name: "竜種", category: "キャラクター" },
   { name: "竜魔人", category: "キャラクター" },
+  { name: "妖精族", category: "キャラクター" },
   { name: "大鬼族", category: "キャラクター" },
   { name: "小鬼族", category: "キャラクター" },
   { name: "龍人族", category: "キャラクター" },

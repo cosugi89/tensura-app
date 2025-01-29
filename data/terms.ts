@@ -131,12 +131,6 @@ export const terms: Term[] = [
         ],
       },
     ],
-    relationship: [
-      {
-        character: ["ヴェルドラ"],
-        details: [""],
-      },
-    ],
     tags: ["八星魔王", "異世界人", "妖魔族", "テンペスト"],
     category: "キャラクター",
   },
@@ -1381,101 +1375,101 @@ export const terms: Term[] = [
     category: "キャラクター",
   },
   // ラミリス
-  {
-    id: "ラミリス",
-    name: "ラミリス",
-    keywords: ["ラミリス"],
-    image: "/人物アイコン.svg",
-    description: [""],
-    description2: [
-      {
-        category: "概要",
-        details: [""],
-      },
-      {
-        category: "人物",
-        details: [""],
-      },
-      {
-        category: "能力",
-        details: [""],
-      },
-    ],
-    status: [
-      { category: "EP", details: ["不明"] },
-      {
-        category: "種族",
-        details: ["妖精族"],
-      },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
-      { category: "称号", details: ["迷宮妖精（ラビリンス）"] },
-      { category: "魔法", details: ["精霊魔法", "幻覚魔法"] },
-      { category: "固有能力", details: ["迷宮創造（チイサナセカイ）"] },
-      {
-        category: "使用技",
-        details: ["48の必殺技"],
-      },
-    ],
-    tags: ["八星魔王", "妖精族", "テンペスト"],
-    category: "キャラクター",
-  },
-  // ベレッタ
-  {
-    id: "ベレッタ",
-    name: "ベレッタ",
-    keywords: ["ベレッタ"],
-    image: "/人物アイコン.svg",
-    description: [""],
-    description2: [
-      {
-        category: "概要",
-        details: [""],
-      },
-      {
-        category: "人物",
-        details: [""],
-      },
-      {
-        category: "能力",
-        details: [""],
-      },
-    ],
-    status: [
-      { category: "EP", details: ["197万8743"] },
-      {
-        category: "種族",
-        details: ["上位聖魔霊─聖魔金属生命体（カオスメタロイド）"],
-      },
-      { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
-      { category: "加護", details: ["迷宮の加護"] },
-      {
-        category: "称号",
-        details: ["ラミリスの守護者", "迷宮統括者（ダンジョンマスター）"],
-      },
-      { category: "魔法", details: ["暗黒魔法"] },
-      { category: "究極能力", details: ["機神之王（デウス・エクス・マキナ）"] },
-      {
-        category: "耐性",
-        details: [
-          "物理攻撃無効",
-          "自然影響無効",
-          "状態異常無効",
-          "精神攻撃無効",
-          "聖魔攻撃耐性",
-        ],
-      },
-      {
-        category: "使用技",
-        details: [
-          "絶望の時間（ディスペアータイム）",
-          "崩壊する世界（エンド・オブ・ワールド）",
-          "終末世界への鎮魂歌（エンド・オブ・ワールド・レクイエム）",
-        ],
-      },
-    ],
-    tags: ["悪魔族", "テンペスト"],
-    category: "キャラクター",
-  },
+  // {
+  //   id: "ラミリス",
+  //   name: "ラミリス",
+  //   keywords: ["ラミリス"],
+  //   image: "/人物アイコン.svg",
+  //   description: [""],
+  //   description2: [
+  //     {
+  //       category: "概要",
+  //       details: [""],
+  //     },
+  //     {
+  //       category: "人物",
+  //       details: [""],
+  //     },
+  //     {
+  //       category: "能力",
+  //       details: [""],
+  //     },
+  //   ],
+  //   status: [
+  //     { category: "EP", details: ["不明"] },
+  //     {
+  //       category: "種族",
+  //       details: ["妖精族"],
+  //     },
+  //     { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
+  //     { category: "称号", details: ["迷宮妖精（ラビリンス）"] },
+  //     { category: "魔法", details: ["精霊魔法", "幻覚魔法"] },
+  //     { category: "固有能力", details: ["迷宮創造（チイサナセカイ）"] },
+  //     {
+  //       category: "使用技",
+  //       details: ["48の必殺技"],
+  //     },
+  //   ],
+  //   tags: ["八星魔王", "妖精族", "テンペスト"],
+  //   category: "キャラクター",
+  // },
+  // // ベレッタ
+  // {
+  //   id: "ベレッタ",
+  //   name: "ベレッタ",
+  //   keywords: ["ベレッタ"],
+  //   image: "/人物アイコン.svg",
+  //   description: [""],
+  //   description2: [
+  //     {
+  //       category: "概要",
+  //       details: [""],
+  //     },
+  //     {
+  //       category: "人物",
+  //       details: [""],
+  //     },
+  //     {
+  //       category: "能力",
+  //       details: [""],
+  //     },
+  //   ],
+  //   status: [
+  //     { category: "EP", details: ["197万8743"] },
+  //     {
+  //       category: "種族",
+  //       details: ["上位聖魔霊─聖魔金属生命体（カオスメタロイド）"],
+  //     },
+  //     { category: "所属", details: ["ジュラ・テンペスト連邦国（地下迷宮）"] },
+  //     { category: "加護", details: ["迷宮の加護"] },
+  //     {
+  //       category: "称号",
+  //       details: ["ラミリスの守護者", "迷宮統括者（ダンジョンマスター）"],
+  //     },
+  //     { category: "魔法", details: ["暗黒魔法"] },
+  //     { category: "究極能力", details: ["機神之王（デウス・エクス・マキナ）"] },
+  //     {
+  //       category: "耐性",
+  //       details: [
+  //         "物理攻撃無効",
+  //         "自然影響無効",
+  //         "状態異常無効",
+  //         "精神攻撃無効",
+  //         "聖魔攻撃耐性",
+  //       ],
+  //     },
+  //     {
+  //       category: "使用技",
+  //       details: [
+  //         "絶望の時間（ディスペアータイム）",
+  //         "崩壊する世界（エンド・オブ・ワールド）",
+  //         "終末世界への鎮魂歌（エンド・オブ・ワールド・レクイエム）",
+  //       ],
+  //     },
+  //   ],
+  //   tags: ["悪魔族", "テンペスト"],
+  //   category: "キャラクター",
+  // },
   // ミリム・ナーヴァ
   {
     id: "ミリム・ナーヴァ",
@@ -11599,10 +11593,7 @@ export const terms: Term[] = [
     ruby: "デーモン",
     keywords: ["悪魔族"],
     image: "/魔王のアイコン.svg",
-    description: [
-      "悪魔にとって、死は単なる状態変化である。心核さえ損傷しなければ数年がかりで復活が可能（ダメージの過多によっては百年以上の年月が必要になる）。",
-      "悪魔契約　…悪魔が人間を堕落させる際に使われる契約。人間の願いを叶える代価として“魂”への通路が開き、人間の肉体を乗っ取りることができる。どんな願いにも対応できるよう、古参の悪魔はあらゆる魔法に精通している。",
-    ],
+    description: ["編集中"],
     description2: [
       {
         category: "『憑依』",
@@ -11877,29 +11868,29 @@ export const terms: Term[] = [
     category: "魔物",
   },
   // 真なる巨人
-  {
-    id: "真なる巨人",
-    name: "真なる巨人",
-    keywords: ["真なる巨人"],
-    description: [""],
-    image: "/魔王のアイコン.svg",
-    description2: [
-      {
-        category: "『魔法無効』",
-        details: [
-          "“真なる巨人”が有する絶対魔法防御(アンチマジックガード)。魔素を構成する“霊子”そのものに干渉し動きを封じることで、ありとあらゆる魔法効果を自動で中和する。霊子を操る必殺の威力を秘めた“霊子崩壊”から自身を守る防御結界まで、そのすべての効果を無視できる。",
-        ],
-      },
-    ],
-    status: [
-      {
-        category: "関連種族",
-        details: ["巨人族"],
-      },
-    ],
-    tags: ["種族"],
-    category: "魔物",
-  },
+  // {
+  //   id: "真なる巨人",
+  //   name: "真なる巨人",
+  //   keywords: ["真なる巨人"],
+  //   description: [""],
+  //   image: "/魔王のアイコン.svg",
+  //   description2: [
+  //     {
+  //       category: "『魔法無効』",
+  //       details: [
+  //         "“真なる巨人”が有する絶対魔法防御(アンチマジックガード)。魔素を構成する“霊子”そのものに干渉し動きを封じることで、ありとあらゆる魔法効果を自動で中和する。霊子を操る必殺の威力を秘めた“霊子崩壊”から自身を守る防御結界まで、そのすべての効果を無視できる。",
+  //       ],
+  //     },
+  //   ],
+  //   status: [
+  //     {
+  //       category: "関連種族",
+  //       details: ["巨人族"],
+  //     },
+  //   ],
+  //   tags: ["種族"],
+  //   category: "魔物",
+  // },
   // 巨人族
   {
     id: "巨人族",

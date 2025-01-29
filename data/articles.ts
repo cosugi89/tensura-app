@@ -17,14 +17,14 @@ export const terms: Articles[] = [
   //     description: [],
   //   },
 
-  {
-    title: "“神祖の血槍”についての考察",
-    sub: "真の所有者は〇〇〇〇では？",
-    type: "考察",
-    volume: 21,
-    date: "2024/01/04",
-    description: [],
-  },
+  // {
+  //   title: "“神祖の血槍”についての考察",
+  //   sub: "真の所有者は〇〇〇〇では？",
+  //   type: "考察",
+  //   volume: 21,
+  //   date: "2024/01/04",
+  //   description: [],
+  // },
   // イヴァラージェ＝ヴェガの成れの果て説
   {
     title: "イヴァラージェ＝ヴェガの成れの果て説",

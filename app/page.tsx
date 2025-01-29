@@ -21,8 +21,8 @@ export default function Home() {
   const [coverNumber, setCoverNumber] = useState(1);
 
   useEffect(() => {
-    // Generate random number between 1 and 21
-    const randomNum = Math.floor(Math.random() * 21) + 1;
+    // Generate random number between 1 and 22
+    const randomNum = Math.floor(Math.random() * 22) + 1;
     setCoverNumber(randomNum);
   }, []);
 

@@ -1,6 +1,11 @@
 export default function News() {
   const news = [
     {
+      category: "更新情報",
+      date: "2025/01/30",
+      detail: "22巻「序章・1章」の情報を追加！",
+    },
+    {
       category: "公式",
       date: "2025/01/30",
       detail: "『転生したらスライムだった件』書籍22巻発売！",
@@ -19,11 +24,6 @@ export default function News() {
       category: "公式",
       date: "2022/10/08",
       detail: "『転生したらスライムだった件』書籍20巻発売！",
-    },
-    {
-      category: "公式",
-      date: "2021/12/06",
-      detail: "『転生したらスライムだった件』書籍19巻発売！",
     },
   ];
 

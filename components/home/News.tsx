@@ -2,6 +2,11 @@ export default function News() {
   const news = [
     {
       category: "更新情報",
+      date: "2025/02/02",
+      detail: "22巻「3章・終章」の情報を追加！",
+    },
+    {
+      category: "更新情報",
       date: "2025/02/01",
       detail: "22巻「2章」の情報を追加！",
     },
@@ -19,11 +24,6 @@ export default function News() {
       category: "更新情報",
       date: "2025/01/29",
       detail: "転スラ設定まとめサイト「転スラ百科」リニューアル！",
-    },
-    {
-      category: "公式",
-      date: "2023/10/30",
-      detail: "『転生したらスライムだった件』漫画21巻発売！",
     },
   ];
 

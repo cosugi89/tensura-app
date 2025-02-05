@@ -2,6 +2,11 @@ export default function News() {
   const news = [
     {
       category: "更新情報",
+      date: "2025/02/05",
+      detail: "スピンオフ作品「クレイマンREVENGE」の情報を追加！",
+    },
+    {
+      category: "更新情報",
       date: "2025/02/02",
       detail: "22巻「3章・終章」の情報を追加！",
     },

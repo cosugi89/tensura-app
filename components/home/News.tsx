@@ -2,6 +2,11 @@ export default function News() {
   const news = [
     {
       category: "更新情報",
+      date: "2025/02/18",
+      detail: "キャラクター（ユウキ、ルミナス）の情報を追加！",
+    },
+    {
+      category: "更新情報",
       date: "2025/02/05",
       detail:
         "キャラクター（ディアブロ、ギィ、ヴェルザード、ジャヒル）の情報を追加！",
